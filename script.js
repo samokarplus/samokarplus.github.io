@@ -48,7 +48,7 @@ const prompts = [
   },
   {
     author: "Anandamayi Ma",
-    quote: "The mind is everything. Let it become quiet and the heart will know.",
+    quote: "Whether you accept or reject Him, He is there all the same.",
     image: "assets/images/teachers/anandamayi-ma.jpg",
     alt: "Portrait of Anandamayi Ma."
   }
