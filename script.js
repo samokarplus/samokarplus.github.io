@@ -6,6 +6,7 @@ const revealItems = document.querySelectorAll(".reveal");
 const promptText = document.getElementById("prompt-text");
 const prevPromptButton = document.getElementById("prev-prompt");
 const nextPromptButton = document.getElementById("next-prompt");
+const journalEntries = document.querySelectorAll(".journal-entry");
 
 const prompts = [
   "\"The question 'Who am I?' is not really meant to get an answer, the question 'Who am I?' is meant to dissolve the questioner.\" -Ramana Maharshi",
@@ -75,3 +76,20 @@ if (prevPromptButton && nextPromptButton && promptText) {
     promptText.textContent = prompts[promptIndex];
   });
 }
+
+// Expand and collapse journal entries so long reflections stay easy to browse.
+journalEntries.forEach((entry) => {
+  const toggle = entry.querySelector(".journal-toggle");
+  const content = entry.querySelector(".journal-content");
+
+  if (!toggle || !content) {
+    return;
+  }
+
+  toggle.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!isOpen));
+    entry.classList.toggle("is-open", !isOpen);
+    content.hidden = isOpen;
+  });
+});

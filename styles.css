@@ -532,10 +532,57 @@ p {
 
 .journal-entry {
   max-width: 52rem;
+  border: 1px solid rgba(108, 128, 103, 0.18);
+  border-radius: 1.2rem;
+  background: rgba(255, 253, 248, 0.72);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
 }
 
 .journal-entry.is-hidden {
   display: none;
+}
+
+.journal-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.journal-toggle:hover,
+.journal-toggle:focus-visible {
+  background: rgba(155, 191, 158, 0.12);
+}
+
+.journal-toggle .entry-meta {
+  margin: 0;
+}
+
+.journal-chevron {
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: transform 180ms ease;
+}
+
+.journal-entry.is-open .journal-chevron {
+  transform: rotate(180deg);
+}
+
+.journal-content {
+  padding: 0 1.1rem 1.15rem;
+}
+
+.journal-content p:last-child {
+  margin-bottom: 0;
 }
 
 .prompt-panel {
