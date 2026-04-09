@@ -640,7 +640,7 @@ p {
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
-  object-position: center top;
+  object-position: center 20%;
   border-radius: 1rem;
   max-height: 28rem;
 }
