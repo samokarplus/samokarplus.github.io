@@ -16,7 +16,7 @@ const prompts = [
     author: "Ramana Maharshi",
     quote:
       "The question 'Who am I?' is not really meant to get an answer, the question 'Who am I?' is meant to dissolve the questioner.",
-    image: "assets/images/teachers/ramana-maharshi-v5.jpg",
+    image: "assets/images/teachers/ramana-maharshi-v6.jpg",
     alt: "Portrait of Ramana Maharshi."
   },
   {
@@ -36,7 +36,7 @@ const prompts = [
   {
     author: "Ramana Maharshi",
     quote: "Your own Self-Realization is the greatest service you can render the world.",
-    image: "assets/images/teachers/ramana-maharshi-v5.jpg",
+    image: "assets/images/teachers/ramana-maharshi-v6.jpg",
     alt: "Portrait of Ramana Maharshi."
   },
   {
