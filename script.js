@@ -2,14 +2,13 @@
 const navToggle = document.querySelector(".nav-toggle");
 const siteNav = document.querySelector(".site-nav");
 const navLinks = document.querySelectorAll(".site-nav a");
-const revealItems = document.querySelectorAll(".reveal");
 const promptText = document.getElementById("prompt-text");
 const promptAuthor = document.getElementById("prompt-author");
 const promptImage = document.getElementById("prompt-image");
 const promptImageName = document.getElementById("prompt-image-name");
 const prevPromptButton = document.getElementById("prev-prompt");
 const nextPromptButton = document.getElementById("next-prompt");
-const journalEntries = document.querySelectorAll(".journal-entry");
+const journalList = document.getElementById("journalList");
 
 const prompts = [
   {
@@ -57,6 +56,63 @@ const prompts = [
 let promptIndex = 0;
 let promptIntervalId = null;
 
+function getJournalParagraphs(entry) {
+  if (Array.isArray(entry.paragraphs)) {
+    return entry.paragraphs;
+  }
+
+  if (typeof entry.text === "string") {
+    return entry.text
+      .split(/\n\s*\n/)
+      .map((paragraph) => paragraph.trim())
+      .filter(Boolean);
+  }
+
+  return [];
+}
+
+function renderJournalEntries() {
+  if (!journalList || !Array.isArray(window.journalEntriesData)) {
+    return;
+  }
+
+  journalList.replaceChildren();
+
+  window.journalEntriesData.forEach((entry, index) => {
+    const isOpen = index === 0;
+    const article = document.createElement("article");
+    const toggle = document.createElement("button");
+    const date = document.createElement("span");
+    const chevron = document.createElement("span");
+    const content = document.createElement("div");
+
+    article.className = `journal-entry reveal${isOpen ? " is-open" : ""}`;
+    toggle.className = "journal-toggle";
+    toggle.type = "button";
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    date.className = "entry-meta";
+    date.textContent = entry.date;
+    chevron.className = "journal-chevron";
+    chevron.setAttribute("aria-hidden", "true");
+    chevron.textContent = "▾";
+    content.className = "journal-content";
+    content.hidden = !isOpen;
+
+    toggle.append(date, chevron);
+
+    getJournalParagraphs(entry).forEach((paragraph) => {
+      const paragraphElement = document.createElement("p");
+      paragraphElement.textContent = paragraph;
+      content.appendChild(paragraphElement);
+    });
+
+    article.append(toggle, content);
+    journalList.appendChild(article);
+  });
+}
+
+renderJournalEntries();
+
 if (navToggle && siteNav) {
   navToggle.addEventListener("click", () => {
     const isOpen = siteNav.classList.toggle("is-open");
@@ -73,6 +129,7 @@ if (navToggle && siteNav) {
 
 // Gentle reveal animation as sections enter view
 if ("IntersectionObserver" in window) {
+  const revealItems = document.querySelectorAll(".reveal");
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -89,6 +146,7 @@ if ("IntersectionObserver" in window) {
 
   revealItems.forEach((item) => observer.observe(item));
 } else {
+  const revealItems = document.querySelectorAll(".reveal");
   revealItems.forEach((item) => item.classList.add("is-visible"));
 }
 
@@ -136,7 +194,7 @@ if (prevPromptButton && nextPromptButton && promptText && promptAuthor && prompt
 }
 
 // Expand and collapse journal entries so long reflections stay easy to browse.
-journalEntries.forEach((entry) => {
+document.querySelectorAll(".journal-entry").forEach((entry) => {
   const toggle = entry.querySelector(".journal-toggle");
   const content = entry.querySelector(".journal-content");
 

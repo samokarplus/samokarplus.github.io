@@ -581,6 +581,10 @@ p {
   padding: 0 1.1rem 1.15rem;
 }
 
+.journal-content p {
+  white-space: pre-line;
+}
+
 .journal-content p:last-child {
   margin-bottom: 0;
 }
