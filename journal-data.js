@@ -9,22 +9,26 @@
 // },
 window.journalEntriesData = [
   {
-    date: "05-01-26",
-    text: `First automated entry.
+    date: "05-02-26",
+    text: `I am so ready for school to start.
 
-Second paragraph here.`
+I've been getting good at talking to random people. Every trail run I'm interacting with at least 4 people and it's always very positive.`
+  },
+  {
+    date: "05-01-26",
+    text: `Tried automating this so it's easier to code without vibe coding it every time. Hopefully it works. I am so ready for school to start as well.`
   },
   {
     date: "04-27-26",
     text: `I have a job interview tomorrow at the teahouse I love. I got my resume updated today. I ran today and saw Sophia.
 
-I also have school starting in a month. When I am embracing uncertainty and feel excitement from it rather than fear or fighting it, life is livable. I also just spent like an hour trying to edit the code to fix the images of the gurus on my site. That took forever but I think it looks much cleaner now.`
+I also have school starting in a month. When I am embracing uncertainty and feel excitement from it rather than fear or fighting it, life is livable.`
   },
   {
     date: "04-25-26",
     text: `I look back at all the women I loved (lusted over) and think "damn what was i thinking." Also im convinced i have the best therapist in the world! Very grateful for everything and my progress lately.`
-  },
-  {
+  }
+];
     date: "04-12-26",
     text: `The last three months served to wake me up. To gently bring me back to my heart n soul. I finished my first ultramarathon, ran my first sub 6 mile, have put a lot of work in therapy, had my first intimacy in god knows how long. Now I am ready to put my mind to work and let the body not work so hard. The running was a wonderful challenge that showed me I could focus, invest, and achieve a goal and push myself. It took time, effort, dedication, community, other people. Without my coach believing in me, I wouldn't have been able to do it. Without Stefan Schuster, I wouldn't have done my 50K. Without listening to my own heart, I wouldn't have been able to know my limit. I am 21 years old. I don't have to have everything figured out. And very few people have it "figured out". The most successful people (peace-wise) are the ones who keep going and live life even when they're afraid and uncertain. We can't know what the future has in store for us. I can push myself hard. But I learned balance.
 
