@@ -9,13 +9,13 @@
 // },
 window.journalEntriesData = [
   {
-    date: "05-02-26",
+    date: "05-01-26",
     text: `I am so ready for school to start.
 
 I've been getting good at talking to random people. Every trail run I'm interacting with at least 4 people and it's always very positive.`
   },
   {
-    date: "05-01-26",
+    date: "04-30-26",
     text: `Tried automating this so it's easier to code without vibe coding it every time. Hopefully it works. I am so ready for school to start as well.`
   },
   {
