@@ -71,6 +71,63 @@ function getJournalParagraphs(entry) {
   return [];
 }
 
+function getJournalMonthLabel(date) {
+  const [month, , year] = date.split("-");
+  const monthIndex = Number(month) - 1;
+  const fullYear = Number(year) < 70 ? 2000 + Number(year) : 1900 + Number(year);
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+
+  if (!monthNames[monthIndex] || Number.isNaN(fullYear)) {
+    return "Journal";
+  }
+
+  return `${monthNames[monthIndex]} ${fullYear}`;
+}
+
+function createJournalEntry(entry, isOpen) {
+  const article = document.createElement("article");
+  const toggle = document.createElement("button");
+  const date = document.createElement("span");
+  const chevron = document.createElement("span");
+  const content = document.createElement("div");
+
+  article.className = `journal-entry reveal${isOpen ? " is-open" : ""}`;
+  toggle.className = "journal-toggle";
+  toggle.type = "button";
+  toggle.setAttribute("aria-expanded", String(isOpen));
+  date.className = "entry-meta";
+  date.textContent = entry.date;
+  chevron.className = "journal-chevron";
+  chevron.setAttribute("aria-hidden", "true");
+  chevron.textContent = "▾";
+  content.className = "journal-content";
+  content.hidden = !isOpen;
+
+  toggle.append(date, chevron);
+
+  getJournalParagraphs(entry).forEach((paragraph) => {
+    const paragraphElement = document.createElement("p");
+    paragraphElement.textContent = paragraph;
+    content.appendChild(paragraphElement);
+  });
+
+  article.append(toggle, content);
+  return article;
+}
+
 function renderJournalEntries() {
   if (!journalList || !Array.isArray(window.journalEntriesData)) {
     return;
@@ -78,36 +135,54 @@ function renderJournalEntries() {
 
   journalList.replaceChildren();
 
-  window.journalEntriesData.forEach((entry, index) => {
-    const isOpen = index === 0;
-    const article = document.createElement("article");
-    const toggle = document.createElement("button");
-    const date = document.createElement("span");
-    const chevron = document.createElement("span");
-    const content = document.createElement("div");
+  const monthGroups = [];
 
-    article.className = `journal-entry reveal${isOpen ? " is-open" : ""}`;
-    toggle.className = "journal-toggle";
+  window.journalEntriesData.forEach((entry) => {
+    const monthLabel = getJournalMonthLabel(entry.date);
+    const currentGroup = monthGroups[monthGroups.length - 1];
+
+    if (currentGroup && currentGroup.label === monthLabel) {
+      currentGroup.entries.push(entry);
+      return;
+    }
+
+    monthGroups.push({
+      label: monthLabel,
+      entries: [entry]
+    });
+  });
+
+  monthGroups.forEach((group, groupIndex) => {
+    const isMonthOpen = groupIndex === 0;
+    const section = document.createElement("section");
+    const toggle = document.createElement("button");
+    const label = document.createElement("span");
+    const count = document.createElement("span");
+    const chevron = document.createElement("span");
+    const entries = document.createElement("div");
+
+    section.className = `journal-month reveal${isMonthOpen ? " is-open" : ""}`;
+    toggle.className = "journal-month-toggle";
     toggle.type = "button";
-    toggle.setAttribute("aria-expanded", String(isOpen));
-    date.className = "entry-meta";
-    date.textContent = entry.date;
+    toggle.setAttribute("aria-expanded", String(isMonthOpen));
+    label.className = "journal-month-label";
+    label.textContent = group.label;
+    count.className = "journal-month-count";
+    count.textContent = `${group.entries.length} ${group.entries.length === 1 ? "entry" : "entries"}`;
     chevron.className = "journal-chevron";
     chevron.setAttribute("aria-hidden", "true");
     chevron.textContent = "▾";
-    content.className = "journal-content";
-    content.hidden = !isOpen;
+    entries.className = "journal-month-entries";
+    entries.hidden = !isMonthOpen;
 
-    toggle.append(date, chevron);
+    toggle.append(label, count, chevron);
 
-    getJournalParagraphs(entry).forEach((paragraph) => {
-      const paragraphElement = document.createElement("p");
-      paragraphElement.textContent = paragraph;
-      content.appendChild(paragraphElement);
+    group.entries.forEach((entry, entryIndex) => {
+      entries.appendChild(createJournalEntry(entry, isMonthOpen && entryIndex === 0));
     });
 
-    article.append(toggle, content);
-    journalList.appendChild(article);
+    section.append(toggle, entries);
+    journalList.appendChild(section);
   });
 }
 
@@ -194,6 +269,22 @@ if (prevPromptButton && nextPromptButton && promptText && promptAuthor && prompt
 }
 
 // Expand and collapse journal entries so long reflections stay easy to browse.
+document.querySelectorAll(".journal-month").forEach((month) => {
+  const toggle = month.querySelector(".journal-month-toggle");
+  const content = month.querySelector(".journal-month-entries");
+
+  if (!toggle || !content) {
+    return;
+  }
+
+  toggle.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!isOpen));
+    month.classList.toggle("is-open", !isOpen);
+    content.hidden = isOpen;
+  });
+});
+
 document.querySelectorAll(".journal-entry").forEach((entry) => {
   const toggle = entry.querySelector(".journal-toggle");
   const content = entry.querySelector(".journal-content");
