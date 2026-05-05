@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
   {
+    date: "05-05-26",
+    text: `I miss C. I should write more poetry. <3 Love is the way!`
+  },
+  {
     date: "05-01-26",
     text: `I am so ready for school to start.
 
