@@ -574,6 +574,11 @@ p {
   padding: 0.9rem;
 }
 
+.journal-month-entries[hidden],
+.journal-content[hidden] {
+  display: none;
+}
+
 .journal-month.is-open > .journal-month-toggle .journal-chevron {
   transform: rotate(180deg);
 }
