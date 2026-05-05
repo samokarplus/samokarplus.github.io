@@ -30,7 +30,7 @@
       href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=5" />
+    <link rel="stylesheet" href="styles.css?v=6" />
   </head>
   <body>
     <div class="page-shell">
@@ -49,7 +49,7 @@
         </button>
         <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <a href="#about">About Me</a>
-          <a href="#gallery">Samo's Childhood</a>
+          <a href="#gallery">Photos</a>
           <a href="#media">Media &amp; Projects</a>
           <a href="#journal">Journal</a>
           <a href="#prompts">Words to Sit With</a>
@@ -202,44 +202,10 @@
         <section class="section gallery" id="gallery">
           <div class="section-heading reveal">
             <p class="eyebrow">Photo Archive</p>
-            <h2>Samo's Childhood</h2>
+            <h2>Photos</h2>
           </div>
-          <div class="gallery-grid">
-            <figure class="gallery-card reveal">
-              <img
-                src="assets/images/child-cowboy.jpg"
-                alt="A childhood photo of Samo in a cowboy hat standing beside a horse."
-              />
-              <figcaption>Early confidence, costume, play, and the Western dream.</figcaption>
-            </figure>
-            <figure class="gallery-card reveal">
-              <img
-                src="assets/images/beach-child.jpeg"
-                alt="A childhood photo of Samo playing on a beach near a pier."
-              />
-              <figcaption>Wonder in motion, near the water and the edge of memory.</figcaption>
-            </figure>
-            <figure class="gallery-card reveal">
-              <img
-                src="assets/images/cotton-candy.jpeg"
-                alt="A childhood close-up of Samo laughing with blue cotton candy."
-              />
-              <figcaption>Joy without self-consciousness.</figcaption>
-            </figure>
-            <figure class="gallery-card reveal">
-              <img
-                src="assets/images/child-convertible.jpg"
-                alt="A childhood photo of Samo smiling in the back of a convertible."
-              />
-              <figcaption>A memory that feels like a movie still.</figcaption>
-            </figure>
-            <figure class="gallery-card reveal">
-              <img
-                src="assets/images/phantom.jpg"
-                alt="A childhood photo of Samo dressed up at the Phantom theater with an older man."
-              />
-              <figcaption>Formality, family, spectacle, and tenderness.</figcaption>
-            </figure>
+          <div class="photo-carousel reveal" aria-label="Photo gallery">
+            <div class="photo-track" id="photoTrack"></div>
           </div>
         </section>
 
@@ -463,6 +429,7 @@
 
     <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
     <script src="journal-data.js?v=2"></script>
-    <script src="script.js?v=11"></script>
+    <script src="photo-data.js?v=1"></script>
+    <script src="script.js?v=12"></script>
   </body>
 </html>

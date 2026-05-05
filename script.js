@@ -8,6 +8,7 @@ const promptImage = document.getElementById("prompt-image");
 const promptImageName = document.getElementById("prompt-image-name");
 const prevPromptButton = document.getElementById("prev-prompt");
 const nextPromptButton = document.getElementById("next-prompt");
+const photoTrack = document.getElementById("photoTrack");
 const journalList = document.getElementById("journalList");
 
 const prompts = [
@@ -55,6 +56,34 @@ const prompts = [
 
 let promptIndex = 0;
 let promptIntervalId = null;
+
+function createPhotoCard(photo) {
+  const figure = document.createElement("figure");
+  const image = document.createElement("img");
+  const caption = document.createElement("figcaption");
+
+  figure.className = "gallery-card";
+  image.src = photo.src;
+  image.alt = photo.alt;
+  caption.textContent = photo.caption;
+
+  figure.append(image, caption);
+  return figure;
+}
+
+function renderPhotoGallery() {
+  if (!photoTrack || !Array.isArray(window.photoEntriesData)) {
+    return;
+  }
+
+  photoTrack.replaceChildren();
+
+  const photos = [...window.photoEntriesData, ...window.photoEntriesData];
+
+  photos.forEach((photo) => {
+    photoTrack.appendChild(createPhotoCard(photo));
+  });
+}
 
 function getJournalParagraphs(entry) {
   if (Array.isArray(entry.paragraphs)) {
@@ -186,6 +215,7 @@ function renderJournalEntries() {
   });
 }
 
+renderPhotoGallery();
 renderJournalEntries();
 
 if (navToggle && siteNav) {
