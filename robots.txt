@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://samo.karplus.org/sitemap.xml
