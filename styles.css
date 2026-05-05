@@ -428,12 +428,8 @@ p {
   display: flex;
   gap: 1rem;
   width: max-content;
-  animation: photo-scroll 26s linear infinite;
-}
-
-.photo-carousel:hover .photo-track,
-.photo-carousel:focus-within .photo-track {
-  animation-play-state: paused;
+  will-change: transform;
+  animation: photo-scroll 16s linear infinite;
 }
 
 .gallery-card {
