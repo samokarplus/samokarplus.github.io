@@ -400,6 +400,7 @@ p {
   overflow: hidden;
   border-radius: var(--radius-lg);
   padding: 0.4rem 0;
+  min-height: 23rem;
 }
 
 .photo-carousel::before,
@@ -427,7 +428,7 @@ p {
   display: flex;
   gap: 1rem;
   width: max-content;
-  animation: photo-scroll 48s linear infinite;
+  animation: photo-scroll 26s linear infinite;
 }
 
 .photo-carousel:hover .photo-track,
@@ -436,7 +437,7 @@ p {
 }
 
 .gallery-card {
-  flex: 0 0 clamp(13rem, 24vw, 18rem);
+  flex: 0 0 clamp(11rem, 18vw, 15rem);
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
 }
