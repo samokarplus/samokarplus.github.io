@@ -837,10 +837,6 @@ p {
     transform: none;
     transition: none;
   }
-
-  .photo-track {
-    animation: none;
-  }
 }
 
 @media (max-width: 780px) {
