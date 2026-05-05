@@ -1,5 +1,11 @@
-// Add, remove, or reorder photos here.
-// Easy format:
+// Add, remove, or reorder carousel photos here.
+// You do not need to edit index.html.
+// The site automatically sizes each image to fit the carousel.
+//
+// To add a new photo:
+// 1. Upload the image into assets/images/
+// 2. Add a new block like this anywhere in the list below:
+//
 // {
 //   src: "assets/images/photo-name.jpg",
 //   alt: "Describe the photo for accessibility.",
