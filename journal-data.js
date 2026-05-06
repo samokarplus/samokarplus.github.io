@@ -9,6 +9,12 @@
 // },
 window.journalEntriesData = [
   {
+    date: "05-07-26",
+    text: `Just watched Cocodona 250 Race. Very challenging + prestigious ultra. Watching Rachel Entrekin win it was extremely moving. She bested Kilian Korth (a triple crown winner last year) and lead for much of the way. She slept 19 total minutes over the 2.5 days. Incredibly inspiring. Honestly, I was very shocked to see a woman win a foot race. I had never seen that before. I guess after 100 miles it becomes more of a mind game than biological physical limits, to an extent. Even her interview after running for 2.5 days straight she was very composed. I am not a sexist person by any means. It just truly took me by surprise and really touched me in a way. Amazing. Pop off!
+
+I guess I always imagined men as having this discipline and strength in all sports. But damn! Makes me have higher expectations for women in ultra now lol.`
+  },
+  {
     date: "05-06-26",
     text: `What a nice day I had yesterday. God you're so funny. "What a comedy God's Lila is! What a lunatic asylum! He Himself is sporting with Himself" -Divine Mother Anandmayi Ma. Happy birthday Dubsy! I remember I wanted to name you Felix and that didn't go tthrough haha. Love Love LOVE!!`
   },
