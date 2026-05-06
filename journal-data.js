@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
   {
+    date: "05-06-26",
+    text: `What a nice day I had yesterday. God you're so funny. "What a comedy God's Lila is! What a lunatic asylum! He Himself is sporting with Himself" Happy birthday Dubsy! I remember I wanted to name you Felix and that didn't go tthrough haha. Love Love LOVE!!`
+  },
+  {
     date: "05-05-26",
     text: `I miss C. I should write more poetry. <3 Love is the way!`
   },
