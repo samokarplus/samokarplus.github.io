@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
   {
+    date: "05-09-26",
+    text: `Life in a nutshell of what I've learned in the last year: Maya is included in Brahman but Brahman isnt Maya. But you cant leave Maya or escape it. Hence, one must become a Bhakti + Karma Yogi. Even Jnana yogis must convert over as I've learned (to an extent, but I think in India you can still be an only-jnani but not really in the west).`
+  },
+  {
     date: "05-07-26",
     text: `Just watched Cocodona 250 Race. Very challenging + prestigious ultra. Watching Rachel Entrekin win it was extremely moving. She bested Kilian Korth (a triple crown winner last year) and lead for much of the way. She slept 19 total minutes over the 2.5 days. Incredibly inspiring. Honestly, I was very shocked to see a woman win a foot race. I had never seen that before. I guess after 100 miles it becomes more of a mind game than biological physical limits, to an extent. Even her interview after running for 2.5 days straight she was very composed. I am not a sexist person by any means. It just truly took me by surprise and really touched me in a way. Amazing. Pop off!
 
