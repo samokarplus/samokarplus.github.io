@@ -340,8 +340,8 @@ p {
 
 .photo-strip {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.2rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.35rem;
   margin-top: 1.2rem;
   align-items: start;
 }
@@ -350,7 +350,7 @@ p {
 .gallery-card,
 .media-thumb-link {
   overflow: hidden;
-  border-radius: var(--radius-md);
+  border-radius: 0.35rem;
   background: #f6efe3;
 }
 
@@ -386,7 +386,7 @@ p {
 }
 
 .photo-strip .photo-tile img {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
 }
 
 .gallery-grid {
@@ -877,9 +877,12 @@ p {
   .media-grid,
   .media-feature,
   .contact-grid,
-  .photo-strip,
   .prompt-showcase {
     grid-template-columns: 1fr;
+  }
+
+  .photo-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .gallery-grid {
