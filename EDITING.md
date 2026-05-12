@@ -35,7 +35,7 @@ Notes:
 - The site automatically opens the newest month and newest entry.
 - Older months and entries collapse automatically.
 
-## Add An About Me Carousel Photo
+## Add An Older Samo Carousel Photo
 
 First upload the image into:
 
@@ -60,9 +60,10 @@ Add a new photo block:
 
 Notes:
 
-- The About Me carousel automatically sizes/crops photos to match the slideshow.
+- The Older Samo carousel appears in the Photos section.
+- The carousel automatically sizes/crops photos to match the slideshow.
 - Put new photos anywhere in the list to control their order.
-- You do not need to edit `index.html` to add About Me photos.
+- You do not need to edit `index.html` to add Older Samo photos.
 
 ## Add A Carousel Photo
 
@@ -100,8 +101,8 @@ Routine edits:
 
 ```text
 journal-data.js       journal entries
-about-photo-data.js   About Me photo carousel
-photo-data.js         photo carousel
+about-photo-data.js   Older Samo photo carousel
+photo-data.js         Baby Samo photo carousel
 assets/images/        uploaded photos
 ```
 

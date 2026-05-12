@@ -395,6 +395,18 @@ p {
   gap: 1rem;
 }
 
+.photo-carousel-group {
+  display: grid;
+  gap: 1.4rem;
+}
+
+.photo-carousel-title {
+  margin: 0 0 0.65rem;
+  font-family: "Merriweather", serif;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  color: var(--text);
+}
+
 .photo-carousel {
   position: relative;
   overflow: hidden;
@@ -430,6 +442,10 @@ p {
   width: max-content;
   will-change: transform;
   animation: photo-scroll 22s linear infinite;
+}
+
+.older-samo-carousel .photo-track {
+  animation-duration: 44s;
 }
 
 .gallery-card {

@@ -1,6 +1,6 @@
-// Add, remove, or reorder About Me photos here.
+// Add, remove, or reorder Older Samo photos here.
 // You do not need to edit index.html.
-// The site automatically crops these into the moving About Me carousel.
+// The site automatically crops these into the moving Older Samo carousel.
 //
 // To add a new photo:
 // 1. Upload the image into assets/images/
