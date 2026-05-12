@@ -35,7 +35,7 @@ Notes:
 - The site automatically opens the newest month and newest entry.
 - Older months and entries collapse automatically.
 
-## Add An Older Samo Carousel Photo
+## Add An Older Samo Photo
 
 First upload the image into:
 
@@ -60,12 +60,12 @@ Add a new photo block:
 
 Notes:
 
-- The Older Samo carousel appears in the Photos section.
+- This adds to the `Older Samo` carousel in the Photos section.
 - The carousel automatically sizes/crops photos to match the slideshow.
 - Put new photos anywhere in the list to control their order.
 - You do not need to edit `index.html` to add Older Samo photos.
 
-## Add A Carousel Photo
+## Add A Baby Samo Photo
 
 First upload the image into:
 
@@ -92,8 +92,21 @@ Add a new photo block:
 Notes:
 
 - The `src` must match the exact uploaded file name.
+- This adds to the `Baby Samo` carousel in the Photos section.
 - The site automatically sizes/crops photos for the carousel.
+- `caption` is used for Baby Samo photos.
 - You do not need to edit `index.html` to add photos.
+
+## Which Photo File To Edit
+
+Use:
+
+```text
+about-photo-data.js   Older Samo carousel
+photo-data.js         Baby Samo carousel
+```
+
+Both carousels are created automatically by `script.js`.
 
 ## File Map
 
