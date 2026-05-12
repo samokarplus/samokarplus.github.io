@@ -1,6 +1,6 @@
 // Add, remove, or reorder About Me photos here.
 // You do not need to edit index.html.
-// The site automatically crops these into the compact About Me grid.
+// The site automatically crops these into the moving About Me carousel.
 //
 // To add a new photo:
 // 1. Upload the image into assets/images/

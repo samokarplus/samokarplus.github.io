@@ -35,7 +35,7 @@ Notes:
 - The site automatically opens the newest month and newest entry.
 - Older months and entries collapse automatically.
 
-## Add An About Me Photo
+## Add An About Me Carousel Photo
 
 First upload the image into:
 
@@ -60,7 +60,7 @@ Add a new photo block:
 
 Notes:
 
-- The About Me photo grid automatically makes photos compact and evenly cropped.
+- The About Me carousel automatically sizes/crops photos to match the slideshow.
 - Put new photos anywhere in the list to control their order.
 - You do not need to edit `index.html` to add About Me photos.
 
@@ -100,7 +100,7 @@ Routine edits:
 
 ```text
 journal-data.js       journal entries
-about-photo-data.js   About Me photo grid
+about-photo-data.js   About Me photo carousel
 photo-data.js         photo carousel
 assets/images/        uploaded photos
 ```

@@ -8,7 +8,7 @@ const promptImage = document.getElementById("prompt-image");
 const promptImageName = document.getElementById("prompt-image-name");
 const prevPromptButton = document.getElementById("prev-prompt");
 const nextPromptButton = document.getElementById("next-prompt");
-const aboutPhotoGrid = document.getElementById("aboutPhotoGrid");
+const aboutPhotoTrack = document.getElementById("aboutPhotoTrack");
 const photoTrack = document.getElementById("photoTrack");
 const journalList = document.getElementById("journalList");
 
@@ -58,27 +58,17 @@ const prompts = [
 let promptIndex = 0;
 let promptIntervalId = null;
 
-function createAboutPhotoTile(photo) {
-  const figure = document.createElement("figure");
-  const image = document.createElement("img");
-
-  figure.className = "photo-tile";
-  image.src = photo.src;
-  image.alt = photo.alt;
-
-  figure.appendChild(image);
-  return figure;
-}
-
 function renderAboutPhotos() {
-  if (!aboutPhotoGrid || !Array.isArray(window.aboutPhotoEntriesData)) {
+  if (!aboutPhotoTrack || !Array.isArray(window.aboutPhotoEntriesData)) {
     return;
   }
 
-  aboutPhotoGrid.replaceChildren();
+  aboutPhotoTrack.replaceChildren();
 
-  window.aboutPhotoEntriesData.forEach((photo) => {
-    aboutPhotoGrid.appendChild(createAboutPhotoTile(photo));
+  const photos = [...window.aboutPhotoEntriesData, ...window.aboutPhotoEntriesData];
+
+  photos.forEach((photo) => {
+    aboutPhotoTrack.appendChild(createPhotoCard(photo));
   });
 }
 
@@ -92,7 +82,12 @@ function createPhotoCard(photo) {
   image.alt = photo.alt;
   caption.textContent = photo.caption;
 
-  figure.append(image, caption);
+  figure.appendChild(image);
+
+  if (photo.caption) {
+    figure.appendChild(caption);
+  }
+
   return figure;
 }
 
