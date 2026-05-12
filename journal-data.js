@@ -9,6 +9,12 @@
 // },
 window.journalEntriesData = [
   {
+    date: "05-13-26",
+    text: `New Goals:
+
+1. Enjoy school. 2. Serve others. 3. Have fun 4. Meditate a little bit more 5. Run less but faster 6. A secret goal only I can know that I hold in my heart!`
+  },
+  {
     date: "05-12-26",
     text: `Ultratraining, 50 Mile Ultramarathon, life lessons, and gratitude for country music
 
