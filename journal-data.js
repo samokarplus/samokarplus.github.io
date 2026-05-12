@@ -9,6 +9,64 @@
 // },
 window.journalEntriesData = [
   {
+    date: "05-12-26",
+    text: `Ultratraining, 50 Mile Ultramarathon, life lessons, and gratitude for country music
+
+TLDR: My ultramarathon and era taught me that devotion itself was the real goal, not achievement.
+
+I just spent the last like 8 months devoting myself to ultramarathon. I trained and ran a 50 miler with over 7,000 ft elevation. long day. I dropped out of school for this semester to train and devote myself to running. I originally signed up because I felt like the marathon and things that I ran previously weren’t hard enough. I wasn’t satisfied. I wanted a good challenge to work towards and devote myself to. Honestly I don't even know why I signed up for it.
+
+Something can start as a completely unattainable and crazy whimsical idea. This actually started because I wanted a hard physical challenge to train for and pursue. The idea of a 100K excited me. I thought I have a strong mind and can push through pain. I also love that feeling of the deep pain cave where it feels like all is wrong yet, it's actually all okay. I thought I'd love to give this a shot.
+
+So I signed up. But I tried to run my first trail race (21 miler) in April and was not performing well and I was all in my head about comparing myself to others and my ego was just on full blast. I couldn't take it. I ended up DNFing that within the first 5 miles. This race was supposed to take place June 6th but I opted to try and attempt to run my own 100K on a trail right outside Boulder.
+
+I ended up DNFing after 16.5 hours of running. But I don't view it as a failure deep down. My 50 miler taught me that you can put everything into achieving it and still be okay with coming up short. Why? Because I discovered that running 100K actually wasn't the end goal I was after. It was the value of devotion. Running was my Sadhana. And Sadhana is BEAUTIFUL. The training created purpose and structure for me. I was a lot more confident in my ability to run further and faster which allowed me to more comfortably participate in running communities. This allowed me to meet people and feel connected to myself, running, others. I learned through this that I needed people. It's okay to ask for help and support! I got great advice from Stefan Schuster, Dave Braunlich, and many others in the community. In fact, I learned if you don't ask for help, you are hurting yourself by limiting your capacity. Community is valuable and necessary for flourishing.
+
+I originally was staking all my assets and devotion on this one race and goal to run 100K at once. My ego was like "You're lazy. You must finish this to be a man. You are weak." All this chatter, only to find out the journey, the training runs, the community, learning to rest when I needed, pacing slowly well, and finding out that the journey is actually the enjoyable part to love, not the result (which i am still accepting). All that training, planning, grind, and devotion yet the highlight is actually being with someone I met in this process.
+
+What came out of my ultra era? You could say a 50 miler, a 5:31 mile PR, a fast 5K PR. But truly, I learned that my self worth was beyond all the miles. It's in being with and helping people. The 25 hours a week I spent cooking, running, planning, taught me I can do challenging things and be consistent even when every day wasn't all sunshine and rainbows. This will absolutely be applicable to school, relationships, life, the journey. Sometimes it hurts. Sometimes it's painful. But those moments and getting through them are so valuable; that's what brings the beauty. The consistent devotion is the practice.
+
+I think there is a deep lesson. Get a goal. Surrender fully. Do what you’re passionate about. Give it your all and invest. Then let the results be what they must. And this too is service and Sadhana. Because as you gain experience and expand, you can help others, even if that just means being with them. Even my own presence has great beauty and power.
+
+I had this thought two days after the run, just this morning. The song: Row row row your boat gently down the stream. Merrily. Life is but a dream. This is literally a guidebook to live your life. Practically more valuable all that scripture I've read. Just keep going and find joy in all of it.
+
+I love country music too. I'd say 90% of my runs I was jamming to country. Many perspectives from these songs for normal Americans who just want God, happiness, love, and a family is going to help me rebalance and remember that joy is found in the little things too. Not that I desire normality and a basic life. But I do desire long term satisfaction and joy. I don’t need the extreme swings or to focus on myself so much. In fact I’m much happier when I’m focusing on helping other people with their goals, fears, and desires.
+
+I don't feel the need to run as far anymore or train so much at the moment.
+
+I'm pretty content with a 50 miler.
+
+Now I have my eyes set on new goals.
+
+Developing deeper friendships and experiencing more intimacy. Eventually Jordan Davis and Luke Bryan laid out a bigger goal of mine: "Buy dirt, find the one..." Get a ring, do what you love, give back, send your prayers up, set your roots down, and build a family tree.
+
+I love country music because some of the songs give great advice. There's no talk of porsches and mansions. It's real. Love, devotion, practice, joy, heartbreak. Although that's a bit of a tangent, I have some extremism nature in me. I've often gone far one way then far the other way. So a little *balance* in my life is good for me. I am stil crazy, wild, and free Samo and also do daily tasks like volunteering, working, going to school.
+
+I've learned not every day is going to be sunshine and rainbows. Some of those training runs I ran out of water, was quite tired, and didn't feel like running. But I showed up. Most days I was running pretty easy. Some days I'd feel like grinding and pushing fast and exciting. Some days I felt dead and the only thing that kept me alive was being out there on the trail.
+
+I think it’s funny that after all that running, all that training, a very challenging 17 hour day and I realized I just wanted to love someone completely and wholeheartedly and be loved completely and wholeheartedly. I’m going to keep running. I love it and it keeps me grounded. It will still be my Sadhana. But I plan to run about half as much and run a little bit faster. I’ll focus on 10K training and maybe do a little road marathon. Less trails just because it is very time consuming and the fueling is hard.
+
+Here was my journal reflection immediately after the 50 miler:
+
+DNF - 50 Miler (supposed to be 100K)
+
+104,000 steps. Questionable pacing. Bad planning. Poor fueling. SLOW FINISH. Low pain tolerance. Very disappointed in myself. Not even sure if this is a fitness issue or a discipline issue. Feet were just hurting so bad and blisters were insane. I didn’t have stuff to deal with that. I feel like on some level I did not properly show up. I didn’t sleep last night due to nerves. I think that definitely played a role. I was tired from mile one. I also did zero strength training for any of this and my hips were in hell. But no excuses. I’m going to take a break from ultra for a bit. Maybe try to get a faster 10K.
+
+With all that being said, I’m actually proud of myself for giving it my all and pushing myself for over 16 hours to achieve something I couldn’t have dreamed of two years ago when I could not run a single 9 1/2 minute mile.
+
+Lastly, I would like to express my love for the community. Meeting amazing people at run clubs and fun personalities, that’s why I truly love this sport.
+
+Also, I feel like internally and I didn’t share this in my post. This is an afterthought just for here, but I genuinely feel that this show shows I can handle pain and things will go wrong and no matter what in a scenario but it’s only wrong if you don’t keep going.
+
+I started this day and spilled my mug of tea everywhere and I had to clean it up and then I had to deal with a sheriff about 10 miles into the race because my mom was messing around. I ran out of fuel. The point was I had to adjust my plan and I also had to adjust my end goal, but I’m still proud and I pushed through and suffered and also enjoyed it.
+
+It’s a metaphor for life because I did accomplish an amazing thing through hard work and planning over the last eight months and although it wasn’t a 100 K which was what I planned on it was a 50 mile or that was tricky and technical and I really pushed myself for 16 hours straight. That is something to be proud of.
+
+And all the preparation runs allowed me to do that because a year ago I couldn’t have even run eight hours.
+
+So this wasn’t really a failure. This was a metaphor for life that I should devote myself as best as possible and plan and think and do and whatever happens, happens and people that I know support and love me through it.`
+  },
+  {
     date: "05-09-26",
     text: `Life in a nutshell of what I've learned in the last year: Maya is included in Brahman but Brahman isnt Maya. But you cant leave Maya or escape it. Hence, one must become a Bhakti + Karma Yogi. Even Jnana yogis must convert over as I've learned (to an extent, but I think in India you can still be an only-jnani but not really in the west).`
   },
