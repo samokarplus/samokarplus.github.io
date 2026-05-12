@@ -429,7 +429,7 @@ p {
   gap: 1rem;
   width: max-content;
   will-change: transform;
-  animation: photo-scroll 16s linear infinite;
+  animation: photo-scroll 22s linear infinite;
 }
 
 .gallery-card {
