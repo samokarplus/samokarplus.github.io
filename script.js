@@ -220,7 +220,8 @@ if (siteHeader) {
     () => {
       const currentScrollY = window.scrollY;
       const isMenuOpen = siteNav?.classList.contains("is-open");
-      const shouldHide = currentScrollY > lastScrollY && currentScrollY > 120 && !isMenuOpen;
+      const scrollDelta = currentScrollY - lastScrollY;
+      const shouldHide = scrollDelta > 4 && currentScrollY > 120 && !isMenuOpen;
 
       siteHeader.classList.toggle("is-hidden", shouldHide);
       lastScrollY = Math.max(currentScrollY, 0);
