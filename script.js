@@ -17,6 +17,7 @@ const prompts = Array.isArray(window.quoteEntriesData) ? window.quoteEntriesData
 let promptIndex = 0;
 let promptIntervalId = null;
 let lastScrollY = window.scrollY;
+let scrollTicking = false;
 
 function renderAboutPhotos() {
   if (!aboutPhotoTrack || !Array.isArray(window.aboutPhotoEntriesData)) {
@@ -215,16 +216,28 @@ if (navToggle && siteNav) {
 }
 
 if (siteHeader) {
+  function updateHeaderVisibility() {
+    const currentScrollY = window.scrollY;
+    const isMenuOpen = siteNav?.classList.contains("is-open");
+    const scrollDelta = currentScrollY - lastScrollY;
+
+    if (isMenuOpen || currentScrollY < 80 || scrollDelta < -4) {
+      siteHeader.classList.remove("is-hidden");
+    } else if (scrollDelta > 4 && currentScrollY > 140) {
+      siteHeader.classList.add("is-hidden");
+    }
+
+    lastScrollY = Math.max(currentScrollY, 0);
+    scrollTicking = false;
+  }
+
   window.addEventListener(
     "scroll",
     () => {
-      const currentScrollY = window.scrollY;
-      const isMenuOpen = siteNav?.classList.contains("is-open");
-      const scrollDelta = currentScrollY - lastScrollY;
-      const shouldHide = scrollDelta > 4 && currentScrollY > 120 && !isMenuOpen;
-
-      siteHeader.classList.toggle("is-hidden", shouldHide);
-      lastScrollY = Math.max(currentScrollY, 0);
+      if (!scrollTicking) {
+        window.requestAnimationFrame(updateHeaderVisibility);
+        scrollTicking = true;
+      }
     },
     { passive: true }
   );
