@@ -122,7 +122,7 @@ Add a new quote block anywhere in the list:
   {
     author: "Rumi",
     quote: "Write the quote here.",
-    image: "assets/images/teachers/rumi.jpg",
+    image: "assets/images/teachers/rumi.avif",
     alt: "A painted portrait of Rumi."
   },
 ```
@@ -141,6 +141,16 @@ Notes:
 - The `Words to Sit With` section rotates through `quotes-data.js`.
 - You can reuse the same image for multiple quotes.
 - You do not need to edit `index.html` or `script.js` to add quotes.
+
+## Quick Safety Check
+
+Before committing, make sure:
+
+- Every new block starts with `{` and ends with `},`
+- Journal text uses backticks: `text: \`your entry\``
+- Photo and quote text uses regular quotes: `"like this"`
+- Image paths match the exact file name in `assets/images/` or `assets/images/teachers/`
+- You did not delete the final `];` at the bottom of a data file
 
 ## File Map
 
