@@ -76,15 +76,6 @@ textarea {
   padding: 1rem 0;
   backdrop-filter: blur(16px);
   background: rgba(250, 247, 240, 0.72);
-  transition:
-    transform 220ms ease,
-    opacity 220ms ease;
-}
-
-.site-header.is-hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(calc(-100% - 1rem));
 }
 
 .brand,

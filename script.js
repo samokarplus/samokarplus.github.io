@@ -1,6 +1,5 @@
 // Mobile navigation
 const navToggle = document.querySelector(".nav-toggle");
-const siteHeader = document.querySelector(".site-header");
 const siteNav = document.querySelector(".site-nav");
 const navLinks = document.querySelectorAll(".site-nav a");
 const promptText = document.getElementById("prompt-text");
@@ -16,7 +15,6 @@ const prompts = Array.isArray(window.quoteEntriesData) ? window.quoteEntriesData
 
 let promptIndex = 0;
 let promptIntervalId = null;
-let lastScrollY = window.scrollY;
 
 function renderAboutPhotos() {
   if (!aboutPhotoTrack || !Array.isArray(window.aboutPhotoEntriesData)) {
@@ -203,7 +201,6 @@ if (navToggle && siteNav) {
   navToggle.addEventListener("click", () => {
     const isOpen = siteNav.classList.toggle("is-open");
     navToggle.setAttribute("aria-expanded", String(isOpen));
-    siteHeader?.classList.remove("is-hidden");
   });
 
   navLinks.forEach((link) => {
@@ -212,25 +209,6 @@ if (navToggle && siteNav) {
       navToggle.setAttribute("aria-expanded", "false");
     });
   });
-}
-
-if (siteHeader) {
-  window.addEventListener(
-    "scroll",
-    () => {
-      const currentScrollY = window.scrollY;
-      const isMenuOpen = siteNav?.classList.contains("is-open");
-
-      if (isMenuOpen || currentScrollY < 80 || currentScrollY < lastScrollY) {
-        siteHeader.classList.remove("is-hidden");
-      } else if (currentScrollY > lastScrollY && currentScrollY > 140) {
-        siteHeader.classList.add("is-hidden");
-      }
-
-      lastScrollY = Math.max(currentScrollY, 0);
-    },
-    { passive: true }
-  );
 }
 
 // Gentle reveal animation as sections enter view
