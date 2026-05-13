@@ -108,6 +108,40 @@ photo-data.js         Baby Samo carousel
 
 Both carousels are created automatically by `script.js`.
 
+## Add A Quote
+
+Edit:
+
+```text
+quotes-data.js
+```
+
+Add a new quote block anywhere in the list:
+
+```js
+  {
+    author: "Rumi",
+    quote: "Write the quote here.",
+    image: "assets/images/teachers/rumi.jpg",
+    alt: "A painted portrait of Rumi."
+  },
+```
+
+Available teacher images:
+
+```text
+assets/images/teachers/bhagavan.jpg
+assets/images/teachers/nisargadatta.jpg
+assets/images/teachers/anandamayi.jpg
+assets/images/teachers/rumi.jpg
+```
+
+Notes:
+
+- The `Words to Sit With` section rotates through `quotes-data.js`.
+- You can reuse the same image for multiple quotes.
+- You do not need to edit `index.html` or `script.js` to add quotes.
+
 ## File Map
 
 Routine edits:
@@ -116,6 +150,7 @@ Routine edits:
 journal-data.js       journal entries
 about-photo-data.js   Older Samo photo carousel
 photo-data.js         Baby Samo photo carousel
+quotes-data.js        Words to Sit With quotes
 assets/images/        uploaded photos
 ```
 

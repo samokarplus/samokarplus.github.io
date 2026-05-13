@@ -11,49 +11,7 @@ const nextPromptButton = document.getElementById("next-prompt");
 const aboutPhotoTrack = document.getElementById("aboutPhotoTrack");
 const photoTrack = document.getElementById("photoTrack");
 const journalList = document.getElementById("journalList");
-
-const prompts = [
-  {
-    author: "Ramana Maharshi",
-    quote:
-      "The question 'Who am I?' is not really meant to get an answer, the question 'Who am I?' is meant to dissolve the questioner.",
-    image: "assets/images/teachers/bhagavan.jpg",
-    alt: "Portrait of Ramana Maharshi."
-  },
-  {
-    author: "Nisargadatta Maharaj",
-    quote:
-      "Wisdom tells me I am nothing. Love tells me I am everything. And between the two, my life flows.",
-    image: "assets/images/teachers/nisargadatta.jpg",
-    alt: "Portrait of Nisargadatta Maharaj seated outdoors."
-  },
-  {
-    author: "Anandamayi Ma",
-    quote:
-      "To attain the Truth one has to endure hardships. It is the obstacles that give birth to patience.",
-    image: "assets/images/teachers/anandamayi.jpg",
-    alt: "Portrait of Anandamayi Ma."
-  },
-  {
-    author: "Ramana Maharshi",
-    quote: "Your own Self-Realization is the greatest service you can render the world.",
-    image: "assets/images/teachers/bhagavan.jpg",
-    alt: "Portrait of Ramana Maharshi."
-  },
-  {
-    author: "Nisargadatta Maharaj",
-    quote:
-      "The very idea of going beyond the dream is illusory. Why go anywhere? Just realise that you are dreaming a dream you call the world, and stop looking for ways out.",
-    image: "assets/images/teachers/nisargadatta.jpg",
-    alt: "Portrait of Nisargadatta Maharaj seated outdoors."
-  },
-  {
-    author: "Anandamayi Ma",
-    quote: "Whether you accept or reject Him, He is there all the same.",
-    image: "assets/images/teachers/anandamayi.jpg",
-    alt: "Portrait of Anandamayi Ma."
-  }
-];
+const prompts = Array.isArray(window.quoteEntriesData) ? window.quoteEntriesData : [];
 
 let promptIndex = 0;
 let promptIntervalId = null;
@@ -291,6 +249,10 @@ function renderPrompt(index) {
 }
 
 function startPromptRotation() {
+  if (!prompts.length) {
+    return;
+  }
+
   if (promptIntervalId) {
     window.clearInterval(promptIntervalId);
   }
@@ -302,7 +264,7 @@ function startPromptRotation() {
 }
 
 // Reflective prompt rotation
-if (prevPromptButton && nextPromptButton && promptText && promptAuthor && promptImage) {
+if (prompts.length && prevPromptButton && nextPromptButton && promptText && promptAuthor && promptImage) {
   renderPrompt(promptIndex);
   startPromptRotation();
 
