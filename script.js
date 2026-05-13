@@ -221,7 +221,7 @@ if (siteHeader) {
     const isMenuOpen = siteNav?.classList.contains("is-open");
     const scrollDelta = currentScrollY - lastScrollY;
 
-    if (isMenuOpen || currentScrollY < 80 || scrollDelta < -4) {
+    if (isMenuOpen || currentScrollY < 80 || scrollDelta < 0) {
       siteHeader.classList.remove("is-hidden");
     } else if (scrollDelta > 4 && currentScrollY > 140) {
       siteHeader.classList.add("is-hidden");
@@ -237,6 +237,16 @@ if (siteHeader) {
       if (!scrollTicking) {
         window.requestAnimationFrame(updateHeaderVisibility);
         scrollTicking = true;
+      }
+    },
+    { passive: true }
+  );
+
+  window.addEventListener(
+    "wheel",
+    (event) => {
+      if (event.deltaY < 0) {
+        siteHeader.classList.remove("is-hidden");
       }
     },
     { passive: true }
