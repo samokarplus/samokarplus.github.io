@@ -17,7 +17,6 @@ const prompts = Array.isArray(window.quoteEntriesData) ? window.quoteEntriesData
 let promptIndex = 0;
 let promptIntervalId = null;
 let lastScrollY = window.scrollY;
-let scrollTicking = false;
 
 function renderAboutPhotos() {
   if (!aboutPhotoTrack || !Array.isArray(window.aboutPhotoEntriesData)) {
@@ -216,38 +215,19 @@ if (navToggle && siteNav) {
 }
 
 if (siteHeader) {
-  function updateHeaderVisibility() {
-    const currentScrollY = window.scrollY;
-    const isMenuOpen = siteNav?.classList.contains("is-open");
-    const scrollDelta = currentScrollY - lastScrollY;
-
-    if (isMenuOpen || currentScrollY < 80 || scrollDelta < 0) {
-      siteHeader.classList.remove("is-hidden");
-    } else if (scrollDelta > 4 && currentScrollY > 140) {
-      siteHeader.classList.add("is-hidden");
-    }
-
-    lastScrollY = Math.max(currentScrollY, 0);
-    scrollTicking = false;
-  }
-
   window.addEventListener(
     "scroll",
     () => {
-      if (!scrollTicking) {
-        window.requestAnimationFrame(updateHeaderVisibility);
-        scrollTicking = true;
-      }
-    },
-    { passive: true }
-  );
+      const currentScrollY = window.scrollY;
+      const isMenuOpen = siteNav?.classList.contains("is-open");
 
-  window.addEventListener(
-    "wheel",
-    (event) => {
-      if (event.deltaY < 0) {
+      if (isMenuOpen || currentScrollY < 80 || currentScrollY < lastScrollY) {
         siteHeader.classList.remove("is-hidden");
+      } else if (currentScrollY > lastScrollY && currentScrollY > 140) {
+        siteHeader.classList.add("is-hidden");
       }
+
+      lastScrollY = Math.max(currentScrollY, 0);
     },
     { passive: true }
   );
