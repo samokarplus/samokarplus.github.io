@@ -133,7 +133,7 @@ Available teacher images:
 assets/images/teachers/bhagavan.jpg
 assets/images/teachers/nisargadatta.jpg
 assets/images/teachers/anandamayi.jpg
-assets/images/teachers/rumi.jpg
+assets/images/teachers/rumi.avif
 ```
 
 Notes:

@@ -10,13 +10,12 @@
 // - assets/images/teachers/bhagavan.jpg
 // - assets/images/teachers/nisargadatta.jpg
 // - assets/images/teachers/anandamayi.jpg
-// - assets/images/teachers/rumi.jpg
-// Rumi image source: Wikimedia Commons, public domain.
+// - assets/images/teachers/rumi.avif
 //
 // {
 //   author: "Rumi",
 //   quote: "Your quote here.",
-//   image: "assets/images/teachers/rumi.jpg",
+//   image: "assets/images/teachers/rumi.avif",
 //   alt: "Portrait of Rumi."
 // },
 window.quoteEntriesData = [
@@ -62,8 +61,14 @@ window.quoteEntriesData = [
   },
   {
     author: "Rumi",
+    quote: "Stop acting so small. You are the universe in ecstatic motion.",
+    image: "assets/images/teachers/rumi.avif",
+    alt: "A painted portrait of Rumi."
+  },
+  {
+    author: "Rumi",
     quote: "I searched for God and found only myself. I searched for myself and found only God.",
-    image: "assets/images/teachers/rumi.jpg",
+    image: "assets/images/teachers/rumi.avif",
     alt: "A painted portrait of Rumi."
   }
 ];
