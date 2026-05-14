@@ -13,6 +13,11 @@
 // },
 window.photoEntriesData = [
   {
+    src: "assets/images/baby-horse.jpeg",
+    alt: "A childhood photo of Samo smiling on a horse with another child.",
+    caption: "Small joy, big horse, wide-open country."
+  },
+  {
     src: "assets/images/child-cowboy.jpg",
     alt: "A childhood photo of Samo in a cowboy hat standing beside a horse.",
     caption: "Early confidence, costume, play, and the Western dream."
