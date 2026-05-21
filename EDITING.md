@@ -162,14 +162,21 @@ It reads from:
 strava-data.json
 ```
 
-Automatic updates are handled by:
+Automatic updates use this script:
 
 ```text
-.github/workflows/update-strava-data.yml
 scripts/update-strava-data.py
 ```
 
-To make it update automatically, add these GitHub repository secrets:
+To make it update automatically, GitHub also needs a workflow file at:
+
+```text
+.github/workflows/update-strava-data.yml
+```
+
+That workflow file is prepared locally, but GitHub blocked Codex from pushing it because the current GitHub token does not have workflow permission.
+
+After the workflow exists in GitHub, add these GitHub repository secrets:
 
 ```text
 STRAVA_CLIENT_ID
