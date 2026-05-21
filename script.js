@@ -11,10 +11,55 @@ const nextPromptButton = document.getElementById("next-prompt");
 const aboutPhotoTrack = document.getElementById("aboutPhotoTrack");
 const photoTrack = document.getElementById("photoTrack");
 const journalList = document.getElementById("journalList");
+const stravaMiles = document.getElementById("strava-miles");
+const stravaElevation = document.getElementById("strava-elevation");
+const stravaUpdated = document.getElementById("strava-updated");
 const prompts = Array.isArray(window.quoteEntriesData) ? window.quoteEntriesData : [];
 
 let promptIndex = 0;
 let promptIntervalId = null;
+
+function formatNumber(value) {
+  return new Intl.NumberFormat("en-US").format(value);
+}
+
+function formatUpdatedAt(value) {
+  if (!value) {
+    return "Waiting for Strava sync";
+  }
+
+  const updated = new Date(value);
+
+  if (Number.isNaN(updated.getTime())) {
+    return "Updated from Strava";
+  }
+
+  return `Updated ${updated.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric"
+  })} from Strava`;
+}
+
+async function renderStravaStats() {
+  if (!stravaMiles || !stravaElevation || !stravaUpdated) {
+    return;
+  }
+
+  try {
+    const response = await fetch("strava-data.json", { cache: "no-store" });
+    const stats = await response.json();
+
+    if (!stats.connected) {
+      return;
+    }
+
+    stravaMiles.textContent = formatNumber(stats.miles);
+    stravaElevation.textContent = formatNumber(stats.elevationFeet);
+    stravaUpdated.textContent = formatUpdatedAt(stats.updatedAt);
+  } catch {
+    stravaUpdated.textContent = "Strava sync unavailable";
+  }
+}
 
 function renderAboutPhotos() {
   if (!aboutPhotoTrack || !Array.isArray(window.aboutPhotoEntriesData)) {
@@ -196,6 +241,7 @@ function renderJournalEntries() {
 renderAboutPhotos();
 renderPhotoGallery();
 renderJournalEntries();
+renderStravaStats();
 
 if (navToggle && siteNav) {
   navToggle.addEventListener("click", () => {

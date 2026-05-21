@@ -187,6 +187,42 @@ p {
   margin-top: 1.5rem;
 }
 
+.running-log {
+  max-width: 24rem;
+  margin-top: 1rem;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(108, 128, 103, 0.18);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 253, 248, 0.72);
+  box-shadow: 0 12px 30px rgba(74, 59, 38, 0.06);
+}
+
+.running-log-label,
+.running-log-meta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.running-stats {
+  display: flex;
+  gap: 1.1rem;
+  margin: 0.45rem 0 0.25rem;
+}
+
+.running-stat-value {
+  display: block;
+  font-family: "Merriweather", serif;
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+
+.running-stat-label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
 .button {
   display: inline-flex;
   align-items: center;

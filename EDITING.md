@@ -152,6 +152,38 @@ Before committing, make sure:
 - Image paths match the exact file name in `assets/images/` or `assets/images/teachers/`
 - You did not delete the final `];` at the bottom of a data file
 
+## Strava Running Log
+
+The homepage has a `2026 Running Log` box.
+
+It reads from:
+
+```text
+strava-data.json
+```
+
+Automatic updates are handled by:
+
+```text
+.github/workflows/update-strava-data.yml
+scripts/update-strava-data.py
+```
+
+To make it update automatically, add these GitHub repository secrets:
+
+```text
+STRAVA_CLIENT_ID
+STRAVA_CLIENT_SECRET
+STRAVA_REFRESH_TOKEN
+```
+
+Notes:
+
+- Do not put Strava secrets directly into the code.
+- The GitHub Action runs once per day and can also be run manually.
+- It calculates 2026 running miles and elevation from Strava activities.
+- The public website only sees the totals in `strava-data.json`.
+
 ## File Map
 
 Routine edits:
@@ -161,6 +193,7 @@ journal-data.js       journal entries
 about-photo-data.js   Older Samo photo carousel
 photo-data.js         Baby Samo photo carousel
 quotes-data.js        Words to Sit With quotes
+strava-data.json      public Strava running totals
 assets/images/        uploaded photos
 ```
 
