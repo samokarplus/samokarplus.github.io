@@ -50,5 +50,9 @@ window.aboutPhotoEntriesData = [
   {
     src: "assets/images/about-reflection.jpg",
     alt: "A reflective photo of Samo."
+  },
+  {
+    src: "assets/images/about-trail-selfie.jpeg",
+    alt: "Samo smiling with a friend on a sunny trail."
   }
 ];
