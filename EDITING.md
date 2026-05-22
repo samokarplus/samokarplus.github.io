@@ -152,11 +152,11 @@ Before committing, make sure:
 - Image paths match the exact file name in `assets/images/` or `assets/images/teachers/`
 - You did not delete the final `];` at the bottom of a data file
 
-## Strava Running Log
+## Strava Training Log
 
-The homepage has a `2026 Running Log` box.
+The homepage has a `Training Log` box.
 
-It reads from:
+It displays the current year automatically and reads public totals from:
 
 ```text
 strava-data.json
@@ -174,9 +174,7 @@ To make it update automatically, GitHub also needs a workflow file at:
 .github/workflows/update-strava-data.yml
 ```
 
-That workflow file is prepared locally, but GitHub blocked Codex from pushing it because the current GitHub token does not have workflow permission.
-
-After the workflow exists in GitHub, add these GitHub repository secrets:
+The workflow is already in GitHub. It needs these GitHub repository secrets:
 
 ```text
 STRAVA_CLIENT_ID
@@ -186,11 +184,13 @@ STRAVA_REFRESH_TOKEN
 
 Notes:
 
+- You usually do not edit `strava-data.json` by hand.
 - Do not put Strava secrets directly into the code.
 - The GitHub Action runs once per day and can also be run manually.
 - It automatically uses the current year.
-- It calculates running miles, running elevation, biking miles, and swimming yards from Strava activities.
+- It calculates run miles, elevation gain, bike miles, and swim yards from Strava activities.
 - The public website only sees the totals in `strava-data.json`.
+- To update it immediately, go to GitHub Actions, open `Update Strava Data`, and click `Run workflow`.
 
 ## File Map
 
@@ -201,7 +201,6 @@ journal-data.js       journal entries
 about-photo-data.js   Older Samo photo carousel
 photo-data.js         Baby Samo photo carousel
 quotes-data.js        Words to Sit With quotes
-strava-data.json      public Strava running totals
 assets/images/        uploaded photos
 ```
 
@@ -211,6 +210,7 @@ Usually do not touch:
 index.html        page structure
 script.js         site behavior
 styles.css        visual styling
+strava-data.json  auto-generated Strava training totals
 ```
 
 SEO/search files:
