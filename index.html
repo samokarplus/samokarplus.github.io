@@ -71,16 +71,24 @@
               <a class="button primary" href="#journal">Read Reflections</a>
               <a class="button primary" href="#contact">Get in Touch</a>
             </div>
-            <aside class="running-log" aria-label="2026 running log">
-              <p class="running-log-label">2026 Running Log</p>
+            <aside class="running-log" aria-label="Strava training log">
+              <p class="running-log-label"><span id="strava-year">2026</span> Training Log</p>
               <div class="running-stats">
-                <div>
-                  <span class="running-stat-value" id="strava-miles">--</span>
-                  <span class="running-stat-label">miles</span>
+                <div class="running-stat-card">
+                  <span class="running-stat-value" id="strava-run-miles">--</span>
+                  <span class="running-stat-label">run miles</span>
                 </div>
-                <div>
-                  <span class="running-stat-value" id="strava-elevation">--</span>
-                  <span class="running-stat-label">ft climbed</span>
+                <div class="running-stat-card">
+                  <span class="running-stat-value" id="strava-run-elevation">--</span>
+                  <span class="running-stat-label">run ft</span>
+                </div>
+                <div class="running-stat-card">
+                  <span class="running-stat-value" id="strava-bike-miles">--</span>
+                  <span class="running-stat-label">bike miles</span>
+                </div>
+                <div class="running-stat-card">
+                  <span class="running-stat-value" id="strava-swim-yards">--</span>
+                  <span class="running-stat-label">swim yards</span>
                 </div>
               </div>
               <p class="running-log-meta" id="strava-updated">Waiting for Strava sync</p>
@@ -439,6 +447,6 @@
     <script src="about-photo-data.js?v=2"></script>
     <script src="photo-data.js?v=1"></script>
     <script src="quotes-data.js?v=1"></script>
-    <script src="script.js?v=20"></script>
+    <script src="script.js?v=21"></script>
   </body>
 </html>

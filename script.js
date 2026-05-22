@@ -11,8 +11,11 @@ const nextPromptButton = document.getElementById("next-prompt");
 const aboutPhotoTrack = document.getElementById("aboutPhotoTrack");
 const photoTrack = document.getElementById("photoTrack");
 const journalList = document.getElementById("journalList");
-const stravaMiles = document.getElementById("strava-miles");
-const stravaElevation = document.getElementById("strava-elevation");
+const stravaYear = document.getElementById("strava-year");
+const stravaRunMiles = document.getElementById("strava-run-miles");
+const stravaRunElevation = document.getElementById("strava-run-elevation");
+const stravaBikeMiles = document.getElementById("strava-bike-miles");
+const stravaSwimYards = document.getElementById("strava-swim-yards");
 const stravaUpdated = document.getElementById("strava-updated");
 const prompts = Array.isArray(window.quoteEntriesData) ? window.quoteEntriesData : [];
 
@@ -41,7 +44,7 @@ function formatUpdatedAt(value) {
 }
 
 async function renderStravaStats() {
-  if (!stravaMiles || !stravaElevation || !stravaUpdated) {
+  if (!stravaYear || !stravaRunMiles || !stravaRunElevation || !stravaBikeMiles || !stravaSwimYards || !stravaUpdated) {
     return;
   }
 
@@ -53,8 +56,11 @@ async function renderStravaStats() {
       return;
     }
 
-    stravaMiles.textContent = formatNumber(stats.miles);
-    stravaElevation.textContent = formatNumber(stats.elevationFeet);
+    stravaYear.textContent = stats.year || new Date().getFullYear();
+    stravaRunMiles.textContent = formatNumber(stats.runMiles ?? stats.miles);
+    stravaRunElevation.textContent = formatNumber(stats.runElevationFeet ?? stats.elevationFeet);
+    stravaBikeMiles.textContent = formatNumber(stats.bikeMiles ?? 0);
+    stravaSwimYards.textContent = formatNumber(stats.swimYards ?? 0);
     stravaUpdated.textContent = formatUpdatedAt(stats.updatedAt);
   } catch {
     stravaUpdated.textContent = "Strava sync unavailable";

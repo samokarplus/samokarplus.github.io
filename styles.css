@@ -188,13 +188,13 @@ p {
 }
 
 .running-log {
-  max-width: 24rem;
-  margin-top: 1rem;
-  padding: 0.95rem 1rem;
-  border: 1px solid rgba(108, 128, 103, 0.18);
-  border-radius: var(--radius-sm);
-  background: rgba(255, 253, 248, 0.72);
-  box-shadow: 0 12px 30px rgba(74, 59, 38, 0.06);
+  max-width: 31rem;
+  margin-top: 1.1rem;
+  padding: 1rem;
+  border: 1px solid rgba(108, 128, 103, 0.2);
+  border-radius: var(--radius-md);
+  background: rgba(255, 253, 248, 0.78);
+  box-shadow: 0 14px 34px rgba(74, 59, 38, 0.07);
 }
 
 .running-log-label,
@@ -204,23 +204,38 @@ p {
   font-size: 0.85rem;
 }
 
+.running-log-label {
+  color: var(--text);
+  font-weight: 700;
+}
+
 .running-stats {
-  display: flex;
-  gap: 1.1rem;
-  margin: 0.45rem 0 0.25rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin: 0.65rem 0 0.45rem;
+}
+
+.running-stat-card {
+  min-width: 0;
+  padding: 0.65rem;
+  border-radius: var(--radius-sm);
+  background: rgba(155, 191, 158, 0.12);
 }
 
 .running-stat-value {
   display: block;
   font-family: "Merriweather", serif;
-  font-size: 1.35rem;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
   line-height: 1.1;
 }
 
 .running-stat-label {
   display: block;
+  margin-top: 0.2rem;
   color: var(--muted);
   font-size: 0.82rem;
+  line-height: 1.2;
 }
 
 .button {

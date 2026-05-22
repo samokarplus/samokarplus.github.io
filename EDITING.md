@@ -188,7 +188,8 @@ Notes:
 
 - Do not put Strava secrets directly into the code.
 - The GitHub Action runs once per day and can also be run manually.
-- It calculates 2026 running miles and elevation from Strava activities.
+- It automatically uses the current year.
+- It calculates running miles, running elevation, biking miles, and swimming yards from Strava activities.
 - The public website only sees the totals in `strava-data.json`.
 
 ## File Map

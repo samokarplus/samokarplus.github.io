@@ -10,7 +10,7 @@ from urllib.request import Request, urlopen
 CLIENT_ID = os.environ.get("STRAVA_CLIENT_ID")
 CLIENT_SECRET = os.environ.get("STRAVA_CLIENT_SECRET")
 REFRESH_TOKEN = os.environ.get("STRAVA_REFRESH_TOKEN")
-YEAR = int(os.environ.get("STRAVA_STATS_YEAR", "2026"))
+YEAR = datetime.now(timezone.utc).year
 OUTPUT_PATH = Path("strava-data.json")
 
 
@@ -92,17 +92,41 @@ def is_run(activity):
   }
 
 
+def is_ride(activity):
+  return activity.get("type") == "Ride" or activity.get("sport_type") in {
+    "GravelRide",
+    "MountainBikeRide",
+    "Ride",
+    "VirtualRide"
+  }
+
+
+def is_swim(activity):
+  return activity.get("type") == "Swim" or activity.get("sport_type") == "Swim"
+
+
 def write_stats(activities):
   runs = [activity for activity in activities if is_run(activity)]
-  distance_meters = sum(activity.get("distance", 0) for activity in runs)
-  elevation_meters = sum(activity.get("total_elevation_gain", 0) for activity in runs)
+  rides = [activity for activity in activities if is_ride(activity)]
+  swims = [activity for activity in activities if is_swim(activity)]
+  run_distance_meters = sum(activity.get("distance", 0) for activity in runs)
+  run_elevation_meters = sum(activity.get("total_elevation_gain", 0) for activity in runs)
+  ride_distance_meters = sum(activity.get("distance", 0) for activity in rides)
+  swim_distance_meters = sum(activity.get("distance", 0) for activity in swims)
 
   stats = {
     "connected": True,
     "year": YEAR,
-    "miles": round(distance_meters / 1609.344, 1),
-    "elevationFeet": round(elevation_meters * 3.28084),
+    "miles": round(run_distance_meters / 1609.344, 1),
+    "elevationFeet": round(run_elevation_meters * 3.28084),
     "activityCount": len(runs),
+    "runMiles": round(run_distance_meters / 1609.344, 1),
+    "runElevationFeet": round(run_elevation_meters * 3.28084),
+    "runCount": len(runs),
+    "bikeMiles": round(ride_distance_meters / 1609.344, 1),
+    "bikeCount": len(rides),
+    "swimYards": round(swim_distance_meters * 1.09361),
+    "swimCount": len(swims),
     "updatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds")
   }
 
