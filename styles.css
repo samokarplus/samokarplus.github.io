@@ -231,7 +231,9 @@ p {
 }
 
 .running-stat-label {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
   margin-top: 0.2rem;
   color: var(--muted);
   font-size: 0.82rem;
