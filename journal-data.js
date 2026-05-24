@@ -9,7 +9,7 @@
 // },
 window.journalEntriesData = [
   {
-    date: "05-25-26",
+    date: "05-24-26",
     text: `Sadhana Fixes Ego
 
 Consistent Sadhana fixes ego. Being consistent with your practice, and doing it, you release the tension of feeling like the doer and are able to just live and be merely having energy and love and lightness move through the body. You can participate fully in the dream, knowing damn well you are the divine in essence.
