@@ -9,6 +9,14 @@
 // },
 window.journalEntriesData = [
   {
+    date: "05-24-26",
+    text: `The ego loves rigidity and all or nothing thinking. It wants to paint a picture of fear and loss. Love within is patient and kind. True devotion is accepting of all that comes its way, knowing that each moment is divine teaching, the painful ones, especially. The Yogi appreciates the low, for without the low what would be the high? You need hot for cold. You need sadness for happiness. You need tightness for expansion. You need loss for gain. I guess if you accept all that comes, there are no step backs; just wonderful teachings to bring you back to that which always is present within your own heart.
+
+It reminds me of the Rumi quote “I once had a thousand desires, but in my one desire to know you, all else melted away.”
+
+I want to fix lots of stuff and refine things. But what if I let go and accept all that is, all that was, and all that will be. It’s all love and one form or another. It really is all okay. Only the ego says otherwise.`
+  },
+  {
     date: "05-23-26",
     text: `<3 allowing yourself to feel all the emotions and feelings.
 
