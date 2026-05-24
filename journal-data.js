@@ -9,6 +9,18 @@
 // },
 window.journalEntriesData = [
   {
+    date: "05-25-26",
+    text: `Sadhana Fixes Ego
+
+Consistent Sadhana fixes ego. Being consistent with your practice, and doing it, you release the tension of feeling like the doer and are able to just live and be merely having energy and love and lightness move through the body. You can participate fully in the dream, knowing damn well you are the divine in essence.
+
+I love how Bhagavan put it. So simply.
+
+“The world is illusory. Only Brahman is real, Brahman is the world.”
+
+HOLY SHMOLY that’s good.`
+  },
+  {
     date: "05-24-26",
     text: `The ego loves rigidity and all or nothing thinking. It wants to paint a picture of fear and loss. Love within is patient and kind. True devotion is accepting of all that comes its way, knowing that each moment is divine teaching, the painful ones, especially. The Yogi appreciates the low, for without the low what would be the high? You need hot for cold. You need sadness for happiness. You need tightness for expansion. You need loss for gain. I guess if you accept all that comes, there are no step backs; just wonderful teachings to bring you back to that which always is present within your own heart.
 
