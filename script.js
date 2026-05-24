@@ -18,6 +18,7 @@ const stravaRunElevation = document.getElementById("strava-run-elevation");
 const stravaBikeMiles = document.getElementById("strava-bike-miles");
 const stravaSwimYards = document.getElementById("strava-swim-yards");
 const stravaUpdated = document.getElementById("strava-updated");
+const runningPrList = document.getElementById("runningPrList");
 const prompts = Array.isArray(window.quoteEntriesData) ? window.quoteEntriesData : [];
 
 let promptIndex = 0;
@@ -67,6 +68,30 @@ async function renderStravaStats() {
   } catch {
     stravaUpdated.textContent = "Strava sync unavailable";
   }
+}
+
+function renderRunningPrs() {
+  if (!runningPrList || !Array.isArray(window.runningPrEntriesData)) {
+    return;
+  }
+
+  runningPrList.replaceChildren();
+
+  window.runningPrEntriesData.forEach((pr) => {
+    const item = document.createElement("div");
+    const distance = document.createElement("span");
+    const time = document.createElement("span");
+
+    item.className = "pr-item";
+    distance.className = "pr-distance";
+    time.className = "pr-time";
+    distance.textContent = pr.distance;
+    time.textContent = pr.time;
+
+    item.appendChild(distance);
+    item.appendChild(time);
+    runningPrList.appendChild(item);
+  });
 }
 
 function renderAboutPhotos() {
@@ -249,6 +274,7 @@ function renderJournalEntries() {
 renderAboutPhotos();
 renderPhotoGallery();
 renderJournalEntries();
+renderRunningPrs();
 renderStravaStats();
 
 if (navToggle && siteNav) {

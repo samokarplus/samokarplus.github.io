@@ -142,6 +142,29 @@ Notes:
 - You can reuse the same image for multiple quotes.
 - You do not need to edit `index.html` or `script.js` to add quotes.
 
+## Update Running PRs
+
+Edit:
+
+```text
+pr-data.js
+```
+
+Use this format:
+
+```js
+  {
+    distance: "5K",
+    time: "21:38"
+  },
+```
+
+Notes:
+
+- This updates the `Running PRs` box under the Training Log.
+- Keep the comma after each block except the final one.
+- You do not need to edit `index.html` or `script.js` to update PRs.
+
 ## Quick Safety Check
 
 Before committing, make sure:
@@ -201,6 +224,7 @@ journal-data.js       journal entries
 about-photo-data.js   Older Samo photo carousel
 photo-data.js         Baby Samo photo carousel
 quotes-data.js        Words to Sit With quotes
+pr-data.js            Running PRs box
 assets/images/        uploaded photos
 ```
 

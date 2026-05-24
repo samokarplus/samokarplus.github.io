@@ -197,6 +197,10 @@ p {
   box-shadow: 0 14px 34px rgba(74, 59, 38, 0.07);
 }
 
+.pr-log {
+  margin-top: 0.75rem;
+}
+
 .running-log-label,
 .running-log-meta {
   margin: 0;
@@ -238,6 +242,36 @@ p {
   color: var(--muted);
   font-size: 0.82rem;
   line-height: 1.2;
+}
+
+.pr-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 0.45rem;
+  margin-top: 0.65rem;
+}
+
+.pr-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 0.58rem 0.65rem;
+  border-radius: var(--radius-sm);
+  background: rgba(155, 191, 158, 0.12);
+}
+
+.pr-distance {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.2;
+}
+
+.pr-time {
+  font-family: "Merriweather", serif;
+  font-size: 0.95rem;
+  white-space: nowrap;
 }
 
 .button {
