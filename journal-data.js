@@ -10,7 +10,13 @@
 window.journalEntriesData = [
   {
     date: "05-23-26",
-    text: `<3 allowing yourself to feel all the emotions and feelings.`
+    text: `<3 allowing yourself to feel all the emotions and feelings.
+
+ln late hours. I am tired. But I am blessed by russians (who woulda thought). Nikita came by and gave me a gift, a beautiful antique golden decorative plate from the Gita. That might be one of the greatest gifts I've ever recieved. He's going away to Russia for a bit <3. Rough day emotionally. Listening to By Thy Grace - Snatam Kaur and In Dreams - Jai-Jagdeesh.
+
+Peace to all. Life to All. LOVE TO ALLLL. <3
+
+And In Dreams is such a brilliant song I've literally journaled about the lyrics before.`
   },
   {
     date: "05-19-26",
