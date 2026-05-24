@@ -188,7 +188,7 @@ Notes:
 - Do not put Strava secrets directly into the code.
 - The GitHub Action runs once per day and can also be run manually.
 - It automatically uses the current year.
-- It calculates run miles, elevation gain, bike miles, and swim yards from Strava activities.
+- It calculates run miles, walk miles, run/walk elevation gain, bike miles, and swim yards from Strava activities.
 - The public website only sees the totals in `strava-data.json`.
 - To update it immediately, go to GitHub Actions, open `Update Strava Data`, and click `Run workflow`.
 

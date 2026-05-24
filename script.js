@@ -13,6 +13,7 @@ const photoTrack = document.getElementById("photoTrack");
 const journalList = document.getElementById("journalList");
 const stravaYear = document.getElementById("strava-year");
 const stravaRunMiles = document.getElementById("strava-run-miles");
+const stravaWalkMiles = document.getElementById("strava-walk-miles");
 const stravaRunElevation = document.getElementById("strava-run-elevation");
 const stravaBikeMiles = document.getElementById("strava-bike-miles");
 const stravaSwimYards = document.getElementById("strava-swim-yards");
@@ -44,7 +45,7 @@ function formatUpdatedAt(value) {
 }
 
 async function renderStravaStats() {
-  if (!stravaYear || !stravaRunMiles || !stravaRunElevation || !stravaBikeMiles || !stravaSwimYards || !stravaUpdated) {
+  if (!stravaYear || !stravaRunMiles || !stravaWalkMiles || !stravaRunElevation || !stravaBikeMiles || !stravaSwimYards || !stravaUpdated) {
     return;
   }
 
@@ -58,7 +59,8 @@ async function renderStravaStats() {
 
     stravaYear.textContent = stats.year || new Date().getFullYear();
     stravaRunMiles.textContent = formatNumber(stats.runMiles ?? stats.miles);
-    stravaRunElevation.textContent = formatNumber(stats.runElevationFeet ?? stats.elevationFeet);
+    stravaWalkMiles.textContent = formatNumber(stats.walkMiles ?? 0);
+    stravaRunElevation.textContent = formatNumber(stats.totalElevationFeet ?? stats.elevationFeet);
     stravaBikeMiles.textContent = formatNumber(stats.bikeMiles ?? 0);
     stravaSwimYards.textContent = formatNumber(stats.swimYards ?? 0);
     stravaUpdated.textContent = formatUpdatedAt(stats.updatedAt);

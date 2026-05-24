@@ -101,6 +101,10 @@ def is_ride(activity):
   }
 
 
+def is_walk(activity):
+  return activity.get("type") == "Walk" or activity.get("sport_type") == "Walk"
+
+
 def is_swim(activity):
   return activity.get("type") == "Swim" or activity.get("sport_type") == "Swim"
 
@@ -108,21 +112,29 @@ def is_swim(activity):
 def write_stats(activities):
   runs = [activity for activity in activities if is_run(activity)]
   rides = [activity for activity in activities if is_ride(activity)]
+  walks = [activity for activity in activities if is_walk(activity)]
   swims = [activity for activity in activities if is_swim(activity)]
   run_distance_meters = sum(activity.get("distance", 0) for activity in runs)
   run_elevation_meters = sum(activity.get("total_elevation_gain", 0) for activity in runs)
   ride_distance_meters = sum(activity.get("distance", 0) for activity in rides)
+  walk_distance_meters = sum(activity.get("distance", 0) for activity in walks)
+  walk_elevation_meters = sum(activity.get("total_elevation_gain", 0) for activity in walks)
   swim_distance_meters = sum(activity.get("distance", 0) for activity in swims)
+  total_elevation_meters = run_elevation_meters + walk_elevation_meters
 
   stats = {
     "connected": True,
     "year": YEAR,
     "miles": round(run_distance_meters / 1609.344, 1),
-    "elevationFeet": round(run_elevation_meters * 3.28084),
+    "elevationFeet": round(total_elevation_meters * 3.28084),
     "activityCount": len(runs),
     "runMiles": round(run_distance_meters / 1609.344, 1),
     "runElevationFeet": round(run_elevation_meters * 3.28084),
     "runCount": len(runs),
+    "walkMiles": round(walk_distance_meters / 1609.344, 1),
+    "walkElevationFeet": round(walk_elevation_meters * 3.28084),
+    "walkCount": len(walks),
+    "totalElevationFeet": round(total_elevation_meters * 3.28084),
     "bikeMiles": round(ride_distance_meters / 1609.344, 1),
     "bikeCount": len(rides),
     "swimYards": round(swim_distance_meters * 1.09361),
