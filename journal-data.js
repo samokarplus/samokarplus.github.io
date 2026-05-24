@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
   {
+    date: "05-23-26",
+    text: `<3 allowing yourself to feel all the emotions and feelings.`
+  },
+  {
     date: "05-19-26",
     text: `Life is good. Fixed my 10K PR today which was hard but nice. I need to fix my marathon PR and my 50K PR. I'll do each of those on a track probably and just try to run sub 4 marathon and sub 5:20 50K or something. Maybe i can do it in the same run. That's a little goal but i dont think i have to have crazy volume for that. Just some 2-3 hour runs with some speed work in the week. I honestly think I'm better at running fast compared to running far. I just can't run 100 miles right now. I just don't think I'm there yet and don't want to try to get into that shape yet. I feel satisfied with stopping at a 50-mile ultra. Nothing to be ashamed of.
 
