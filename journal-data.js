@@ -9,6 +9,16 @@
 // },
 window.journalEntriesData = [
   {
+  date: "05-25-26",
+  text: `Bolder Boulder was fun. Very tough. A little slow (47:55 Chip Time, 36/267 for 21 yo Males). But I had almost no speedwork for 10K training really. I averaged almost 190 HR for the run. Really tough and nothing to fret about.
+
+Honestly so nervous to start school back up again. The last 6 months of my life though have been an amazing journey. Highs, lows, mostly highs, and more regulation and returning me back to my heart’s true values: loving and serving others.
+
+Thank God for Adderall too!
+
+This week is an exciting week. I think I’ll start volunteering again shortly doing kickball for EXPAND when that starts up. Also looking forward to Wednesday and Saturday this week.`
+},
+  {
     date: "05-24-26",
     text: `Sadhana Fixes Ego
 
