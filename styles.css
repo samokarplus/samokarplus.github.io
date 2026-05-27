@@ -197,6 +197,7 @@ p {
   box-shadow: 0 14px 34px rgba(74, 59, 38, 0.07);
 }
 
+.compact-log,
 .pr-log {
   margin-top: 0.75rem;
 }
@@ -272,19 +273,6 @@ p {
   font-family: "Merriweather", serif;
   font-size: 0.95rem;
   white-space: nowrap;
-}
-
-.race-preview {
-  padding: 0 0 2rem;
-}
-
-.race-box {
-  max-width: 31rem;
-  padding: 1rem;
-  border: 1px solid rgba(108, 128, 103, 0.2);
-  border-radius: var(--radius-md);
-  background: rgba(255, 253, 248, 0.82);
-  box-shadow: 0 14px 34px rgba(74, 59, 38, 0.07);
 }
 
 .race-list {

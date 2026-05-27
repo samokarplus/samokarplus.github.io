@@ -186,7 +186,7 @@ Add race blocks in the order you want them to appear:
 
 Notes:
 
-- This updates the `Upcoming Races` box below the homepage hero.
+- This updates the `Upcoming Races` box under the homepage training boxes.
 - Use `YYYY-MM-DD` for the date so the site can hide races after they pass.
 - `distance` and `location` are optional.
 - Races remain in `races-data.js`, but the site automatically hides them after the date passes.
