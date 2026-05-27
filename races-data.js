@@ -8,4 +8,15 @@
 //   distance: "10K",
 //   location: "Boulder, CO"
 // },
-window.upcomingRaceEntriesData = [];
+window.upcomingRaceEntriesData = [
+  {
+    name: "50K Race",
+    date: "06-06-26",
+    distance: "50K"
+  },
+  {
+    name: "Olympic Triathlon",
+    date: "07-12-26",
+    distance: "Olympic"
+  }
+];
