@@ -16,7 +16,7 @@ It’s not like I’m doing anything else. It’s like taking up a new sport or 
 
 The Adderall I think will help me and also just knowing other people that work like succeed to 80 hours a week are very inspiring so when I have four hours of studying to do, I can’t complain lol.
 
-I will say some people… well… I’m not gonna say anything racist. You know what I’m just gonna leave it at that.
+I had a few judgmental thoughts come up, and I’m trying to notice them without feeding them. Better to leave that alone and come back to the work in front of me.
 
 It’s definitely a practice to surrender what is internally and externally and everything. I’m actually quite excited for the ethics class, although I think it will be kind of challenging. The English class I think is also going to be fun and I think I’m gonna learn a lot and I think I want to enjoy the writing because I enjoy writing journal entries like this and essays aren’t so different in communication just a little bit more professional.
 
