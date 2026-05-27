@@ -46,6 +46,28 @@ function formatUpdatedAt(value) {
   })} from Strava`;
 }
 
+function parseRaceDate(value) {
+  if (!value) {
+    return null;
+  }
+
+  const date = new Date(`${value}T00:00:00`);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function formatRaceDate(value) {
+  const date = parseRaceDate(value);
+
+  if (!date) {
+    return value;
+  }
+
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric"
+  });
+}
+
 async function renderStravaStats() {
   if (!stravaYear || !stravaRunMiles || !stravaWalkMiles || !stravaRunElevation || !stravaBikeMiles || !stravaSwimYards || !stravaUpdated) {
     return;
@@ -102,7 +124,15 @@ function renderUpcomingRaces() {
 
   upcomingRaceList.replaceChildren();
 
-  if (!window.upcomingRaceEntriesData.length) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const upcomingRaces = window.upcomingRaceEntriesData.filter((race) => {
+    const raceDate = parseRaceDate(race.date);
+    return raceDate && raceDate >= today;
+  });
+
+  if (!upcomingRaces.length) {
     const empty = document.createElement("p");
     empty.className = "race-empty";
     empty.textContent = "No upcoming races listed yet.";
@@ -110,7 +140,7 @@ function renderUpcomingRaces() {
     return;
   }
 
-  window.upcomingRaceEntriesData.forEach((race) => {
+  upcomingRaces.forEach((race) => {
     const item = document.createElement("article");
     const date = document.createElement("p");
     const name = document.createElement("h3");
@@ -121,7 +151,7 @@ function renderUpcomingRaces() {
     date.className = "race-date";
     name.className = "race-name";
     meta.className = "race-meta";
-    date.textContent = race.date;
+    date.textContent = formatRaceDate(race.date);
     name.textContent = race.name;
     meta.textContent = details;
 

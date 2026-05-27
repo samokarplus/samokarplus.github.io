@@ -4,19 +4,19 @@
 // Format:
 // {
 //   name: "Race Name",
-//   date: "06-01-26",
+//   date: "2026-06-01",
 //   distance: "10K",
 //   location: "Boulder, CO"
 // },
 window.upcomingRaceEntriesData = [
   {
     name: "50K",
-    date: "06-06-26",
+    date: "2026-06-06",
     distance: "50K"
   },
   {
     name: "Olympic Triathlon",
-    date: "07-12-26",
+    date: "2026-07-12",
     distance: "Olympic"
   }
 ];

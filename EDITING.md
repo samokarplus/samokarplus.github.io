@@ -178,7 +178,7 @@ Add race blocks in the order you want them to appear:
 ```js
   {
     name: "Race Name",
-    date: "06-01-26",
+    date: "2026-06-01",
     distance: "10K",
     location: "Boulder, CO"
   },
@@ -187,8 +187,10 @@ Add race blocks in the order you want them to appear:
 Notes:
 
 - This updates the `Upcoming Races` box below the homepage hero.
+- Use `YYYY-MM-DD` for the date so the site can hide races after they pass.
 - `distance` and `location` are optional.
-- If the list is empty, the site shows a simple empty message.
+- Races remain in `races-data.js`, but the site automatically hides them after the date passes.
+- If there are no future races, the site shows a simple empty message.
 - You do not need to edit `index.html` or `script.js` to update races.
 
 ## Quick Safety Check
