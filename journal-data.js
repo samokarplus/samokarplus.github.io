@@ -9,15 +9,33 @@
 // },
 window.journalEntriesData = [
   {
-  date: "05-25-26",
-  text: `Bolder Boulder was fun. Very tough. A little slow (47:55 Chip Time, 36/267 for 21 yo Males). But I had almost no speedwork for 10K training really. I averaged almost 190 HR for the run. Really tough and nothing to fret about.
+    date: "05-26-26",
+    text: `A little overwhelmed to be honest three classes over the summer is a lot. I was low-key hoping the teachers would be chill and would reduce the workload. lol. But it sounds like they have to teach what is normally took over a full semester in half the time so it’s gonna be a lot of fucking work. The online math teacher says to expect 24 hours of work per week. I think I usually do about 24 hours of work per semester for all my classes. So that’s *insane*. One day at a time Samo. One day at a time Samo.
+
+It’s not like I’m doing anything else. It’s like taking up a new sport or something like it’s a muscle. I haven’t used in a really long time and I’m gonna have to use it a lot.
+
+The Adderall I think will help me and also just knowing other people that work like succeed to 80 hours a week are very inspiring so when I have four hours of studying to do, I can’t complain lol.
+
+I will say some people… well… I’m not gonna say anything racist. You know what I’m just gonna leave it at that.
+
+It’s definitely a practice to surrender what is internally and externally and everything. I’m actually quite excited for the ethics class, although I think it will be kind of challenging. The English class I think is also going to be fun and I think I’m gonna learn a lot and I think I want to enjoy the writing because I enjoy writing journal entries like this and essays aren’t so different in communication just a little bit more professional.
+
+The online math is insane. I have to end up doing this somehow, but with the proctored exam exams, it’s just absurd. The reviews on the online proctor software is so funny. It has like 3 million users, 5,000 reviews and it’s 1.1 Star rating. Pure comedy to read some of those reviews I love it. “Avoid at all costs”, “broke my computer”, “virus”, “china spyware”, “terrible experience”, “total privacy violation”, “beyond awful and unethical”. I was just cracking up haha.
+
+I’m at that weird point in time where in five years a college degree is like not gonna be very useful because I suspect AI will be able to do like everything math related. I don’t know. It’s kind of a fun time because everything is so unpredictable that you just gotta have fun with it and say fuck it C’s get degrees dawg.
+
+It does have me thinking though like “Am I supposed to be in school?” “What am I doing here?” “Am I pursuing something I don’t find exciting or fulfilling?” I’m not going to ask these questions at the moment. I’m just going to let each hour happen as it must and I will do my best. It’s not like I have two jobs and want to study for school like some maniacs. I’m not going to have a perfectionist mentality this semester. If I get 2 C’s and a B I genuinely won’t complain!`
+  },
+  {
+    date: "05-25-26",
+    text: `Bolder Boulder was fun. Very tough. A little slow (47:55 Chip Time, 36/267 for 21 yo Males). But I had almost no speedwork for 10K training really. I averaged almost 190 HR for the run. Really tough and nothing to fret about.
 
 Honestly so nervous to start school back up again. The last 6 months of my life though have been an amazing journey. Highs, lows, mostly highs, and more regulation and returning me back to my heart’s true values: loving and serving others.
 
 Thank God for Adderall too!
 
 This week is an exciting week. I think I’ll start volunteering again shortly doing kickball for EXPAND when that starts up. Also looking forward to Wednesday and Saturday this week.`
-},
+  },
   {
     date: "05-24-26",
     text: `Sadhana Fixes Ego
