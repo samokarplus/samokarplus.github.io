@@ -165,6 +165,32 @@ Notes:
 - Keep the comma after each block except the final one.
 - You do not need to edit `index.html` or `script.js` to update PRs.
 
+## Update Upcoming Races
+
+Edit:
+
+```text
+races-data.js
+```
+
+Add race blocks in the order you want them to appear:
+
+```js
+  {
+    name: "Race Name",
+    date: "06-01-26",
+    distance: "10K",
+    location: "Boulder, CO"
+  },
+```
+
+Notes:
+
+- This updates the `Upcoming Races` box below the homepage hero.
+- `distance` and `location` are optional.
+- If the list is empty, the site shows a simple empty message.
+- You do not need to edit `index.html` or `script.js` to update races.
+
 ## Quick Safety Check
 
 Before committing, make sure:
@@ -225,6 +251,7 @@ about-photo-data.js   Older Samo photo carousel
 photo-data.js         Baby Samo photo carousel
 quotes-data.js        Words to Sit With quotes
 pr-data.js            Running PRs box
+races-data.js         Upcoming Races box
 assets/images/        uploaded photos
 ```
 

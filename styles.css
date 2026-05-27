@@ -274,6 +274,61 @@ p {
   white-space: nowrap;
 }
 
+.race-preview {
+  padding: 1rem 0 2rem;
+}
+
+.race-box {
+  padding: 1.25rem;
+  border: 1px solid rgba(108, 128, 103, 0.2);
+  border-radius: var(--radius-md);
+  background: rgba(255, 253, 248, 0.82);
+  box-shadow: 0 14px 34px rgba(74, 59, 38, 0.07);
+}
+
+.race-box-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.race-box-header .eyebrow,
+.race-box-header h2 {
+  margin-bottom: 0;
+}
+
+.race-box-header h2 {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.race-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.65rem;
+}
+
+.race-item {
+  min-width: 0;
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  background: rgba(155, 191, 158, 0.12);
+}
+
+.race-date,
+.race-meta,
+.race-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.race-name {
+  margin: 0.15rem 0 0.25rem;
+  font-size: 1.05rem;
+}
+
 .button {
   display: inline-flex;
   align-items: center;

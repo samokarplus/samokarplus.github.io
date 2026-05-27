@@ -19,6 +19,7 @@ const stravaBikeMiles = document.getElementById("strava-bike-miles");
 const stravaSwimYards = document.getElementById("strava-swim-yards");
 const stravaUpdated = document.getElementById("strava-updated");
 const runningPrList = document.getElementById("runningPrList");
+const upcomingRaceList = document.getElementById("upcomingRaceList");
 const prompts = Array.isArray(window.quoteEntriesData) ? window.quoteEntriesData : [];
 
 let promptIndex = 0;
@@ -91,6 +92,46 @@ function renderRunningPrs() {
     item.appendChild(distance);
     item.appendChild(time);
     runningPrList.appendChild(item);
+  });
+}
+
+function renderUpcomingRaces() {
+  if (!upcomingRaceList || !Array.isArray(window.upcomingRaceEntriesData)) {
+    return;
+  }
+
+  upcomingRaceList.replaceChildren();
+
+  if (!window.upcomingRaceEntriesData.length) {
+    const empty = document.createElement("p");
+    empty.className = "race-empty";
+    empty.textContent = "No upcoming races listed yet.";
+    upcomingRaceList.appendChild(empty);
+    return;
+  }
+
+  window.upcomingRaceEntriesData.forEach((race) => {
+    const item = document.createElement("article");
+    const date = document.createElement("p");
+    const name = document.createElement("h3");
+    const meta = document.createElement("p");
+    const details = [race.distance, race.location].filter(Boolean).join(" · ");
+
+    item.className = "race-item";
+    date.className = "race-date";
+    name.className = "race-name";
+    meta.className = "race-meta";
+    date.textContent = race.date;
+    name.textContent = race.name;
+    meta.textContent = details;
+
+    item.append(date, name);
+
+    if (details) {
+      item.appendChild(meta);
+    }
+
+    upcomingRaceList.appendChild(item);
   });
 }
 
@@ -275,6 +316,7 @@ renderAboutPhotos();
 renderPhotoGallery();
 renderJournalEntries();
 renderRunningPrs();
+renderUpcomingRaces();
 renderStravaStats();
 
 if (navToggle && siteNav) {
