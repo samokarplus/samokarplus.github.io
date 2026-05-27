@@ -24,7 +24,9 @@ The online math is insane. I have to end up doing this somehow, but with the pro
 
 I’m at that weird point in time where in five years a college degree is like not gonna be very useful because I suspect AI will be able to do like everything math related. I don’t know. It’s kind of a fun time because everything is so unpredictable that you just gotta have fun with it and say fuck it C’s get degrees dawg.
 
-It does have me thinking though like “Am I supposed to be in school?” “What am I doing here?” “Am I pursuing something I don’t find exciting or fulfilling?” I’m not going to ask these questions at the moment. I’m just going to let each hour happen as it must and I will do my best. It’s not like I have two jobs and want to study for school like some maniacs. I’m not going to have a perfectionist mentality this semester. If I get 2 C’s and a B I genuinely won’t complain!`
+It does have me thinking though like “Am I supposed to be in school?” “What am I doing here?” “Am I pursuing something I don’t find exciting or fulfilling?” I’m not going to ask these questions at the moment. I’m just going to let each hour happen as it must and I will do my best. It’s not like I have two jobs and want to study for school like some maniacs. I’m not going to have a perfectionist mentality this semester. If I get 2 C’s and a B I genuinely won’t complain!
+
+If I learned anything from running ultrarunning, training, and racing, I can give something my all, love it sometimes, hate it sometimes, have a wonderful and complex relationship still come up short (not 100%, thinking of when I ran 80% of the distance I set out to run), and still be deeply satisfied and honestly proud. Obviously the metaphor here I am applying this to school.`
   },
   {
     date: "05-25-26",
