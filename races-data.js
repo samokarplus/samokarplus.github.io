@@ -10,7 +10,7 @@
 // },
 window.upcomingRaceEntriesData = [
   {
-    name: "50K Race",
+    name: "50K",
     date: "06-06-26",
     distance: "50K"
   },
