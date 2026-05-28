@@ -9,6 +9,14 @@
 // },
 window.journalEntriesData = [
   {
+    date: "05-28-26",
+    text: `Sometimes you go through tough periods or years in life where things just don’t feel quite right. Lots of unmet desires or life feels “unfair”. Times where the heart and soul don’t feel quite satisfied but you continue. Then when things align right, people come in unexpectedly or the wrong people leave in a needed fashion…those moments you can look back at the painful difficult times and think “Wow. I am still here. It really was worth it to keep going.”
+
+And after a while once you process it, you remember it wasn’t really ever the circumstances or the world’s fault. It was your own projection, your own dream creating separation from truth and love.
+
+I remember John once told me. If you don’t like one part of your dream, then change it and remember you’re just dreaming so don’t get too attached.`
+  },
+  {
     date: "05-26-26",
     text: `A little overwhelmed to be honest three classes over the summer is a lot. I was low-key hoping the teachers would be chill and would reduce the workload. lol. But it sounds like they have to teach what is normally took over a full semester in half the time so it’s gonna be a lot of fucking work. The online math teacher says to expect 24 hours of work per week. I think I usually do about 24 hours of work per semester for all my classes. So that’s *insane*. One day at a time Samo. One day at a time Samo.
 
