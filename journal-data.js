@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
   {
+    date: "05-31-26",
+    text: `A pee lol`
+  },
+  {
     date: "05-28-26",
     text: `Sometimes you go through tough periods or years in life where things just don’t feel quite right. Lots of unmet desires or life feels “unfair”. Times where the heart and soul don’t feel quite satisfied but you continue. Then when things align right, people come in unexpectedly or the wrong people leave in a needed fashion…those moments you can look back at the painful difficult times and think “Wow. I am still here. It really was worth it to keep going.”
 
