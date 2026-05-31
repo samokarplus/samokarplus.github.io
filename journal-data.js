@@ -10,7 +10,7 @@
 window.journalEntriesData = [
   {
     date: "05-31-26",
-    text: `A pee lol`
+    text: `A pee`
   },
   {
     date: "05-28-26",
