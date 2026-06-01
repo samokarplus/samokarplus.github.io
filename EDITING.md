@@ -1,6 +1,8 @@
 # Editing Guide
 
-This file is a quick map for updating the site without editing the main HTML.
+This file has step-by-step instructions for updating the site without editing the main HTML.
+
+For a plain-English map of what each file does, read `README.md`.
 
 ## Add A Journal Entry
 
