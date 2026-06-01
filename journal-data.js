@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
   {
+    date: "06-01-26",
+    text: `It’s June! Alhamdulillah! Glory to Allah. As the winner of the Bolder Boulder, Emad Bashir-Mohammed said “The meaning of life is to develop your gifts and then give those gifts away in service to others. SERVE.” This is the way to awakening for me.`
+  },
+  {
     date: "05-31-26",
     text: `A pee`
   },
