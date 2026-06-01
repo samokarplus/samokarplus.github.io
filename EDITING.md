@@ -4,7 +4,29 @@ This file is a quick map for updating the site without editing the main HTML.
 
 ## Add A Journal Entry
 
-Edit:
+Use the GitHub Action form:
+
+```text
+GitHub -> Actions -> Add Journal Entry -> Run workflow
+```
+
+Fill in:
+
+```text
+date: 06-01-26
+text: paste the full journal entry
+```
+
+Then click `Run workflow`.
+
+The workflow automatically:
+
+- Adds the entry at the top of `journal-data.js`
+- Handles quotes, commas, backticks, and paragraph breaks
+- Bumps the `journal-data.js` cache version in `index.html`
+- Commits the change to GitHub
+
+Manual fallback:
 
 ```text
 journal-data.js
