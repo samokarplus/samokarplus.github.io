@@ -54,5 +54,9 @@ window.aboutPhotoEntriesData = [
   {
     src: "assets/images/about-trail-selfie.jpeg",
     alt: "Samo smiling with a friend on a sunny trail."
+  },
+  {
+    src: "assets/images/about-outdoor-portrait.jpeg",
+    alt: "Samo outdoors in a recent portrait."
   }
 ];
