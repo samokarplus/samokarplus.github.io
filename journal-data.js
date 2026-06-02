@@ -10,7 +10,7 @@
 window.journalEntriesData = [
   {
     date: "06-02-26",
-    text: 'Genuinely enjoying school. My philosophy professor asked about my Swami today! He helped clarify some of the questions. I think he might be gay. Anyway, wrote an essay after school so I am pretty ahead on work. I guess im just chill like that. I dont think Ive ever been this satisfied in my life. I feel at ease. Balanced.'
+    text: 'Genuinely enjoying school. My philosophy professor asked about my Swami today which was cool! He helped clarify some of the questions I had. Ethics is pretty challenging but I do find it interesting. Anyway, wrote an essay after school so I am pretty ahead on work. I guess im just chill like that. I dont think Ive ever been this satisfied in my life. I feel at ease. Balanced.'
   },
   {
     date: "06-01-26",
