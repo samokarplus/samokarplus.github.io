@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
   {
+    date: "06-03-26",
+    text: 'They call me the king of truth tables. 😂'
+  },
+  {
     date: "06-02-26",
     text: 'Genuinely enjoying school. My philosophy professor asked about my Swami today which was cool! He helped clarify some of the questions I had. Ethics is pretty challenging but I do find it interesting. Anyway, wrote an essay after school so I am pretty ahead on work. I guess im just chill like that. I dont think Ive ever been this satisfied in my life. I feel at ease. Balanced.'
   },
