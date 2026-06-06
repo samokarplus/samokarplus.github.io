@@ -25,11 +25,11 @@ window.runningPrEntriesData = [
   },
   {
     distance: "Marathon",
-    time: "6:22:58"
+    time: "4:39:14"
   },
   {
     distance: "50K",
-    time: "7:25:12"
+    time: "5:45:06"
   },
   {
     distance: "50 Miler",
