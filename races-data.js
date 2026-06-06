@@ -10,10 +10,6 @@
 // },
 window.upcomingRaceEntriesData = [
   {
-    name: "50K",
-    date: "2026-06-06"
-  },
-  {
     name: "Olympic Triathlon",
     date: "2026-07-12"
   }
