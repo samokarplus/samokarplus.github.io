@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
   {
+    date: "06-08-26",
+    text: `A Woman Like You - Lee Brice. 🔥🔥🔥🔥🔥🔥🔥🔥`
+  },
+  {
     date: "06-06-26",
     text: `Fixed my 50K PR today! Nice. 20 mins slower than I wished but it is what it is. Now time to fix my 400m and 1K PR. Which should be fun. Lose a little weight and run hella fast. Then I'll revisit my half marathon and marathon PR.`
   },
