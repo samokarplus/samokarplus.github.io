@@ -9,6 +9,16 @@
 // },
 window.journalEntriesData = [
   {
+    date: "06-15-26",
+    text: `God will hold you in every moment. In pain, fear, loss, high, low. You're right there. The divine encompassed. Don't ever think for a moment you are separate. And when it gets scary, God is teaching. Listen intently and lovingly. SURRENDER. SURRENDER. SURRENDER. All is well.`
+  },
+  {
+    date: "06-14-26",
+    text: `Life is wonderful. Challenges, lessons, fears, joys, excitement. What is contentment wothout longing? What is peace without conflict? What is sadness without joy? You need both. Learn to love these temporary states Samo! They aren't you but they are your teachers.
+
+On an even more intimate note, I remember the nights I used to pray, cry, and long deeply for the life I have now. I am content and happy. Truly I am SO incredibly blessed by the divine.`
+  },
+  {
     date: "06-08-26",
     text: `A Woman Like You - Lee Brice. 🔥🔥🔥🔥🔥🔥🔥🔥`
   },

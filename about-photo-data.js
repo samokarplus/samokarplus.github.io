@@ -12,6 +12,14 @@
 // },
 window.aboutPhotoEntriesData = [
   {
+    src: "assets/images/about-triathlon-lake.jpeg",
+    alt: "Samo smiling with a triathlete near a lake after an outdoor race."
+  },
+  {
+    src: "assets/images/about-track-hug.jpeg",
+    alt: "Samo hugging someone on a sunny track with mountains in the background."
+  },
+  {
     src: "assets/images/portrait-black.jpg",
     alt: "A portrait of Samo in a black outfit, photographed in a mirror."
   },
