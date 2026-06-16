@@ -1,19 +1,19 @@
 {
   "connected": true,
   "year": 2026,
-  "miles": 918.6,
-  "elevationFeet": 144364,
-  "activityCount": 154,
-  "runMiles": 918.6,
-  "runElevationFeet": 139154,
-  "runCount": 154,
+  "miles": 922.4,
+  "elevationFeet": 144452,
+  "activityCount": 156,
+  "runMiles": 922.4,
+  "runElevationFeet": 139242,
+  "runCount": 156,
   "walkMiles": 97.3,
   "walkElevationFeet": 5210,
   "walkCount": 39,
-  "totalElevationFeet": 144364,
+  "totalElevationFeet": 144452,
   "bikeMiles": 216.0,
   "bikeCount": 19,
   "swimYards": 3240,
   "swimCount": 4,
-  "updatedAt": "2026-06-15T17:27:15+00:00"
+  "updatedAt": "2026-06-16T17:21:22+00:00"
 }
