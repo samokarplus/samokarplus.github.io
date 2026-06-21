@@ -9,6 +9,18 @@
 // },
 window.journalEntriesData = [
   {
+    date: "06-20-26",
+    text: `It's funny. My wife teases me about how I'm quite fanatical about my times in how fast I run and where I am insecure in my fitness status. It had me thinking about my relationship with all that in general. I think there is definitely some insecurity + ego there. But deep down I swim, bike, and run because I love it. I once gave advice saying, "Find a workout or exercise you LOVE. And do it to your heart's content."
+
+Anyway, I just did a workout, a 20 minute swim, without my watch. It was the first time in God knows how long I didn't record a workout to Strava. It was very freeing and fun being in that water, allowing myself to take a break. I actually felt like I was swimming faster and more freely.
+
+I think I may start playing around with doing some workouts or runs without tracking. I like to track for HR data and improvement and get a better idea of my fitness. I also like that it keeps track of my total yearly volume, which is stacking up. But I may divert. Not going to totally delete Strava or anything. I even pay for premium because I like some of the data it provides in terms of predictions and stuff.
+
+But I know that my worth is not and never is tied to how fast I can run a mile or 50 miles. I am beyond the body entirely. Why be so attached to my place in a race, or my pace in a race, and maybe be okay with just taking up space <3. Dr. Seuss out here wtf.
+
+Alright. That's all I gotta say. Be open. Be love. Forego your wrong ideas about yourself Samo. Break down that wall of ignorance that binds you from truth!`
+  },
+  {
     date: "06-15-26",
     text: `God will hold you in every moment. In pain, fear, loss, high, low. You're right there. The divine encompassed. Don't ever think for a moment you are separate. And when it gets scary, God is teaching. Listen intently and lovingly. SURRENDER. SURRENDER. SURRENDER. All is well.`
   },
