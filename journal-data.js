@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
   {
+    date: "06-23-26",
+    text: `😐 = Me when the conversation isn’t about Metaphysics, Morality, or My Russian wife.`
+  },
+  {
     date: "06-20-26",
     text: `It's funny. My wife teases me about how I'm quite fanatical about my times in how fast I run and where I am insecure in my fitness status. It had me thinking about my relationship with all that in general. I think there is definitely some insecurity + ego there. But deep down I swim, bike, and run because I love it. I once gave advice saying, "Find a workout or exercise you LOVE. And do it to your heart's content."
 
