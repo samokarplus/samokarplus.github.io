@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
   {
+    date: "06-25-26",
+    text: `Love with all you can ❤️. One of the greatest lessons I ever got was from Deborah. She told me no matter which path your on, whether that may be Jnana Yoga, Karma Yoga, Raja Yoga, we must eventually become Bhaktis. Bhakti Yoga (devotion) is the only way to freedom. For you can attain all this knowledge and even be fruitful to bring wonderful karma to the world. But the Bhakti path is all-encompassing. It is devotion to the lord, to love itself! All you can do towards peace and everlasting joy within yourself is to love.`
+  },
+  {
     date: "06-23-26",
     text: `😐 = Me when the conversation isn’t about Metaphysics, Morality, or My Russian wife.`
   },
