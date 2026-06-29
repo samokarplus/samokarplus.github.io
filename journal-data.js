@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
   {
+    date: "06-28-26",
+    text: `I fell out of alignment for a little bit this week. A bit of stress and delaying school stuff and not spending my time wisely got to me. Was just overwhelmed particularly today due to lack of spiriutal care for myself (not reading scripture or medtiating enough or particpating in spiritual community). How wonderful it is that the soul and your internal feelings and even your body will show you signs of discomfort and disapproval to realign you with your deepest desires! What a privilege and a blessing it is to have a loving heart, funcitoning body, aware mind, and an aligning soul that is pure joy! What a privilege it is to be tired and fulfilled! What a privelege it is to have experienced extreme discomfort and minor challenging days to make me a kinder more empathetic persdon who knows what struggle is. Challenge and working through karma reduces ignorance in a profound way. I missed the mark on some things this last week and am very excited to experience a bit deeper fulfillment this upcoming week with some changes.`
+  },
+  {
     date: "06-25-26",
     text: `Love with all you can ❤️. One of the greatest lessons I ever got was from Deborah. She told me no matter which path your on, whether that may be Jnana Yoga, Karma Yoga, Raja Yoga, we must eventually become Bhaktis. Bhakti Yoga (devotion) is the only way to freedom. For you can attain all this knowledge and even be fruitful to bring wonderful karma to the world. But the Bhakti path is all-encompassing. It is devotion to the lord, to love itself! All you can do towards peace and everlasting joy within yourself is to love.`
   },
