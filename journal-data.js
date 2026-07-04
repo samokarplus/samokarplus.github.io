@@ -9,6 +9,16 @@
 // },
 window.journalEntriesData = [
   {
+    date: "07-05-26",
+    text: `I have great reverence for Unity Church, A Course in Miracles, Sufi teachings, and my current path focus: Vedanta philosophy and studying the Gita. It's a nice mix of paths that inevitably all sort of teach the same thing with just different language and origins. Life is full of uncertainty. Don't become too complacent or too far from yourself. Find the middle path. I loved this graphic in my Ethics class that displayed Aristotle's Golden Mean. It gave two extremes, such as rashness and cowardice, and found the Golden Mean between the two: courage. Virtuous action avoids extremes, for they cannot last.
+
+The ego wants to swing one way or the other. It's helpful to see it in an academic setting, unbiased and just in study, because then you can learn to apply some of these concepts in your own personal life with school habits and, frankly, more practically in daily living and outside of school. That's one thing college does a really good job of: forcing you to face what you don't want to face in a relatively gentle way.
+
+Don't become addicted or reliant on one thing or one path. Do many things. Love all. Be devoted. Stay your course. This is freedom. Detached action.
+
+Totally unrelated but cool: I hid my first geocache yesterday! It's getting reviewed now. Hopefully it's live soon!`
+  },
+  {
     date: "07-04-26",
     text: `In Gita chapter 2, verse 14, Krishna tells Arjuna, "When the senses contact sense objects, a person experiences cold or heat, pleasure or pain. These experiences are fleeting; they come and go. Bear them patiently, Arjuna."
 
