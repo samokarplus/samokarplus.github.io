@@ -20,7 +20,7 @@ I also developed a caffeine addiction. I was talking with John about just how ad
 
 "Bear them patiently, Arjuna."
 
-I am Arjuna. My holy war I did not want to fight.`
+I am Arjuna. My holy war I did not want to fight, yet here I am with Krishna and many watching over me. This is just the beginning.`
   },
   {
     date: "06-29-26",
