@@ -547,6 +547,22 @@ p {
   margin-bottom: 1.2rem;
 }
 
+.media-highlight-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(16rem, 0.85fr);
+  gap: 1.2rem;
+  align-items: stretch;
+  margin-bottom: 1.2rem;
+}
+
+.media-highlight-grid .media-feature {
+  margin-bottom: 0;
+}
+
+.media-highlight-card {
+  min-height: 100%;
+}
+
 .media-feature-copy {
   padding: 1rem 0;
 }
@@ -903,6 +919,7 @@ p {
   .hero,
   .about-grid,
   .media-grid,
+  .media-highlight-grid,
   .media-feature,
   .contact-grid,
   .prompt-showcase {
