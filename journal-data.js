@@ -12,7 +12,7 @@ window.journalEntriesData = [
     date: "07-08-26",
     text: `I want to write this journal entry about sin. 
 
-I used to despise the word sin. I associated it with this concept, almost a political idea where Christians sort of just blamed other others for their problems. Or they would guilt trip themselves on false concepts. I think many people that aren’t very religious struggle with the word sin. And I totally understand that because that used to be me.
+I used to despise the word sin. I associated it with this concept, almost a political idea where Christians sort of just blamed others for their problems. Or they would guilt trip themselves on false concepts. I think many people that aren’t very religious struggle with the word sin. And I totally understand that because that used to be me.
 
 My Sufi teacher once told me there is no sin and that the only sin is the word I or the belief that you are separate from God or this universe. Well, I liked this for some time. But I discovered there were some holes in it as it could still be used as ignorance. 
 
