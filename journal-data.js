@@ -8,6 +8,22 @@
 // Put a blank line between paragraphs.`
 // },
 window.journalEntriesData = [
+{
+    date: "07-08-26",
+    text: `I want to write this journal entry about sin. 
+
+I used to despise the word sin. I associated it with this concept, almost a political idea where Christians sort of just blamed other others for their problems. Or they would guilt trip themselves on false concepts. I think many people that aren’t very religious struggle with the word sin. And I totally understand that because that used to be me.
+
+My Sufi teacher once told me there is no sin and that the only sin is the word I or the belief that you are separate from God or this universe. Well, I liked this for some time. But I discovered there were some holes in it as it could still be used as ignorance. 
+
+It wasn’t quite complete for me. 
+
+Then I read Maharaj’s definition of sin. And it instantly clicked, and I fell in love with it. He said “Anything you do against your better knowledge is sin.”
+
+How profoundly simple useful and attuned this is. Anything that goes against your deeper inner wise knowledge within is sin. I actually use the word sin a lot nowadays even to myself, not necessarily harshly, but just to reminding myself if I feel I “sinned” or “missed the mark.”
+
+And of course, from an even deeper level, even the sin or missing the mark is a lesson and something that was needed and inevitably useful. But part of that is seeing it as “I’m trying to be more aware” so that you don’t stay stuck in a state of sin or “missing the mark” or not fully living as yourself or for your deeper and deepest desires.`
+  },
   {
     date: "07-05-26",
     text: `I have great reverence for Unity Church, A Course in Miracles, Sufi teachings, and my current path focus: Vedanta philosophy and studying the Gita. It's a nice mix of paths that inevitably all sort of teach the same thing with just different language and origins. Life is full of uncertainty. Don't become too complacent or too far from yourself. Find the middle path. I loved this graphic in my Ethics class that displayed Aristotle's Golden Mean. It gave two extremes, such as rashness and cowardice, and found the Golden Mean between the two: courage. Virtuous action avoids extremes, for they cannot last.
