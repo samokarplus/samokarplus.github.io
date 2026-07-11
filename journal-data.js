@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
 {
+    date: "07-11-26",
+    text: `I absolutely love how diverse my school is. My English class has two high school students, three mothers and a variety of economic backgrounds, and a mix of various ethnicities. The advantage of a community college English Class is that it’s so rich in diversity of people. `
+  },
+{
     date: "07-08-26",
     text: `I want to write this journal entry about sin. 
 
