@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
 {
+    date: "07-12-26",
+    text: `My ego is very cute. Trying to define my worth based on how fast my legs go up and down on an 1800s metal machine (bike). Very cute ego. I am beyond that lol. Find another insecurity to target G. That one ain’t gonna work. `
+},
+{
     date: "07-11-26",
     text: `I honestly find that there’s a great freedom in not knowing. There’s a beautiful mystery in not knowing. Of course if we knew the future that, would make life incredibly boring. I used to find the mystery of the future terrifying. Uncertainties and long timelines were rough to face. But I got advice at Sports Weekend from a new pal: Steve Amos. His last name is an anagram of my first name haha! I asked him if he had any regrets in life. And he said: “You know, I wish I didn’t worry so much. I spent too much time worrying.” That really stuck with me. There’s something profound in trying when you don’t know what to expect. This summer semester I was a bit nervous to enter. Taking an online math class, after dropping every online and math class I had ever taken I was sure I set myself up for failure. Turns out this was exactly what I needed. So that I could study late at night. Or an a Friday. I haven’t cheated at all this whole semester. I’ve really committed to doing all the work. Point in all this: I’ve learned to embrace the unknown and mystery. I don’t exactly know what I’ll do or where I’ll be and who I’ll be around with. I know inevitably everything is temporary. But I’ve really learned to be excited about the future and embraced the mystery rather than fearing or fighting what’s next. This is faith in practice. Not being afraid. Going for it. Touching other people’s hearts and spreading the love of Allah to all. Alhamdulillah, praise to God. I worried too much before. What I fail? Well then I’ll find another route. Sure I’m a lot slower in my career and college track than most. But every semester I haven’t been in school, I’ve learned far more about myself and pushed myself out of various comfort zones than in school. Learn to embrace what you don’t know. Just let go. `
 },
