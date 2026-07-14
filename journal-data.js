@@ -10,7 +10,7 @@
 window.journalEntriesData = [
 {
     date: "07-14-26",
-    text: `Remember that love is the most important thing in the universe. Have no doubt that this is the not just a way, but the only way to true happiness.`
+    text: `Remember that love is the most important thing in the universe. Have no doubt that this is not just a way, but the only way to true happiness.`
 },
 {
     date: "07-12-26",
