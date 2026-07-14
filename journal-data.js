@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
 {
+    date: "07-14-26",
+    text: `Remember that love is the most important thing in the universe. Have no doubt that this is the not just a way, but the only way to true happiness.`
+},
+{
     date: "07-12-26",
     text: `My ego is very cute. Trying to define my worth based on how fast my legs go up and down on an 1800s metal machine (bike). Very cute ego. I am beyond that lol. Find another insecurity to target G. That one ain’t gonna work. `
 },
