@@ -26,7 +26,7 @@ Let go.
 
 Surrender. 
 
-Funny enough this process can be painful and challenging to face sometimes. Without disciplined investigation and honest devotion, it's FAR too easy to get caught up in fear-based thinking.`
+Funny enough this process can be painful and challenging to face sometimes. Without disciplined investigation and honest devotion, it's FAR too easy to get caught up in fear-based thinking. The ego’s language is fear, division, concepts, attachment. Reality’s language is compassion, honesty, not grasping too tightly to anything. Find your path gently Samo. `
 },
 {
     date: "07-14-26",
