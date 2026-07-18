@@ -22,7 +22,7 @@ I think this is profound.
 
 We just go through some periods where we forget to love ourselves or others sometimes and forget to be there for yourself or another. 
 
-But it even goes beyond that. Love is not only accepting that something may not have aligned completely with us. It’s learning from that and becoming more aware and conscious of our thoughts and triggers, and where we might be afraid or unwilling to surrender at a deeper level. It’s like a shame and guilt wants our ego to convince us that we are a mess up, or that we are worse off, or different. 
+But it even goes beyond that. Love is not only accepting that something may not have aligned completely with us. It’s learning from that and becoming more aware and conscious of our thoughts and triggers, and where we might be afraid or unwilling to surrender at a deeper level. Our ego attaches to thoughts of shame and guilt to convince us that we are a mess up, or that we are worse off, or different. 
 
 But love is not the absence of mistakes. Love is the willingness to see them, accept them, learn from them, and love at a deeper level.`
 },
