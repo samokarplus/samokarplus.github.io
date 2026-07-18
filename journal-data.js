@@ -9,6 +9,24 @@
 // },
 window.journalEntriesData = [
 {
+    date: "07-19-26",
+    text: `Can we commit an action that doesn’t align with what we truly desire? Sure. In the spur of the moment you may honk at someone cutting you off. But if you knew that that person was on four hours of sleep and who’s having a hard day and just honestly didn’t see you, you wouldn’t honk. They can often be these impulse or spur of the moment thoughts or things that happen. But the very feeling of having to reflect on it and experience, perhaps guilt or shame or fear around that is purposeful.  
+
+Our hearts can feel out of alignment in which we must come back to what we know. It’s interesting… life is often this constant pulling and pushing, like a tide, some days we feel more distant and some days we feel extremely connected.  If the ocean was steady always, we couldn’t surf. It’s the very craziness of the tides that make it so fun and challenging to navigate. I find life similar.  
+
+If you make a mistake or shut down emotionally in the very next moment, you can choose to let go and surrender. And then in a healthier state, you’re able to reflect and navigate and evaluate in a healthier manner through less judgment. But that very initial judgment cannot sometimes be useful.
+
+John once told me, “If you make a misstep, you can choose love in the very next moment.”
+
+I think this is profound. 
+
+We just go through some periods where we forget to love ourselves or others sometimes and forget to be there for yourself or another. 
+
+But it even goes beyond that. Love is not only accepting that something may not have aligned completely with us. It’s learning from that and becoming more aware and conscious of our thoughts and triggers, and where we might be afraid or unwilling to surrender at a deeper level. It’s like a shame and guilt wants our ego to convince us that we are a mess up, or that we are worse off, or different. 
+
+But love is not the absence of mistakes. Love is the willingness to see them, accept them, learn from them, and love at a deeper level.`
+},
+{
     date: "07-18-26",
     text: `Time to be more conscious. More aware. It’s so easy to get caught up in the distractions and fears. 
 
