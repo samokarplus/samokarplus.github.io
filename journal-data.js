@@ -10,7 +10,7 @@
 window.journalEntriesData = [
 {
     date: "07-19-26",
-    text: `Can we commit an action that doesn’t align with what we truly desire? Sure. In the spur of the moment you may honk at someone cutting you off. But if you knew that that person was on four hours of sleep and who’s having a hard day and just honestly didn’t see you, you wouldn’t honk. They can often be these impulse or spur of the moment thoughts or things that happen. But the very feeling of having to reflect on it and experience, perhaps guilt or shame or fear around that is purposeful.  
+    text: `Can we commit an action that doesn’t align with what we truly desire? Sure. In the spur of the moment you may honk at someone cutting you off. But if you knew that person was running on four hours of sleep and was having a hard day and honestly didn’t see you, you probably wouldn’t honk. They can often be these impulse or spur of the moment thoughts or things that happen. But the very feeling of having to reflect on it and experience, perhaps guilt or shame or fear around that is purposeful.  
 
 Our hearts can feel out of alignment in which we must come back to what we know. It’s interesting… life is often this constant pulling and pushing, like a tide, some days we feel more distant and some days we feel extremely connected.  If the ocean was steady always, we couldn’t surf. It’s the very craziness of the tides that make it so fun and challenging to navigate. I find life similar.  
 
