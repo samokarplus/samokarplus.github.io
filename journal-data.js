@@ -9,6 +9,26 @@
 // },
 window.journalEntriesData = [
 {
+    date: "07-18-26",
+    text: `Time to be more conscious. More aware. It’s so easy to get caught up in the distractions and fears. 
+
+Sit there for a minute
+
+Find the root
+
+Accept that you have been distant from your deepest knowing
+
+Grieve properly
+
+Continue to sit with it in silence
+
+Let go. 
+
+Surrender. 
+
+Funny enough this process can be painful and challenging to face sometimes.`
+},
+{
     date: "07-14-26",
     text: `Remember that love is the most important thing in the universe. Have no doubt that this is not just a way, but the only way to true happiness.`
 },
