@@ -26,7 +26,7 @@ Let go.
 
 Surrender. 
 
-Funny enough this process can be painful and challenging to face sometimes.`
+Funny enough this process can be painful and challenging to face sometimes. Without disciplined investigation and honest devotion, it's FAR too easy to get caught up in fear-based thinking.`
 },
 {
     date: "07-14-26",
