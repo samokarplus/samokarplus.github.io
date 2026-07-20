@@ -8,6 +8,10 @@
 // Put a blank line between paragraphs.`
 // },
 window.journalEntriesData = [
+{   
+    date: "07-20-26",
+    text: `Mashallah! ❤️ Alhamdulillah! 🙏 That's exactly how I feel`
+},
 {
     date: "07-19-26",
     text: `Can we commit an action that doesn’t align with what we truly desire? Sure. In the spur of the moment you may honk at someone cutting you off. But if you knew that person was running on four hours of sleep and was having a hard day and honestly didn’t see you, you probably wouldn’t honk. They can often be these impulse or spur of the moment thoughts or things that happen. But the very feeling of having to reflect on it and perhaps experience guilt or shame or fear around that is purposeful.  
