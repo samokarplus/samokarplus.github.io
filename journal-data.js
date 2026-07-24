@@ -10,7 +10,7 @@
 window.journalEntriesData = [
 {   
     date: "07-23-26",
-    text: `Ego says: Hey you’ve fallen off the path. You’ve messed up. You’re too far behind. You’re screwed. You won’t achieve that. 
+    text: `Ego says: Hey you’ve fallen off the path. You’ve messed up. You’re too far behind. You’re screwed. You won’t achieve that. You're failures define you.
 
 Reality says: Love the path. Love yourself. Learn and grow when you sin (miss the mark). Surrender and let go. All is your teacher. Awareness grows when we are conscious and conscieounciess. 
 
