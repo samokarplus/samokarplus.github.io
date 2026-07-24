@@ -8,6 +8,10 @@
 // Put a blank line between paragraphs.`
 // },
 window.journalEntriesData = [
+{
+    date: "07-24-26",
+    text: `Considering wearing some makeup. It's been on my radar for the past couple years. Just like some Prime / Concealer. Maybe I'd look cool 😎`
+},
 {   
     date: "07-23-26",
     text: `Ego says: Hey you’ve fallen off the path. You’ve messed up. You’re too far behind. You’re screwed. You won’t achieve that. You're failures define you.
