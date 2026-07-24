@@ -9,6 +9,14 @@
 // },
 window.journalEntriesData = [
 {   
+    date: "07-23-26",
+    text: `Ego says: Hey you’ve fallen off the path. You’ve messed up. You’re too far behind. You’re screwed. You won’t achieve that. 
+
+Reality says: Love the path. Love yourself. Learn and grow when you sin (miss the mark). Surrender and let go. All is your teacher. Awareness grows when we are conscious and conscieounciess. 
+
+Do not become too rigid. Rigid is restriction and hatred and an unwillingness to surrender. This doesn’t mean become undisciplined. This means acting without so much attachment to results. This means acknowledging that it’s okay to do your best and sometimes come up short. I’m sure you learned something or maybe even better, unlearned something. Big picture wise, there’s nothing to worry about. The path is already there. I am sure of very few things. I can’t guarantee what I’ll be doing in five years, five months, or even five days. Shoot even five minutes ago I didn’t think I’d be typing this. Life is a mystery at many levels. But in this very moment I can recognize I am that love that pervades the universe. That I do my best and love others and in turn love myself. The past does not have a grasp on this moment. The past doesn’t exist. But now does. And now that now is gone. But there’s a new now! How beautiful is that. John always told me: Samo, if you forget, you can remember to be love in the very next moment. The pain and fears may bind me for some time. But I can surrender in the next moment. Mooji said: “When your love for truth is greater than your ego, then you are free.” ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️`
+},
+{   
     date: "07-20-26",
     text: `Mashallah! ❤️ Alhamdulillah! 🙏 That's exactly how I feel`
 },
