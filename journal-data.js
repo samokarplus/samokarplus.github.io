@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
 {
+    date: "07-27-26",
+    text: `I know some amazing women. Very grateful for my momma. #blessed`
+},
+{
     date: "07-24-26",
     text: `Considering wearing some makeup. It's been on my radar for the past couple years. Just like some Prime / Concealer. Maybe I'd look cool 😎`
 },
