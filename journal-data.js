@@ -9,7 +9,7 @@
 // },
 window.journalEntriesData = [
 {
-    date: '07-29-26",
+    date: "07-29-26",
     text: `Feel like I'm not doing enough in life right now. Need more risk. I have an idea. Hmmm.`
 },
 {
