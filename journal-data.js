@@ -10,7 +10,7 @@
 window.journalEntriesData = [
 {    
      date: "07-30-26",
-     text: `One semester at a time, I will get these degrees. RAHHHHHHHHHH. One day I'm finna make it out the hood and people will be wondering: how'd that wil' child do it?`
+     text: `One semester at a time, I will get these degrees. RAHHHHHHHHHH. One day, I'm finna make it out the hood and people will be wondering: how'd that wil' child do it?`
 },
 {
     date: "07-29-26",
