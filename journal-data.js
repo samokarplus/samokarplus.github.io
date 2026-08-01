@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
 {    
+     date: "08-01-26",
+     text: `Let's be real; this consistent heat in Colorado, with the lack of snow in the winter will have you start believing in global warming. Hmm. I need like a cool solar hat that gives ME more energy🤪.`
+},
+{    
      date: "07-30-26",
      text: `One semester at a time, I will get these degrees. RAHHHHHHHHHH. One day, I'm finna make it out the hood and people will be wondering: how'd that wil' child do it?`
 },
