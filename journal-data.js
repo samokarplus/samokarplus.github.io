@@ -8,6 +8,9 @@
 // Put a blank line between paragraphs.`
 // },
 window.journalEntriesData = [
+{    date: "08-02-26",
+     text: `Stay love. Stay curious. Stay yourself kid.`
+},
 {    
      date: "08-01-26",
      text: `Let's be real; this consistent heat in Colorado, with the lack of snow in the winter will have you start believing in global warming. Hmm. I need like a cool solar hat that gives ME more energy🤪.`
