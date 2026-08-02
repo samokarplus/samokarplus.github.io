@@ -8,7 +8,8 @@
 // Put a blank line between paragraphs.`
 // },
 window.journalEntriesData = [
-{    date: "08-02-26",
+{    
+     date: "08-02-26",
      text: `Stay love. Stay curious. Stay yourself kid.`
 },
 {    
