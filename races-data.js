@@ -9,7 +9,12 @@
 //   location: "Boulder, CO"
 // },
 window.upcomingRaceEntriesData = [
-  {
+  
+{
+    name: "Boulderthon Half Marathon",
+    date: "2026-09-27"
+  }
+{
     name: "Olympic Triathlon",
     date: "2026-07-12"
   }
