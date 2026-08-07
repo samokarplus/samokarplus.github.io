@@ -10,7 +10,7 @@
 window.journalEntriesData = [
 {    
      date: "08-07-26",
-     text: `Been thinking about that Schindler's List car scene. It's fascinating especially after taking ethics.` 
+     text: `Been thinking about that Schindler's List car scene. It's fascinating, especially after taking ethics.` 
 },
 {    
      date: "08-06-26",
