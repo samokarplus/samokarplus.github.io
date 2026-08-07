@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
 {    
+     date: "08-07-26",
+     text: `Been thinking about that Schindler's List car scene. It's fascinating especially after taking ethics.` 
+},
+{    
      date: "08-06-26",
      text: `“Helping, fixing, and serving represent three different ways of seeing life. When you help, you see life as weak. When you fix, you see life as broken. When you serve, you see life as whole. Fixing and helping may be the work of the ego, and service the work of the soul.” I just read this quote from an author named Rachel Ramen. How beautiful. I think there's some interesting distinctions there.`
 },
