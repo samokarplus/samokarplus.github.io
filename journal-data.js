@@ -8,6 +8,16 @@
 // Put a blank line between paragraphs.`
 // },
 window.journalEntriesData = [
+{
+     date: "08-08-26",
+     text: `Remember you are love. Love is not an experience or emotion or temporary state. It is you. Remember that. Don’t ever forget. Don’t ever be convinced otherwise. Don’t live on falsehoods. 
+
+I LOVE the Chandogya Upanishad. It gives all these beautiful metaphors of nature, oneness, strength, always wise, ultimately nameless and formless and then ends with:
+
+“You are that, Shvetaketu; you are that!” 
+
+God I love you. You’re so funny!!!!`
+},
 {    
      date: "08-07-26",
      text: `Been thinking about that Schindler's List car scene. It's fascinating, especially after taking ethics.` 
