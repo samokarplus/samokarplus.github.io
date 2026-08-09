@@ -16,7 +16,7 @@ const stravaRunMiles = document.getElementById("strava-run-miles");
 const stravaWalkMiles = document.getElementById("strava-walk-miles");
 const stravaRunElevation = document.getElementById("strava-run-elevation");
 const stravaBikeMiles = document.getElementById("strava-bike-miles");
-const stravaSwimYards = document.getElementById("strava-swim-yards");
+const stravaSwimMiles = document.getElementById("strava-swim-miles");
 const stravaUpdated = document.getElementById("strava-updated");
 const runningPrList = document.getElementById("runningPrList");
 const upcomingRaceList = document.getElementById("upcomingRaceList");
@@ -69,7 +69,7 @@ function formatRaceDate(value) {
 }
 
 async function renderStravaStats() {
-  if (!stravaYear || !stravaRunMiles || !stravaWalkMiles || !stravaRunElevation || !stravaBikeMiles || !stravaSwimYards || !stravaUpdated) {
+  if (!stravaYear || !stravaRunMiles || !stravaWalkMiles || !stravaRunElevation || !stravaBikeMiles || !stravaSwimMiles || !stravaUpdated) {
     return;
   }
 
@@ -86,7 +86,7 @@ async function renderStravaStats() {
     stravaWalkMiles.textContent = formatNumber(stats.walkMiles ?? 0);
     stravaRunElevation.textContent = formatNumber(stats.totalElevationFeet ?? stats.elevationFeet);
     stravaBikeMiles.textContent = formatNumber(stats.bikeMiles ?? 0);
-    stravaSwimYards.textContent = formatNumber(stats.swimYards ?? 0);
+    stravaSwimMiles.textContent = formatNumber(stats.swimMiles ?? 0);
     stravaUpdated.textContent = formatUpdatedAt(stats.updatedAt);
   } catch {
     stravaUpdated.textContent = "Strava sync unavailable";
