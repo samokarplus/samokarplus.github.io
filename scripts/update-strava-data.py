@@ -137,7 +137,7 @@ def write_stats(activities):
     "totalElevationFeet": round(total_elevation_meters * 3.28084),
     "bikeMiles": round(ride_distance_meters / 1609.344, 1),
     "bikeCount": len(rides),
-    "swimYards": round(swim_distance_meters * 1.09361),
+    "swimMiles": round(swim_distance_meters / 1609.344, 2),
     "swimCount": len(swims),
     "updatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds")
   }
