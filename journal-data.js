@@ -9,6 +9,12 @@
 // },
 window.journalEntriesData = [
 {
+     date: "08-10-26",
+     text: `August 10th is always a little bit harder day. Also had a bit of a weird emotional rollercoaster last night myself. So double emotional. 
+
+August 10th. Today marks eight years of Richard Beebo Russell’s passing. That man was a good man. RIP Beebo ✈️❤️. Every August 10th, I listen to his entire final 20 minutes of life.  We will never forget you Beebo! Love everyone all the time. You never know a small act can change someone’s life. Here’s the full audio: https://m.youtube.com/watch?v=KNWoomWgYAc&t=338s`
+},
+{
      date: "08-08-26",
      text: `Remember you are love. Love is not an experience or emotion or temporary state. It is you. Remember that. Don’t ever forget. Don’t ever be convinced otherwise. Don’t live on falsehoods. 
 
