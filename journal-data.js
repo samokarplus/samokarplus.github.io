@@ -12,7 +12,7 @@ window.journalEntriesData = [
      date: "08-10-26",
      text: `August 10th is always a little bit harder day. Also had a bit of a weird emotional rollercoaster last night myself. So double emotional. 
 
-August 10th. Today marks eight years of Richard Beebo Russell’s passing. That man was a good man. RIP Beebo ✈️❤️. Every August 10th, I listen to the key moments of his final 75 minutes of life.  We will never forget you Beebo! Love everyone all the time. You never know a small act can change someone’s life. Here’s the 20 minute audio: https://m.youtube.com/watch?v=KNWoomWgYAc&t=338s`
+August 10th. Today marks eight years of Richard Beebo Russell’s passing. That man was a good man. RIP Beebo ✈️❤️. Every August 10th, I listen to the final moments of his life.  We will never forget you Beebo! Love everyone all the time. You never know a small act can change someone’s life. Here’s the 20 minute audio: https://m.youtube.com/watch?v=KNWoomWgYAc&t=338s`
 },
 {
      date: "08-08-26",
