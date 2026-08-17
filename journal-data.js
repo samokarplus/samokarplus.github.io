@@ -8,6 +8,23 @@
 // Put a blank line between paragraphs.`
 // },
 window.journalEntriesData = [
+{    date: "08-17-26",
+     text: `I read a cool article this morning about different CEOs and how they all have space companies like Jeff Bezos with blue origin and Elon Musk with SpaceX and of course the private space industry has expanded a ton. It had me thinking like AI and new technology is amazing. People in the 1970s if you told them a tiny little computer could house the information of everything it does today they would be my blown given that a massive computer was millions of dollars and took up huge area. 
+
+It’s funny because people nowadays take for granted what was not available 10 or 20 or 40 years ago. And it makes you wonder like what is the future because technology and history it constantly progresses and new things arise and problems get solved and the new problems exist.
+
+Of course, there are psychological things within the human condition that seemed to always be relevant, but even psychological problems have varied across human history I’m sure.
+
+When you talk to a generation above you or two above you, you get a real reminder for how lucky you are to have access and to not have had to deal with certain problems that they had to face. But you also have new problems that they didn’t have to face such as things related to social media for example.
+
+I think it’s funny that my kid will probably be doing some weird robotic stuff on Mars and I’ll be like “dude we only had earth to access back in the day. We couldn’t just go to Mars in a few days 😂”
+
+I don’t know I think technology is going to be quite rapid in the sense that look how far in 40 years computers have evolved and now with the age of AI it’s just so exciting. In my history book it’s talking about the agricultural revolution and the industrial revolution and all these things and I think AI will be a massive revolution that will be quick and accelerate really fast over 20 to 50 years and will completely change what we are excited about and what we think we can do as humans and what our time is spent on. I look forward to the day when people go to school or college, not asking how do you wanna make money or what do you want to do but what excites you? 
+
+I think there is a way where robot can handle a lot of the moving parts and spreadsheets and jobs that most people do nowadays and humans can spend more time with each other. I’m not sure how that’s gonna look or what that’s gonna look like but I am very excited for 30 years from now and 10 years from now and I’m grateful to be alive right now.
+
+It’s really interesting taking a history course when history really with the age of AI now feels like it’s a new revolution is appearing right in front of our eyes. That is gonna completely change the game much like older revolutions but in a new and different sense.`
+},
 {    date: "08-16-26",
      text: `I worked 30 hours this week. Wow. Hopefully I can do school for 12 hours and work for like 10. I feel like finding the right balance might be stressful and challenging this semester. BALANCE.
      
