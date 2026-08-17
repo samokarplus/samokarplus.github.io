@@ -10,6 +10,7 @@
 window.journalEntriesData = [
 {    date: "08-16-26",
      text: `I worked 30 hours this week. Wow. Hopefully I can do school for 12 hours and work for like 10. I feel like finding the right balance might be stressful and challenging this semester. BALANCE.
+     
      Totally separate thought, I had an amazing experience today that was really profound. I didn't expect so much love but it was that. Really just that. Maybe I'll share some about it. But yeah. Take risks in life. All will work out.`
 },
 {    date: "08-14-26",
