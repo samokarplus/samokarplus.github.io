@@ -23,7 +23,8 @@ I don’t know I think technology is going to be quite rapid in the sense that l
 
 I think there is a way where robot can handle a lot of the moving parts and spreadsheets and jobs that most people do nowadays and humans can spend more time with each other. I’m not sure how that’s gonna look or what that’s gonna look like but I am very excited for 30 years from now and 10 years from now and I’m grateful to be alive right now.
 
-It’s really interesting taking a history course when history really with the age of AI now feels like it’s a new revolution is appearing right in front of our eyes. That is gonna completely change the game much like older revolutions but in a new and different sense.`
+It’s really interesting taking a history course when history really with the age of AI now feels like it’s a new revolution is appearing right in front of our eyes. That is gonna completely change the game much like older revolutions but in a new and different sense.
+I just saw an article today as well that Google won an auction to pay $10 million just to access the bankrupted company of spirit and their files and emails. So that they can train their AI. It’s fascinating that back in the day you would’ve thought that would just be clutter and a waste of storage for a bankrupted company, but now companies are auctioning off their data and monopolies just to train their AI with it. What a weird thing.`
 },
 {    date: "08-16-26",
      text: `I worked 30 hours this week. Wow. Hopefully I can do school for 12 hours and work for like 10. I feel like finding the right balance might be stressful and challenging this semester. BALANCE.
