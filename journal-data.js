@@ -8,6 +8,13 @@
 // Put a blank line between paragraphs.`
 // },
 window.journalEntriesData = [
+{    date: "08-18-26",
+     text: `Ego: let’s overhaul everything and your whole life and completely start a new when things feel slightly unfamiliar or new. 
+
+Reality: you’re very tired and forgot to take your afternoon pill 
+
+🤨😂`
+},
 {    date: "08-17-26",
      text: `I read a cool article this morning about different CEOs and how they all have space companies like Jeff Bezos with blue origin and Elon Musk with SpaceX and of course the private space industry has expanded a ton. It had me thinking like AI and new technology is amazing. People in the 1970s if you told them a tiny little computer could house the information of everything it does today they would be my blown given that a massive computer was millions of dollars and took up huge area. 
 
