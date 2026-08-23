@@ -8,6 +8,9 @@
 // Put a blank line between paragraphs.`
 // },
 window.journalEntriesData = [
+     {date: "08-23-26",
+      text: `Grateful.`
+     },
 {    date: "08-18-26",
      text: `Ego: let’s overhaul everything and your whole life and completely start a new when things feel slightly unfamiliar or new. 
 
