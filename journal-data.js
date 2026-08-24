@@ -8,7 +8,7 @@
 // Put a blank line between paragraphs.`
 // },
 window.journalEntriesData = [
-      {date: "08-23-26",
+      {date: "08-24-26",
       text: `When I get distracted with work, or my own desires, or the heaviness, it is easy to feel lost or purposeless. But one sentence that I can so easily come back to is: “Just love everyone all the time; no exceptions.” If you have lots of ego and create lots of boundaries or are too one pointed, or selfish, this may make some practice. But as I’ve expanded and I am in more communities, have more exposure to more worlds, and devote myself and become an honest listener and Bhakti on this path of life, it becomes easier and easier. Just love everyone all the time.  Volunteering at the ICE facility here in Aurora has really changed my life. Trying to support myself and my own goals while also being there for others is a fun game to balance.  I am very grateful for all my friends today. John, Mo, Tracy, Caroline, my friends detained at ICE, Booboo, Glen, Francie, Kevan, Jenny, Bode, Sophia, Deborah, Michael, Sean, my Grandma’s, and Linda. There is so mucch love.`
      },
      {date: "08-23-26",
