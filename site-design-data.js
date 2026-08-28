@@ -9,6 +9,8 @@
 // Soft gray text:  "#6d6a60"
 // Terracotta:      "#d9745f"
 // Sage green:      "#9bbf9e"
+// Light blue:      "#b7d7e8"
+// Deeper blue:     "#8fb6c8"
 //
 // A color code like "#d9745f" is just a color.
 // Copy one of the color codes above and paste it below.
@@ -73,10 +75,10 @@ window.siteDesignData = {
   accentColor: "#d9745f",
 
   // Main button color
-  buttonColor: "#d9745f",
+  buttonColor: "#b7d7e8",
 
   // Button color when you hover over it
-  buttonHoverColor: "#c96350",
+  buttonHoverColor: "#8fb6c8",
 
   // Card background color
   cardColor: "rgba(255, 252, 245, 0.82)",
