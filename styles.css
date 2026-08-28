@@ -117,8 +117,9 @@ textarea {
 }
 
 .site-nav a {
-  color: var(--muted);
-  font-size: 0.97rem;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .site-nav a:hover,
