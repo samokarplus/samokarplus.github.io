@@ -419,13 +419,10 @@ body[data-hero-quote-position="below"] .hero-photo-frame .hero-card {
   margin-bottom: 2rem;
 }
 
-.intro {
-  padding-top: 1rem;
-}
-
-.intro .section-heading {
+.about-quote {
   position: relative;
   margin-inline: auto;
+  margin-top: 1.5rem;
   margin-bottom: 0;
   max-width: 50rem;
   padding: 1.6rem;
@@ -437,7 +434,7 @@ body[data-hero-quote-position="below"] .hero-photo-frame .hero-card {
   text-align: center;
 }
 
-.intro .section-heading::before {
+.about-quote::before {
   content: "";
   display: block;
   width: 4.5rem;

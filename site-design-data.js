@@ -143,7 +143,7 @@ window.siteDesignData = {
   // To style any textbox, copy one of these blocks and change the textbox number.
   //
   // Example:
-  // textbox7 is the short Rumi quote under the homepage.
+  // textbox7 is the Rumi quote beneath the About Me boxes.
   // style: "normal" means not italic.
   // weight: "700" means bold.
   textboxes: {
@@ -177,7 +177,7 @@ window.siteDesignData = {
       align: "left"
     },
 
-    // Textbox 7: Short Rumi quote under the homepage
+    // Textbox 7: Rumi quote beneath the About Me boxes
     textbox7: {
       size: "1.4rem",
       font: "Merriweather, serif",
@@ -187,7 +187,7 @@ window.siteDesignData = {
       align: "center"
     },
 
-    // Textbox 8: Author under the short Rumi quote
+    // Textbox 8: Author under the Rumi quote beneath the About Me boxes
     textbox8: {
       size: "1rem",
       font: "Lato, sans-serif",

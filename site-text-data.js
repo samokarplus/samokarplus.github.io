@@ -37,12 +37,12 @@ window.editableTextData = {
     text: "-Swamiji"
   },
 
-  // Textbox 7: Short Rumi quote under the homepage
+  // Textbox 7: Rumi quote beneath the About Me boxes
   textbox7: {
     text: "“I have been a seeker and I still am, but I stopped asking the books and the stars. I started listening to the teaching of my Soul.”"
   },
 
-  // Textbox 8: Author under the short Rumi quote
+  // Textbox 8: Author under the Rumi quote beneath the About Me boxes
   textbox8: {
     text: "-Rumi"
   },

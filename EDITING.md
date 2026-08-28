@@ -161,8 +161,8 @@ That would make the main buttons sage green.
 The two files use matching names.
 
 ```text
-site-text-data.js      Textbox 7: Short Rumi quote under the homepage
-site-design-data.js    Textbox 7: Short Rumi quote under the homepage
+site-text-data.js      Textbox 7: Rumi quote beneath the About Me boxes
+site-design-data.js    Textbox 7: Rumi quote beneath the About Me boxes
 ```
 
 Example: make the short Rumi quote not italic, bold, and a little bigger.
@@ -170,7 +170,7 @@ Example: make the short Rumi quote not italic, bold, and a little bigger.
 In `site-design-data.js`, find:
 
 ```js
-// Textbox 7: Short Rumi quote under the homepage
+// Textbox 7: Rumi quote beneath the About Me boxes
 textbox7: {
   size: "1.4rem",
   font: "Merriweather, serif",
@@ -184,7 +184,7 @@ textbox7: {
 Change it to:
 
 ```js
-// Textbox 7: Short Rumi quote under the homepage
+// Textbox 7: Rumi quote beneath the About Me boxes
 textbox7: {
   size: "1.5rem",
   font: "Georgia, serif",
