@@ -187,7 +187,7 @@ Change it to:
 // Textbox 7: Rumi quote beneath the About Me boxes
 textbox7: {
   size: "1.5rem",
-  font: "Georgia, serif",
+  font: "Merriweather, serif",
   style: "normal",
   weight: "700",
   color: "#33332d",
@@ -202,7 +202,6 @@ style: "normal"     not italic
 style: "italic"     italic
 weight: "400"       normal
 weight: "700"       bold
-font: "Georgia, serif"          classic readable
 font: "Merriweather, serif"     current quote font
 font: "Lato, sans-serif"        current normal font
 align: "left"       left aligned

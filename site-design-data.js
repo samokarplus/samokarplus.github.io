@@ -3,29 +3,21 @@
 //
 // QUICK COPY/PASTE COLORS
 //
-// Warm cream:        "#faf7f0"
-// Soft white:        "#fffdf8"
-// Dark text:         "#33332d"
-// Soft gray text:    "#6d6a60"
-// Terracotta:        "#d9745f"
-// Gold:              "#d4a373"
-// Sage green:        "#9bbf9e"
-// Deep green:        "#4f6f52"
-// Soft blue:         "#8fb6c8"
-// Deep blue:         "#355c7d"
-// Lavender:          "#b9a7d8"
-// Rose:              "#d88ca0"
+// Warm cream:      "#faf7f0"
+// Soft white:      "#fffdf8"
+// Dark text:       "#33332d"
+// Soft gray text:  "#6d6a60"
+// Terracotta:      "#d9745f"
+// Sage green:      "#9bbf9e"
 //
-// A color code like "#d4a373" is just a color.
+// A color code like "#d9745f" is just a color.
 // Copy one of the color codes above and paste it below.
 //
 // QUICK COPY/PASTE FONTS
+// Best simple rule: use only these two across the site.
 //
 // Current normal font:       "Lato, sans-serif"
 // Current heading font:      "Merriweather, serif"
-// Clean/simple font:         "Arial, sans-serif"
-// Classic readable font:     "Georgia, serif"
-// Soft modern font:          "Trebuchet MS, sans-serif"
 //
 // QUICK COPY/PASTE TEXT STYLE
 //
@@ -81,10 +73,10 @@ window.siteDesignData = {
   accentColor: "#d9745f",
 
   // Main button color
-  buttonColor: "#d4a373",
+  buttonColor: "#d9745f",
 
   // Button color when you hover over it
-  buttonHoverColor: "#d9745f",
+  buttonHoverColor: "#c96350",
 
   // Card background color
   cardColor: "rgba(255, 252, 245, 0.82)",
@@ -170,7 +162,7 @@ window.siteDesignData = {
       font: "Merriweather, serif",
       style: "normal",
       weight: "400",
-      color: "#5f4a38",
+      color: "#33332d",
       align: "left"
     },
 
@@ -190,7 +182,7 @@ window.siteDesignData = {
       font: "Merriweather, serif",
       style: "normal",
       weight: "700",
-      color: "#5f4a38",
+      color: "#33332d",
       align: "center"
     },
 
@@ -200,7 +192,7 @@ window.siteDesignData = {
       font: "Lato, sans-serif",
       style: "normal",
       weight: "700",
-      color: "#d9745f",
+      color: "#6d6a60",
       align: "center"
     },
 

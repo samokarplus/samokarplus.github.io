@@ -105,7 +105,7 @@ textarea {
 }
 
 .brand {
-  font-family: "Merriweather", serif;
+  font-family: var(--heading-font);
   font-size: 1.05rem;
   letter-spacing: 0.04em;
 }
@@ -261,7 +261,7 @@ p {
 
 .running-stat-value {
   display: block;
-  font-family: "Merriweather", serif;
+  font-family: var(--heading-font);
   font-size: clamp(1.05rem, 2vw, 1.35rem);
   line-height: 1.1;
 }
@@ -301,7 +301,7 @@ p {
 }
 
 .pr-time {
-  font-family: "Merriweather", serif;
+  font-family: var(--heading-font);
   font-size: 0.95rem;
   white-space: nowrap;
 }
@@ -421,7 +421,7 @@ body[data-hero-quote-position="above"] .hero-photo-frame .hero-card {
   font-style: normal;
   line-height: 1.5;
   margin: 0;
-  color: #5f4a38;
+  color: var(--text);
 }
 
 .hero-card blockquote p {
@@ -459,7 +459,7 @@ body[data-hero-quote-position="above"] .hero-photo-frame .hero-card {
   height: 3px;
   margin: 0 auto 1rem;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--sage), var(--gold), var(--terracotta));
+  background: var(--terracotta);
 }
 
 .about-grid,
@@ -487,7 +487,7 @@ body[data-hero-quote-position="above"] .hero-photo-frame .hero-card {
   font-size: clamp(1.15rem, 2vw, 1.45rem);
   font-style: normal;
   line-height: 1.7;
-  color: #7a5f48;
+  color: var(--text);
 }
 
 .quote-source {
@@ -530,7 +530,7 @@ body[data-hero-quote-position="above"] .hero-photo-frame .hero-card {
 
 .photo-carousel-title {
   margin: 0 0 0.65rem;
-  font-family: "Merriweather", serif;
+  font-family: var(--heading-font);
   font-size: clamp(1.25rem, 2vw, 1.75rem);
   color: var(--text);
 }
@@ -720,7 +720,7 @@ body[data-hero-quote-position="above"] .hero-photo-frame .hero-card {
 }
 
 .journal-month-label {
-  font-family: "Merriweather", serif;
+  font-family: var(--heading-font);
   font-size: 1.2rem;
 }
 
@@ -918,21 +918,15 @@ body[data-hero-quote-position="above"] .hero-photo-frame .hero-card {
 .social-button {
   min-height: 2.75rem;
   padding-inline: 1rem;
-  color: #fffaf2;
+  color: var(--text);
+  background: var(--gold);
   border-color: transparent;
 }
 
 .social-button:hover,
 .social-button:focus-visible {
-  filter: brightness(0.94);
-}
-
-.strava-button {
-  background: #fc4c02;
-}
-
-.spotify-button {
-  background: #1db954;
+  background: var(--button-hover);
+  filter: none;
 }
 
 .contact-photo {
