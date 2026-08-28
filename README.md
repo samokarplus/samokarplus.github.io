@@ -16,6 +16,23 @@ EDITING.md
 
 ## Easiest Updates
 
+Most of the time, start here:
+
+```text
+site-text-data.js      Change words
+site-design-data.js    Change colors, fonts, sizes, spacing, and image/quote layout
+```
+
+For repeating content, use:
+
+```text
+quotes-data.js         Add Words to Sit With quotes and images
+pr-data.js             Update running PRs
+races-data.js          Add upcoming races
+photo-data.js          Add Baby Samo photos
+about-photo-data.js    Add Older Samo photos
+```
+
 ### Main Website Text
 
 Edit:
@@ -44,7 +61,7 @@ Use the GitHub form:
 GitHub -> Actions -> Add Journal Entry -> Run workflow
 ```
 
-Fill in the date and paste the journal entry. The workflow adds it to `journal-data.js`, bumps the cache version, and commits it.
+Fill in the date and paste the journal entry. The workflow adds it to `journal-data.js` and commits it.
 
 ### Photos
 

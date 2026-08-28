@@ -5,7 +5,6 @@ import sys
 from pathlib import Path
 
 JOURNAL_PATH = Path("journal-data.js")
-INDEX_PATH = Path("index.html")
 
 
 def required_env(name):
@@ -46,28 +45,9 @@ def add_journal_entry(date, text):
   JOURNAL_PATH.write_text(journal.replace(marker, marker + entry, 1))
 
 
-def bump_journal_cache():
-  index = INDEX_PATH.read_text()
-  pattern = r"journal-data\.js\?v=(\d+)"
-  match = re.search(pattern, index)
-
-  if not match:
-    raise RuntimeError("Could not find journal-data.js cache version")
-
-  current_version = int(match.group(1))
-  updated = re.sub(
-    pattern,
-    f"journal-data.js?v={current_version + 1}",
-    index,
-    count=1
-  )
-  INDEX_PATH.write_text(updated)
-
-
 def main():
   try:
     add_journal_entry(required_env("JOURNAL_DATE"), required_env("JOURNAL_TEXT"))
-    bump_journal_cache()
   except Exception as error:
     print(f"Failed to add journal entry: {error}", file=sys.stderr)
     raise

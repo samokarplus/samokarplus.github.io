@@ -487,14 +487,21 @@
     </div>
 
     <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-    <script src="journal-data.js?v=18"></script>
-    <script src="about-photo-data.js?v=5"></script>
-    <script src="photo-data.js?v=1"></script>
-    <script src="quotes-data.js?v=1"></script>
-    <script src="pr-data.js?v=2"></script>
-    <script src="races-data.js?v=6"></script>
-    <script src="site-text-data.js?v=1"></script>
-    <script src="site-design-data.js?v=1"></script>
-    <script src="script.js?v=27"></script>
+    <script>
+      const siteFileVersion = Date.now();
+      [
+        "journal-data.js",
+        "about-photo-data.js",
+        "photo-data.js",
+        "quotes-data.js",
+        "pr-data.js",
+        "races-data.js",
+        "site-text-data.js",
+        "site-design-data.js",
+        "script.js"
+      ].forEach((file) => {
+        document.write(`<script src="${file}?v=${siteFileVersion}"><\/script>`);
+      });
+    </script>
   </body>
 </html>

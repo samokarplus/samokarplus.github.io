@@ -1,5 +1,4 @@
-// Edit the site's look here.
-// Change the values inside quotes, then commit this file in GitHub.
+// Edit the site's look here. Change only the values inside quotes.
 window.siteDesignData = {
   // Colors
   backgroundColor: "#faf7f0",

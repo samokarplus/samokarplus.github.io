@@ -4,6 +4,21 @@ This file has step-by-step instructions for updating the site without editing th
 
 For a plain-English map of what each file does, read `README.md`.
 
+## Simple Rule
+
+```text
+site-text-data.js      Change words
+site-design-data.js    Change colors, fonts, sizes, spacing, and first-picture layout
+quotes-data.js         Add rotating quotes and teacher images
+journal-data.js        Journal entries
+pr-data.js             Running PRs
+races-data.js          Upcoming races
+photo-data.js          Baby Samo photos
+about-photo-data.js    Older Samo photos
+```
+
+You do not need to bump cache versions after normal edits. The site loads fresh data automatically.
+
 ## Change Main Website Text
 
 Edit:
@@ -88,7 +103,7 @@ Notes:
 - Change the text inside quotes only.
 - If you use an apostrophe inside double quotes, it is fine: `"I'm here"`.
 - If you use double quotes inside double quotes, add a backslash before them: `"She said \"hello\""`
-- After editing this file, bump `site-text-data.js?v=1` in `index.html` to `v=2`, then `v=3`, and so on so browsers load the fresh text.
+- You do not need to edit `index.html` after changing this file.
 
 ## Which File Do I Edit?
 
@@ -146,13 +161,7 @@ heroQuotePosition   "above" or "below"
 heroQuoteAlign      "left", "center", or "right"
 ```
 
-After editing, bump this in `index.html`:
-
-```html
-site-design-data.js?v=1
-```
-
-Change it to `v=2`, then `v=3`, and so on.
+You do not need to edit `index.html` after changing this file.
 
 ## Add A Journal Entry
 
@@ -175,7 +184,6 @@ The workflow automatically:
 
 - Adds the entry at the top of `journal-data.js`
 - Handles quotes, commas, backticks, and paragraph breaks
-- Bumps the `journal-data.js` cache version in `index.html`
 - Commits the change to GitHub
 
 Manual fallback:
@@ -327,7 +335,7 @@ Notes:
 - You can reuse the same image for multiple quotes.
 - You do not need to edit `index.html` or `script.js` to add quotes.
 - If you add a new teacher image, upload it to `assets/images/teachers/`, then use that file path in `image`.
-- After editing quotes, bump `quotes-data.js?v=1` in `index.html` to `v=2`, then `v=3`, and so on so browsers load the fresh quotes.
+- You do not need to edit `index.html` after changing quotes.
 
 ## Update Running PRs
 
