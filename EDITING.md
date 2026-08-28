@@ -47,7 +47,7 @@ To change it, edit only the words inside the quotes:
 Multi-paragraph text uses a `paragraphs` list:
 
 ```js
-  // Textbox 5: Big quote above the first picture
+  // Textbox 5: Swamiji quote beneath the first picture
   textbox5: {
     paragraphs: [
       "First paragraph.",
@@ -86,8 +86,8 @@ Quick examples:
 
 ```text
 Textbox 1  Homepage subtitle
-Textbox 5  Big quote above the first picture
-Textbox 6  Author under the big quote
+Textbox 5  Swamiji quote beneath the first picture
+Textbox 6  Author under the Swamiji quote
 Textbox 12 Personal Bio paragraphs
 Textbox 14 Spiritual Journey paragraphs
 Textbox 18 Hobbies list
@@ -136,7 +136,7 @@ backgroundColor: "#faf7f0",
 accentColor: "#d9745f",
 normalTextSize: "1rem",
 heroPictureWidth: "100%",
-heroQuotePosition: "above",
+heroQuotePosition: "below",
 ```
 
 You do not have to understand color codes. At the top of `site-design-data.js`, there is a copy/paste menu:
@@ -231,7 +231,7 @@ cardRoundness       Card corner roundness
 imageRoundness      Image corner roundness
 heroPictureWidth    First picture width, like "80%" or "100%"
 heroQuoteWidth      Big quote box width, like "80%" or "100%"
-heroQuotePosition   "above" or "below"
+heroQuotePosition   "above" or "below" the first picture
 heroQuoteAlign      "left", "center", or "right"
 ```
 

@@ -101,7 +101,7 @@ window.siteDesignData = {
   // All heading size multiplier: "1" is normal, "1.1" is 10% bigger
   headingSize: "1",
 
-  // Big quote above the first picture
+  // Swamiji quote beneath the first picture
   heroQuoteSize: "1.05rem",
 
   // Rotating Words to Sit With quote size
@@ -114,8 +114,8 @@ window.siteDesignData = {
   sectionSpacing: "5rem",
 
   // Space above and below the first homepage area
-  heroTopSpacing: "3rem",
-  heroBottomSpacing: "2rem",
+  heroTopSpacing: "2rem",
+  heroBottomSpacing: "1rem",
 
   // Space above About Me after the first homepage area
   aboutTopSpacing: "2rem",
@@ -138,8 +138,8 @@ window.siteDesignData = {
   // Big quote box width
   heroQuoteWidth: "100%",
 
-  // Big quote position: "above" or "below"
-  heroQuotePosition: "above", // "above" or "below"
+  // Swamiji quote position: "above" or "below" the first picture
+  heroQuotePosition: "below", // "above" or "below"
 
   // Big quote alignment: "left", "center", or "right"
   heroQuoteAlign: "left", // "left", "center", or "right"
@@ -164,7 +164,7 @@ window.siteDesignData = {
       align: "left"
     },
 
-    // Textbox 5: Big quote above the first picture
+    // Textbox 5: Swamiji quote beneath the first picture
     textbox5: {
       size: "1.05rem",
       font: "Merriweather, serif",
@@ -174,7 +174,7 @@ window.siteDesignData = {
       align: "left"
     },
 
-    // Textbox 6: Author under the big quote above the first picture
+    // Textbox 6: Author under the Swamiji quote beneath the first picture
     textbox6: {
       size: "1rem",
       font: "Lato, sans-serif",

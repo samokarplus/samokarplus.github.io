@@ -23,7 +23,7 @@ window.editableTextData = {
     text: "Get in Touch"
   },
 
-  // Textbox 5: Big quote above the first picture
+  // Textbox 5: Swamiji quote beneath the first picture
   textbox5: {
     paragraphs: [
       "Love is the only reality. Everything else is either its expression or its absence.",
@@ -32,7 +32,7 @@ window.editableTextData = {
     ]
   },
 
-  // Textbox 6: Author under the big quote above the first picture
+  // Textbox 6: Author under the Swamiji quote beneath the first picture
   textbox6: {
     text: "-Swamiji"
   },
