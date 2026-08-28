@@ -26,6 +26,16 @@ site-text-data.js
 
 This file has clearly numbered textboxes for the normal words on the site, like the homepage subtitle, the big quote above the first picture, About text, section titles, contact text, and button labels.
 
+### Colors, Fonts, And Sizes
+
+Edit:
+
+```text
+site-design-data.js
+```
+
+This file has simple controls for background color, text color, font, text size, spacing, image roundness, and the first picture/quote layout.
+
 ### Journal Entries
 
 Use the GitHub form:
@@ -84,6 +94,7 @@ Race dates use `YYYY-MM-DD`. Past races hide automatically on the live site.
 ```text
 EDITING.md             Step-by-step editing guide
 site-text-data.js      Numbered textboxes for the main website words
+site-design-data.js    Simple controls for colors, fonts, sizes, and spacing
 about-photo-data.js    Older Samo carousel photos
 photo-data.js          Baby Samo carousel photos
 quotes-data.js         Words to Sit With quotes

@@ -94,6 +94,7 @@ Notes:
 
 ```text
 site-text-data.js       Main homepage text, buttons, section titles, bio text
+site-design-data.js     Colors, fonts, text size, spacing, image size, roundness
 quotes-data.js          Rotating "Words to Sit With" quotes and teacher images
 journal-data.js         Journal entries
 pr-data.js              Running PRs
@@ -104,6 +105,54 @@ index.html              Only for advanced things like adding a brand-new section
 styles.css              Only for design/layout changes
 script.js               Only for behavior changes
 ```
+
+## Change Colors, Fonts, Or Sizes
+
+Edit:
+
+```text
+site-design-data.js
+```
+
+Change the value inside quotes:
+
+```js
+backgroundColor: "#faf7f0",
+accentColor: "#d9745f",
+normalTextSize: "1rem",
+heroPictureWidth: "100%",
+heroQuotePosition: "above",
+```
+
+Easy changes:
+
+```text
+backgroundColor     Whole page background
+textColor           Main words
+accentColor         Small labels and hover color
+buttonColor         Button color
+bodyFont            Normal font
+headingFont         Big title font
+normalTextSize      Normal text size
+headingSize         All heading size multiplier, like "1.1"
+heroQuoteSize       Big quote size
+wordsQuoteSize      Words to Sit With quote size
+sectionSpacing      Space between sections
+cardRoundness       Card corner roundness
+imageRoundness      Image corner roundness
+heroPictureWidth    First picture width, like "80%" or "100%"
+heroQuoteWidth      Big quote box width, like "80%" or "100%"
+heroQuotePosition   "above" or "below"
+heroQuoteAlign      "left", "center", or "right"
+```
+
+After editing, bump this in `index.html`:
+
+```html
+site-design-data.js?v=1
+```
+
+Change it to `v=2`, then `v=3`, and so on.
 
 ## Add A Journal Entry
 

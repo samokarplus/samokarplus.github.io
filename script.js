@@ -22,9 +22,59 @@ const runningPrList = document.getElementById("runningPrList");
 const upcomingRaceList = document.getElementById("upcomingRaceList");
 const prompts = Array.isArray(window.quoteEntriesData) ? window.quoteEntriesData : [];
 const editableTextData = window.editableTextData || {};
+const siteDesignData = window.siteDesignData || {};
 
 let promptIndex = 0;
 let promptIntervalId = null;
+
+function applySiteDesign() {
+  const root = document.documentElement;
+  const designVariables = {
+    backgroundColor: "--bg",
+    pageTopColor: "--page-top",
+    textColor: "--text",
+    softTextColor: "--muted",
+    accentColor: "--terracotta",
+    buttonColor: "--gold",
+    buttonHoverColor: "--button-hover",
+    cardColor: "--surface",
+    bodyFont: "--body-font",
+    headingFont: "--heading-font",
+    normalTextSize: "--normal-text-size",
+    headingSize: "--heading-scale",
+    heroQuoteSize: "--hero-quote-size",
+    wordsQuoteSize: "--words-quote-size",
+    pageWidth: "--content-width",
+    sectionSpacing: "--section-spacing",
+    cardRoundness: "--radius-lg",
+    imageRoundness: "--image-radius",
+    buttonRoundness: "--button-radius",
+    heroPictureWidth: "--hero-picture-width",
+    heroPicturePosition: "--hero-picture-position",
+    heroQuoteWidth: "--hero-quote-width"
+  };
+
+  Object.entries(designVariables).forEach(([setting, variable]) => {
+    if (typeof siteDesignData[setting] === "string") {
+      root.style.setProperty(variable, siteDesignData[setting]);
+    }
+  });
+
+  if (typeof siteDesignData.heroQuotePosition === "string") {
+    document.body.dataset.heroQuotePosition = siteDesignData.heroQuotePosition;
+  }
+
+  if (typeof siteDesignData.heroQuoteAlign === "string") {
+    const flexAlignments = {
+      left: "flex-start",
+      center: "center",
+      right: "flex-end"
+    };
+    const textAlign = siteDesignData.heroQuoteAlign;
+    root.style.setProperty("--hero-quote-align", textAlign);
+    root.style.setProperty("--hero-quote-flex-align", flexAlignments[textAlign] || "flex-start");
+  }
+}
 
 function getEditableEntry(key) {
   return editableTextData[key];
@@ -397,6 +447,7 @@ function renderJournalEntries() {
   });
 }
 
+applySiteDesign();
 renderEditableText();
 renderAboutPhotos();
 renderPhotoGallery();
