@@ -929,6 +929,23 @@ body[data-hero-quote-position="above"] .hero-photo-frame .hero-card {
   filter: none;
 }
 
+.strava-button {
+  background: #fc4c02;
+  color: #fffaf2;
+}
+
+.spotify-button {
+  background: #1db954;
+  color: #fffaf2;
+}
+
+.strava-button:hover,
+.strava-button:focus-visible,
+.spotify-button:hover,
+.spotify-button:focus-visible {
+  filter: brightness(0.94);
+}
+
 .contact-photo {
   margin: 0.5rem 0 0;
   overflow: hidden;
