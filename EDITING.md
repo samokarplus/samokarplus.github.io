@@ -4,6 +4,107 @@ This file has step-by-step instructions for updating the site without editing th
 
 For a plain-English map of what each file does, read `README.md`.
 
+## Change Main Website Text
+
+Edit:
+
+```text
+site-text-data.js
+```
+
+This is where the regular homepage text lives. Look for the numbered textbox you want to change:
+
+```js
+  // Textbox 1: Homepage subtitle under "Samo Karplus"
+  textbox1: {
+    text: "spirituality, memory, healing, films, photographs, and reflections"
+  },
+```
+
+To change it, edit only the words inside the quotes:
+
+```js
+  textbox1: {
+    text: "new words go here"
+  },
+```
+
+Multi-paragraph text uses a `paragraphs` list:
+
+```js
+  // Textbox 5: Big quote above the first picture
+  textbox5: {
+    paragraphs: [
+      "First paragraph.",
+      "Second paragraph.",
+      "Third paragraph."
+    ]
+  },
+```
+
+To change a multi-paragraph textbox:
+
+- Keep `paragraphs: [` at the top.
+- Put each paragraph inside quotes.
+- Put a comma after each paragraph except the last one.
+- Keep the closing `]`.
+
+List text uses an `items` list:
+
+```js
+  // Textbox 18: Hobbies list
+  textbox18: {
+    items: [
+      "Ultramarathoner",
+      "Triathlete"
+    ]
+  },
+```
+
+To add a list item, copy one line and change the words:
+
+```js
+      "New hobby here",
+```
+
+Quick examples:
+
+```text
+Textbox 1  Homepage subtitle
+Textbox 5  Big quote above the first picture
+Textbox 6  Author under the big quote
+Textbox 12 Personal Bio paragraphs
+Textbox 14 Spiritual Journey paragraphs
+Textbox 18 Hobbies list
+Textbox 27 Featured media description
+Textbox 48 Email address text
+Textbox 53 Calendly description
+```
+
+Notes:
+
+- You do not need to edit `index.html` for normal text changes.
+- Leave the textbox names alone, like `textbox1` and `textbox5`.
+- Change the text inside quotes only.
+- If you use an apostrophe inside double quotes, it is fine: `"I'm here"`.
+- If you use double quotes inside double quotes, add a backslash before them: `"She said \"hello\""`
+- After editing this file, bump `site-text-data.js?v=1` in `index.html` to `v=2`, then `v=3`, and so on so browsers load the fresh text.
+
+## Which File Do I Edit?
+
+```text
+site-text-data.js       Main homepage text, buttons, section titles, bio text
+quotes-data.js          Rotating "Words to Sit With" quotes and teacher images
+journal-data.js         Journal entries
+pr-data.js              Running PRs
+races-data.js           Upcoming races
+photo-data.js           Baby Samo photos
+about-photo-data.js     Older Samo photos
+index.html              Only for advanced things like adding a brand-new section
+styles.css              Only for design/layout changes
+script.js               Only for behavior changes
+```
+
 ## Add A Journal Entry
 
 Use the GitHub Action form:
@@ -151,6 +252,17 @@ Add a new quote block anywhere in the list:
   },
 ```
 
+To make it super copy/paste:
+
+```js
+  {
+    author: "Teacher Name",
+    quote: "Quote text goes here.",
+    image: "assets/images/teachers/rumi.avif",
+    alt: "Portrait of Teacher Name."
+  },
+```
+
 Available teacher images:
 
 ```text
@@ -165,6 +277,8 @@ Notes:
 - The `Words to Sit With` section rotates through `quotes-data.js`.
 - You can reuse the same image for multiple quotes.
 - You do not need to edit `index.html` or `script.js` to add quotes.
+- If you add a new teacher image, upload it to `assets/images/teachers/`, then use that file path in `image`.
+- After editing quotes, bump `quotes-data.js?v=1` in `index.html` to `v=2`, then `v=3`, and so on so browsers load the fresh quotes.
 
 ## Update Running PRs
 
@@ -222,6 +336,7 @@ Notes:
 Before committing, make sure:
 
 - Every new block starts with `{` and ends with `},`
+- Every regular text change in `site-text-data.js` stays inside the numbered textbox area.
 - Journal text uses backticks: `text: \`your entry\``
 - Photo and quote text uses regular quotes: `"like this"`
 - Image paths match the exact file name in `assets/images/` or `assets/images/teachers/`

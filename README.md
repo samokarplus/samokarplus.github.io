@@ -16,6 +16,16 @@ EDITING.md
 
 ## Easiest Updates
 
+### Main Website Text
+
+Edit:
+
+```text
+site-text-data.js
+```
+
+This file has clearly numbered textboxes for the normal words on the site, like the homepage subtitle, the big quote above the first picture, About text, section titles, contact text, and button labels.
+
 ### Journal Entries
 
 Use the GitHub form:
@@ -73,6 +83,7 @@ Race dates use `YYYY-MM-DD`. Past races hide automatically on the live site.
 
 ```text
 EDITING.md             Step-by-step editing guide
+site-text-data.js      Numbered textboxes for the main website words
 about-photo-data.js    Older Samo carousel photos
 photo-data.js          Baby Samo carousel photos
 quotes-data.js         Words to Sit With quotes

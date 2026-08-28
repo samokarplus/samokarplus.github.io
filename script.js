@@ -21,9 +21,64 @@ const stravaUpdated = document.getElementById("strava-updated");
 const runningPrList = document.getElementById("runningPrList");
 const upcomingRaceList = document.getElementById("upcomingRaceList");
 const prompts = Array.isArray(window.quoteEntriesData) ? window.quoteEntriesData : [];
+const editableTextData = window.editableTextData || {};
 
 let promptIndex = 0;
 let promptIntervalId = null;
+
+function getEditableEntry(key) {
+  return editableTextData[key];
+}
+
+function renderEditableText() {
+  document.querySelectorAll("[data-editable-text]").forEach((element) => {
+    const entry = getEditableEntry(element.dataset.editableText);
+
+    if (!entry || typeof entry.text !== "string") {
+      return;
+    }
+
+    element.textContent = entry.text;
+  });
+
+  document.querySelectorAll("[data-editable-paragraphs]").forEach((element) => {
+    const entry = getEditableEntry(element.dataset.editableParagraphs);
+
+    if (!entry || !Array.isArray(entry.paragraphs)) {
+      return;
+    }
+
+    element.replaceChildren();
+
+    entry.paragraphs.forEach((paragraph, index) => {
+      const paragraphElement = document.createElement("p");
+      const className = Array.isArray(entry.paragraphClasses) ? entry.paragraphClasses[index] : "";
+
+      if (className) {
+        paragraphElement.className = className;
+      }
+
+      paragraphElement.textContent = paragraph;
+      element.appendChild(paragraphElement);
+    });
+  });
+
+  document.querySelectorAll("[data-editable-list]").forEach((element) => {
+    const entry = getEditableEntry(element.dataset.editableList);
+
+    if (!entry || !Array.isArray(entry.items)) {
+      return;
+    }
+
+    element.replaceChildren();
+
+    entry.items.forEach((item) => {
+      const itemElement = document.createElement("li");
+      itemElement.textContent = item;
+      element.appendChild(itemElement);
+    });
+  });
+}
 
 function formatNumber(value) {
   return new Intl.NumberFormat("en-US").format(value);
@@ -342,6 +397,7 @@ function renderJournalEntries() {
   });
 }
 
+renderEditableText();
 renderAboutPhotos();
 renderPhotoGallery();
 renderJournalEntries();
