@@ -139,6 +139,23 @@ heroPictureWidth: "100%",
 heroQuotePosition: "above",
 ```
 
+You do not have to understand color codes. At the top of `site-design-data.js`, there is a copy/paste menu:
+
+```js
+// Terracotta: "#d9745f"
+// Gold:       "#d4a373"
+// Sage green: "#9bbf9e"
+// Soft blue:  "#8fb6c8"
+```
+
+Copy the code inside quotes and paste it into a setting:
+
+```js
+buttonColor: "#9bbf9e",
+```
+
+That would make the main buttons sage green.
+
 Easy changes:
 
 ```text
