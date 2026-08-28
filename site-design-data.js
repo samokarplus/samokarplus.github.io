@@ -27,6 +27,17 @@
 // Classic readable font:     "Georgia, serif"
 // Soft modern font:          "Trebuchet MS, sans-serif"
 //
+// QUICK COPY/PASTE TEXT STYLE
+//
+// Not italic:      "normal"
+// Italic:          "italic"
+// Normal weight:   "400"
+// Bold:            "700"
+// Extra bold:      "800"
+// Left aligned:    "left"
+// Center aligned:  "center"
+// Right aligned:   "right"
+//
 // QUICK COPY/PASTE SIZES
 //
 // Normal:        "1rem"
@@ -124,5 +135,76 @@ window.siteDesignData = {
   heroQuotePosition: "above", // "above" or "below"
 
   // Big quote alignment: "left", "center", or "right"
-  heroQuoteAlign: "left" // "left", "center", or "right"
+  heroQuoteAlign: "left", // "left", "center", or "right"
+
+  // TEXTBOX STYLE CONTROLS
+  //
+  // These match the same textbox numbers in site-text-data.js.
+  // To style any textbox, copy one of these blocks and change the textbox number.
+  //
+  // Example:
+  // textbox7 is the short Rumi quote under the homepage.
+  // style: "normal" means not italic.
+  // weight: "700" means bold.
+  textboxes: {
+    // Textbox 1: Homepage subtitle under "Samo Karplus"
+    textbox1: {
+      size: "1rem",
+      font: "Lato, sans-serif",
+      style: "normal",
+      weight: "400",
+      color: "#6d6a60",
+      align: "left"
+    },
+
+    // Textbox 5: Big quote above the first picture
+    textbox5: {
+      size: "1.05rem",
+      font: "Merriweather, serif",
+      style: "italic",
+      weight: "400",
+      color: "#68533e",
+      align: "left"
+    },
+
+    // Textbox 6: Author under the big quote above the first picture
+    textbox6: {
+      size: "1rem",
+      font: "Lato, sans-serif",
+      style: "normal",
+      weight: "400",
+      color: "#6d6a60",
+      align: "left"
+    },
+
+    // Textbox 7: Short Rumi quote under the homepage
+    textbox7: {
+      size: "1.4rem",
+      font: "Merriweather, serif",
+      style: "italic",
+      weight: "400",
+      color: "#6d6a60",
+      align: "left"
+    },
+
+    // Textbox 8: Author under the short Rumi quote
+    textbox8: {
+      size: "1rem",
+      font: "Lato, sans-serif",
+      style: "normal",
+      weight: "400",
+      color: "#6d6a60",
+      align: "left"
+    },
+
+    // Textbox 43: Words to Sit With section title
+    textbox43: {
+      size: "3rem",
+      font: "Merriweather, serif",
+      style: "normal",
+      weight: "400",
+      color: "#33332d",
+      align: "left"
+    }
+  }
 };

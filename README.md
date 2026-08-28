@@ -20,7 +20,7 @@ Most of the time, start here:
 
 ```text
 site-text-data.js      Change words
-site-design-data.js    Change colors, fonts, sizes, spacing, and image/quote layout
+site-design-data.js    Change colors, fonts, sizes, spacing, image layout, and textbox styles
 ```
 
 For repeating content, use:
@@ -51,7 +51,7 @@ Edit:
 site-design-data.js
 ```
 
-This file has simple controls for background color, text color, font, text size, spacing, image roundness, and the first picture/quote layout.
+This file has simple controls for background color, text color, font, text size, spacing, image roundness, the first picture/quote layout, and matching textbox styles.
 
 ### Journal Entries
 
@@ -111,7 +111,7 @@ Race dates use `YYYY-MM-DD`. Past races hide automatically on the live site.
 ```text
 EDITING.md             Step-by-step editing guide
 site-text-data.js      Numbered textboxes for the main website words
-site-design-data.js    Simple controls for colors, fonts, sizes, and spacing
+site-design-data.js    Simple controls for colors, fonts, sizes, spacing, and textbox styles
 about-photo-data.js    Older Samo carousel photos
 photo-data.js          Baby Samo carousel photos
 quotes-data.js         Words to Sit With quotes

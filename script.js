@@ -80,9 +80,36 @@ function getEditableEntry(key) {
   return editableTextData[key];
 }
 
+function applyTextboxStyle(element, key) {
+  const textboxStyles = siteDesignData.textboxes || {};
+  const style = textboxStyles[key];
+
+  if (!style || typeof style !== "object") {
+    return;
+  }
+
+  const styleMap = {
+    size: "fontSize",
+    font: "fontFamily",
+    weight: "fontWeight",
+    style: "fontStyle",
+    color: "color",
+    align: "textAlign"
+  };
+
+  Object.entries(styleMap).forEach(([setting, property]) => {
+    if (typeof style[setting] === "string") {
+      element.style[property] = style[setting];
+    }
+  });
+}
+
 function renderEditableText() {
   document.querySelectorAll("[data-editable-text]").forEach((element) => {
-    const entry = getEditableEntry(element.dataset.editableText);
+    const key = element.dataset.editableText;
+    const entry = getEditableEntry(key);
+
+    applyTextboxStyle(element, key);
 
     if (!entry || typeof entry.text !== "string") {
       return;
@@ -92,7 +119,10 @@ function renderEditableText() {
   });
 
   document.querySelectorAll("[data-editable-paragraphs]").forEach((element) => {
-    const entry = getEditableEntry(element.dataset.editableParagraphs);
+    const key = element.dataset.editableParagraphs;
+    const entry = getEditableEntry(key);
+
+    applyTextboxStyle(element, key);
 
     if (!entry || !Array.isArray(entry.paragraphs)) {
       return;
@@ -114,7 +144,10 @@ function renderEditableText() {
   });
 
   document.querySelectorAll("[data-editable-list]").forEach((element) => {
-    const entry = getEditableEntry(element.dataset.editableList);
+    const key = element.dataset.editableList;
+    const entry = getEditableEntry(key);
+
+    applyTextboxStyle(element, key);
 
     if (!entry || !Array.isArray(entry.items)) {
       return;

@@ -8,7 +8,7 @@ For a plain-English map of what each file does, read `README.md`.
 
 ```text
 site-text-data.js      Change words
-site-design-data.js    Change colors, fonts, sizes, spacing, and first-picture layout
+site-design-data.js    Change colors, fonts, sizes, spacing, and textbox styles
 quotes-data.js         Add rotating quotes and teacher images
 journal-data.js        Journal entries
 pr-data.js             Running PRs
@@ -155,6 +155,60 @@ buttonColor: "#9bbf9e",
 ```
 
 That would make the main buttons sage green.
+
+## Style One Textbox
+
+The two files use matching names.
+
+```text
+site-text-data.js      Textbox 7: Short Rumi quote under the homepage
+site-design-data.js    Textbox 7: Short Rumi quote under the homepage
+```
+
+Example: make the short Rumi quote not italic, bold, and a little bigger.
+
+In `site-design-data.js`, find:
+
+```js
+// Textbox 7: Short Rumi quote under the homepage
+textbox7: {
+  size: "1.4rem",
+  font: "Merriweather, serif",
+  style: "italic",
+  weight: "400",
+  color: "#6d6a60",
+  align: "left"
+},
+```
+
+Change it to:
+
+```js
+// Textbox 7: Short Rumi quote under the homepage
+textbox7: {
+  size: "1.5rem",
+  font: "Georgia, serif",
+  style: "normal",
+  weight: "700",
+  color: "#33332d",
+  align: "center"
+},
+```
+
+Copy/paste choices:
+
+```text
+style: "normal"     not italic
+style: "italic"     italic
+weight: "400"       normal
+weight: "700"       bold
+font: "Georgia, serif"          classic readable
+font: "Merriweather, serif"     current quote font
+font: "Lato, sans-serif"        current normal font
+align: "left"       left aligned
+align: "center"     centered
+align: "right"      right aligned
+```
 
 Easy changes:
 
