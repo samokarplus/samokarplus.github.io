@@ -376,11 +376,19 @@ p {
 
 .hero-card blockquote {
   font-family: "Merriweather", serif;
-  font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+  font-size: clamp(0.82rem, 1.35vw, 1.05rem);
   font-style: italic;
-  line-height: 1.65;
+  line-height: 1.5;
   margin: 0;
   color: #68533e;
+}
+
+.hero-card blockquote p {
+  margin-bottom: 0.65rem;
+}
+
+.hero-card blockquote p:last-child {
+  margin-bottom: 0;
 }
 
 .section-heading {

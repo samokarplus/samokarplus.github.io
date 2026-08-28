@@ -20,6 +20,12 @@
 // },
 window.quoteEntriesData = [
   {
+    author: "Rumi",
+    quote: "I searched for God and found only myself. I searched for myself and found only God.",
+    image: "assets/images/teachers/rumi.avif",
+    alt: "A painted portrait of Rumi."
+  },
+  {
     author: "Ramana Maharshi",
     quote:
       "The question 'Who am I?' is not really meant to get an answer, the question 'Who am I?' is meant to dissolve the questioner.",
@@ -68,12 +74,6 @@ window.quoteEntriesData = [
   {
     author: "Rumi",
     quote: "I once had a thousand desires. But in my one desire to know you all else melted away.",
-    image: "assets/images/teachers/rumi.avif",
-    alt: "A painted portrait of Rumi."
-  },
-  {
-    author: "Rumi",
-    quote: "I searched for God and found only myself. I searched for myself and found only God.",
     image: "assets/images/teachers/rumi.avif",
     alt: "A painted portrait of Rumi."
   }
