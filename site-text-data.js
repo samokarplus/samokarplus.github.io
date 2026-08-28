@@ -66,7 +66,7 @@ window.editableTextData = {
   textbox12: {
     paragraphs: [
       "I am a runner, meditator, and lifelong student, devoted to the path of healing. Experience has shown me that ignorance breeds attachment to illusion. I feel the most profound healing comes from the ongoing journey of self-knowledge and the quiet remembrance of our true, divine nature.",
-      "As my beloved Mershida once told me \"It's simple. Just love everyone all the time.\""
+      "As my beloved Mershida once told me, \"It's simple. Just love everyone all the time.\""
     ]
   },
 
@@ -79,7 +79,7 @@ window.editableTextData = {
   textbox14: {
     paragraphClasses: ["", "quote-accent", "", ""],
     paragraphs: [
-      "Influenced by the American Sufism and Advaita Vedanta, Samo’s spiritual path is centered on nonduality and finding love in every moment.",
+      "Influenced by American Sufism and Advaita Vedanta, Samo’s spiritual path is centered on nonduality and finding love in every moment.",
       "Two of my favorite quotes from two of my favorite philosophers:",
       "“The wound is the place where the light enters you.” -Rumi",
       "“The very idea of going beyond the dream is illusory. Why go anywhere? Just realise that you are dreaming a dream you call the world, and stop looking for ways out.” -Nisargadatta Maharaj"
@@ -108,7 +108,7 @@ window.editableTextData = {
     items: [
       "Ultramarathoner",
       "Triathlete",
-      "Lover of all nondual philsopohy",
+      "Lover of all nondual philosophy",
       "Student of Advaita Vedanta",
       "Devotee to Sri Nisargadatta Maharaj, Sri Ramana Maharshi, and Sri Anandamayi Ma Divine Mother"
     ]
