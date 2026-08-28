@@ -113,6 +113,13 @@ window.siteDesignData = {
   // Space between sections
   sectionSpacing: "5rem",
 
+  // Space above and below the first homepage area
+  heroTopSpacing: "3rem",
+  heroBottomSpacing: "2rem",
+
+  // Space above About Me after the first homepage area
+  aboutTopSpacing: "2rem",
+
   // Card corner roundness
   cardRoundness: "28px",
 

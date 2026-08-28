@@ -22,6 +22,9 @@
   --hero-quote-size: 1.05rem;
   --words-quote-size: 2rem;
   --section-spacing: 5rem;
+  --hero-top-spacing: 3rem;
+  --hero-bottom-spacing: 2rem;
+  --about-top-spacing: 2rem;
   --image-radius: 34px;
   --button-radius: 999px;
   --hero-picture-width: 100%;
@@ -149,11 +152,17 @@ textarea {
 }
 
 .hero {
-  min-height: calc(100vh - 5rem);
+  min-height: auto;
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
-  align-items: center;
+  align-items: start;
   gap: 2rem;
+  padding-top: var(--hero-top-spacing);
+  padding-bottom: var(--hero-bottom-spacing);
+}
+
+.about {
+  padding-top: var(--about-top-spacing);
 }
 
 .eyebrow {

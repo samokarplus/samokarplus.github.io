@@ -224,6 +224,9 @@ headingSize         All heading size multiplier, like "1.1"
 heroQuoteSize       Big quote size
 wordsQuoteSize      Words to Sit With quote size
 sectionSpacing      Space between sections
+heroTopSpacing      Space above the first homepage area
+heroBottomSpacing   Space below the Strava/photo area
+aboutTopSpacing     Space above About Me
 cardRoundness       Card corner roundness
 imageRoundness      Image corner roundness
 heroPictureWidth    First picture width, like "80%" or "100%"
