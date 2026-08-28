@@ -379,7 +379,8 @@ p {
   order: -1;
   width: min(100%, var(--hero-quote-width));
   text-align: var(--hero-quote-align);
-  background: rgba(255, 250, 243, 0.9);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.95), rgba(250, 243, 232, 0.9));
   backdrop-filter: blur(12px);
 }
 
@@ -399,10 +400,10 @@ body[data-hero-quote-position="below"] .hero-photo-frame .hero-card {
 .hero-card blockquote {
   font-family: var(--heading-font);
   font-size: clamp(0.82rem, 1.35vw, var(--hero-quote-size));
-  font-style: italic;
+  font-style: normal;
   line-height: 1.5;
   margin: 0;
-  color: #68533e;
+  color: #5f4a38;
 }
 
 .hero-card blockquote p {
@@ -423,8 +424,27 @@ body[data-hero-quote-position="below"] .hero-photo-frame .hero-card {
 }
 
 .intro .section-heading {
+  position: relative;
+  margin-inline: auto;
   margin-bottom: 0;
   max-width: 50rem;
+  padding: 1.6rem;
+  border: 1px solid rgba(108, 128, 103, 0.18);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(135deg, rgba(255, 253, 248, 0.86), rgba(244, 249, 243, 0.78));
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.intro .section-heading::before {
+  content: "";
+  display: block;
+  width: 4.5rem;
+  height: 3px;
+  margin: 0 auto 1rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--sage), var(--gold), var(--terracotta));
 }
 
 .about-grid,
@@ -448,9 +468,9 @@ body[data-hero-quote-position="below"] .hero-photo-frame .hero-card {
 }
 
 .quote-accent {
-  font-family: "Merriweather", serif;
+  font-family: var(--heading-font);
   font-size: clamp(1.15rem, 2vw, 1.45rem);
-  font-style: italic;
+  font-style: normal;
   line-height: 1.7;
   color: #7a5f48;
 }

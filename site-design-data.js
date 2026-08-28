@@ -161,9 +161,9 @@ window.siteDesignData = {
     textbox5: {
       size: "1.05rem",
       font: "Merriweather, serif",
-      style: "italic",
+      style: "normal",
       weight: "400",
-      color: "#68533e",
+      color: "#5f4a38",
       align: "left"
     },
 
@@ -181,10 +181,10 @@ window.siteDesignData = {
     textbox7: {
       size: "1.4rem",
       font: "Merriweather, serif",
-      style: "italic",
-      weight: "400",
-      color: "#6d6a60",
-      align: "left"
+      style: "normal",
+      weight: "700",
+      color: "#5f4a38",
+      align: "center"
     },
 
     // Textbox 8: Author under the short Rumi quote
@@ -192,9 +192,9 @@ window.siteDesignData = {
       size: "1rem",
       font: "Lato, sans-serif",
       style: "normal",
-      weight: "400",
-      color: "#6d6a60",
-      align: "left"
+      weight: "700",
+      color: "#d9745f",
+      align: "center"
     },
 
     // Textbox 43: Words to Sit With section title
