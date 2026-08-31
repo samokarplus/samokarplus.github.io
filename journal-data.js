@@ -8,6 +8,9 @@
 // Put a blank line between paragraphs.`
 // },
 window.journalEntriesData = [
+     {date: "08-30-26",
+      text: `Love is the only way. All else merely appears and fades. But the love...the love doesn't.`
+     },
      {date: "08-29-26",
           text: `Anything that is impermanent or can change form is not who you are. The body changes and eventually fades. Your moods change and eventually fade. Your hobbies, passions, and career change and eventually fade. Your friends, family, and the people you love can change and eventually fade away. But there’s something within you that has that desire to stay alive; if you pay close enough attention is so incredibly wise. This something is love. Pure love. That’s it. From your very first breath, to your very last breath that is who you are. Appearances change, emotions change, relationships change. But there’s something within you, that inner wisdom to go out out of your way to help someone. That instinct that takes care of yourself so that you can love more people as you love yourself. That guidance that establishes boundaries. That love that shows up day in and day out to follow your path to unlearn all that binds you. You can’t restrict love. It will prevail. That is who you are. One day you’ll see, this world is but a dream, an appearance you merely create. Ultimately, there’s nothing but love that flows in and out every breath. I Am That.`
           },
