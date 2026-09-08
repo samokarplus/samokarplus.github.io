@@ -8,6 +8,9 @@
 // Put a blank line between paragraphs.`
 // },
 window.journalEntriesData = [
+     {date: "09-05-26",
+      text: `Being sick makes you grateful for all you can do when you are not sick. 100% thank you for the reminder. I look forward to Monday when I'm feeling better.`
+     },
      {date: "08-30-26",
       text: `Love is the only way. All else merely appears and fades. But the love...the love doesn't.`
      },
