@@ -8,6 +8,9 @@
 // Put a blank line between paragraphs.`
 // },
 window.journalEntriesData = [
+     {date: "09-12-26",
+      text: `The only way out is through. The only way through is LOVE. Love requires honesty, devotion, acceptance, openness, truth. Sometimes our fears, thoughts, and restrictions can cloud our judgment upon the world, ourselves, our neighbors, and even people we love the most. When we do less fear-based judgment and restriction and more honesty and kindness without neglecting reality, we heal. Be open. Be love. Love is not a feeling, thought, emotion, or expression but rather a constant reality that exists. If only I could quiet my mind to listen to that which is always ringing loudly, but yet sometimes I subconsciously obstruct my ears and soul. My former spiritual teacher's mother always told him: Remember that which you forgot to remember. What a great reminder.`
+     },
      {date: "09-05-26",
       text: `Being sick makes you grateful for all you can do when you are not sick. 100% thank you for the reminder. I look forward to Monday when I'm feeling better.`
      },
