@@ -19,6 +19,7 @@ import {
 import { CrazyEights, SUITS, playable, view } from "./game.js";
 import { cardArt } from "./art.js";
 import { flightKeyframes } from "./motion.js";
+import { DEALER_INTRO_MS, playDealIntro } from "./dealer.js";
 import { BOT_NAME, botMove } from "./bot.js";
 import {
   DEFAULT_THEME,
@@ -189,7 +190,7 @@ function standingsHTML() {
     packet.mode,
     packet.targetWins,
   );
-  return `<details class="standings" open><summary>${icon("trophy")}First to ${packet.targetWins} wins</summary><ol>${standings.map((p) => `<li class="${p.id === champion ? "champion-row" : ""}"><span><i class="online-dot ${p.online ? "" : "offline-dot"}"></i>${escape(p.name)}${p.id === me ? " (you)" : ""}${p.id === champion ? " " + icon("trophy") : ""}</span><strong>${p.wins}<span class="muted"> / ${packet.targetWins}</span></strong>${host && !packet.game && !p.online && p.id !== "0" ? `<button class="icon-button" data-remove="${p.id}" aria-label="Remove ${escape(p.name)}">${icon("x")}</button>` : ""}</li>`).join("")}</ol></details>`;
+  return `<details class="standings" open><summary>${icon("trophy")}First to ${packet.targetWins} ${packet.targetWins === 1 ? "win" : "wins"}</summary><ol>${standings.map((p) => `<li class="${p.id === champion ? "champion-row" : ""}"><span><i class="online-dot ${p.online ? "" : "offline-dot"}"></i>${escape(p.name)}${p.id === me ? " (you)" : ""}${p.id === champion ? " " + icon("trophy") : ""}</span><strong>${p.wins}<span class="muted"> / ${packet.targetWins}</span></strong>${host && !packet.game && !p.online && p.id !== "0" ? `<button class="icon-button" data-remove="${p.id}" aria-label="Remove ${escape(p.name)}">${icon("x")}</button>` : ""}</li>`).join("")}</ol></details>`;
 }
 
 function applyTheme() {
@@ -610,7 +611,7 @@ function render() {
       ${joining ? "" : '<label>Seats<select name="seats"><option value="1">1 player + bot</option><option value="2">2 players</option><option value="3">3 players</option><option value="4" selected>4 players</option></select></label>'}
       ${joining ? "" : `<div class="appearance">${colorControls("background", "Background")}${colorControls("table", "Table")}</div>`}
       <button class="primary" name="mode" value="casual" ${busy ? "disabled" : ""}>${icon(busy ? "loader-circle" : "play")}${busy ? "Connecting…" : joining ? "Join room" : "Create room"}</button>
-      ${joining ? "" : `<div class="championship-setup"><button class="secondary" name="mode" value="championship" ${busy ? "disabled" : ""}>${icon("trophy")}Host a championship</button><label>First to<select name="target" aria-label="Championship target"><option value="3">3 wins</option><option value="5">5 wins</option><option value="7">7 wins</option></select></label></div>`}
+      ${joining ? "" : `<div class="championship-setup"><button class="secondary" name="mode" value="championship" ${busy ? "disabled" : ""}>${icon("trophy")}Host a championship</button><label>First to<select name="target" aria-label="Championship target"><option value="1">1 game</option><option value="3" selected>3 wins</option><option value="5">5 wins</option><option value="7">7 wins</option></select></label></div>`}
       ${connectingError ? `<p class="error" role="alert">${escape(connectingError)}</p><button class="secondary" type="button" id="retry">${icon("refresh-cw")}Reconnect</button>` : ""}</form>
       <p class="small muted">Solo or 2–4 friends · 52 cards · Wild eights</p><p class="small muted">Keep the host's tab open for multiplayer.</p><div class="separator small muted">${joining ? '<a href="/crazy8s/">Create a different room</a>' : "No account needed."}</div></aside>
       <section class="table-area"><div class="table-heading"><span>A table for friends</span><span class="status-pill">Crazy Eights</span></div><div class="table"><div class="center-piles"><div class="pile-block">${cardHTML(null)}<span class="pile-label">52-card deck</span></div><div class="pile-block">${cardHTML({ rank: "8", suit: "hearts" })}<span class="pile-label">Eights are wild</span></div></div><p class="welcome-note">${joining ? "Your seat is waiting." : "Good company. A fresh deck."}</p></div></section></div>`;
@@ -624,7 +625,7 @@ function render() {
       else {
         mode =
           event.submitter?.value === "championship" ? "championship" : "casual";
-        targetWins = [3, 5, 7].includes(Number(data.get("target")))
+        targetWins = [1, 3, 5, 7].includes(Number(data.get("target")))
           ? Number(data.get("target"))
           : 3;
         createRoom(name, Number(data.get("seats")));
@@ -669,7 +670,7 @@ function render() {
     : "The table is open";
   let detail = game
     ? champion !== null
-      ? `${nameFor(champion)} is the champion! ${packet.targetWins} wins. Championship complete.`
+      ? `${nameFor(champion)} is the champion! ${packet.targetWins} ${packet.targetWins === 1 ? "win" : "wins"}. Championship complete.`
       : game.gameover
         ? game.gameover.blocked
           ? "No moves remain. Lowest hand score wins."
@@ -798,6 +799,8 @@ function render() {
     document.querySelector("#draw-deck").focus({ preventScroll: true });
   if (game && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
     const firstDeal = !previous || previous.round !== packet.round;
+    const dealerIntro = firstDeal && game.last === "Cards dealt.";
+    if (dealerIntro) playDealIntro();
     const source = document
       .querySelector(".card-back")
       ?.getBoundingClientRect();
@@ -821,7 +824,7 @@ function render() {
         ],
         {
           duration: 650,
-          delay: firstDeal ? index * 90 : 0,
+          delay: firstDeal ? index * 90 + (dealerIntro ? DEALER_INTRO_MS - 200 : 0) : 0,
           easing: "cubic-bezier(.22,.8,.25,1)",
           fill: "backwards",
         },
@@ -964,7 +967,7 @@ if (requestedRoom && roomPattern.test(requestedRoom)) {
       round = saved.round;
       theme = normalizeTheme(saved.theme);
       mode = saved.mode === "championship" ? "championship" : "casual";
-      targetWins = [3, 5, 7].includes(saved.targetWins) ? saved.targetWins : 3;
+      targetWins = [1, 3, 5, 7].includes(saved.targetWins) ? saved.targetWins : 3;
       members = saved.members.map((p) => ({
         ...p,
         online: p.id === "0" || !!p.bot,

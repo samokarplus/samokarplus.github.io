@@ -65,7 +65,7 @@ export function championshipState(members, mode, target) {
       : null;
   const contenders = standings.filter((p) => p.wins >= target - 1);
   const stage =
-    mode !== "championship" || champion !== null
+    mode !== "championship" || champion !== null || target < 2
       ? ""
       : contenders.length > 1 && contenders[0].wins === contenders[1].wins
         ? "SUDDEN DEATH"

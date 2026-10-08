@@ -1619,3 +1619,125 @@ svg.court-art {
     justify-self: center;
   }
 }
+
+/* Casino dealer intro */
+.dealer-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(ellipse at 50% 35%, #5a2e4acc 0%, #1a0f24ee 70%);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  perspective: 1000px;
+}
+.dealer-spot {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 0%, #ffd98a55, transparent 45%),
+    radial-gradient(circle at 20% 80%, #ff5fa233, transparent 35%),
+    radial-gradient(circle at 80% 70%, #5fd0ff2e, transparent 35%);
+}
+.dealer-stage {
+  position: relative;
+  width: min(420px, 92vw);
+  height: min(460px, 70vh);
+  transform-style: preserve-3d;
+}
+.dealer-figure {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 78%;
+  transform-origin: 50% 100%;
+  margin-left: -39%;
+  filter: drop-shadow(0 22px 22px #0008);
+}
+.dealer-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.dealer-head,
+.dealer-arm {
+  transform-box: fill-box;
+}
+.dealer-head {
+  transform-origin: 50% 90%;
+}
+.dealer-felt {
+  position: absolute;
+  left: -4%;
+  right: -4%;
+  bottom: 0;
+  height: 40%;
+  border-radius: 50% 50% 0 0 / 70% 70% 0 0;
+  background: radial-gradient(ellipse at 50% 20%, #2e8b6c, #14513f 75%);
+  box-shadow: inset 0 12px 30px #0007, 0 -4px 0 #7a4a24, 0 -10px 0 #b9783c, 0 -14px 24px #0008;
+  overflow: visible;
+}
+.dealer-rim {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 6px 0 #fff2;
+}
+.dealer-deck {
+  position: absolute;
+  left: 50%;
+  top: 22%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+}
+.dealer-half,
+.dealer-pile {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-style: preserve-3d;
+}
+.dealer-card {
+  position: absolute;
+  width: 72px;
+  height: 104px;
+  margin: -52px 0 0 -36px;
+  border-radius: 8px;
+  background: #7d304b url("assets/card-back.svg") center/100% 100% no-repeat;
+  box-shadow: 0 2px 6px #0007, inset 0 0 0 1px #fff5;
+  will-change: transform;
+}
+.dealer-pile {
+  width: 72px;
+  height: 104px;
+  margin: -52px 0 0 -36px;
+  border-radius: 6px;
+  background: #7d304b url("assets/card-back.svg") center/100% 100% no-repeat;
+  box-shadow: 0 1px 0 #3b1624, 0 3px 0 #fffaf4, 0 4px 0 #3b1624, 0 6px 0 #fffaf4, 0 8px 12px #000a;
+  transform: rotateX(58deg);
+}
+.dealer-card.tossed {
+  left: 50%;
+  top: 25%;
+  opacity: 0;
+}
+.dealer-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -34px;
+  text-align: center;
+  color: #ffe9b0;
+  font: 800 20px/1 Georgia, serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 0 #7a4a24, 0 0 16px #ffd98a88;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dealer-intro {
+    display: none;
+  }
+}
