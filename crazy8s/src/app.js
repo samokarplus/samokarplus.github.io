@@ -18,6 +18,7 @@ import {
 } from "lucide";
 import { CrazyEights, SUITS, playable, view } from "./game.js";
 import { cardArt } from "./art.js";
+import { flightKeyframes } from "./motion.js";
 import {
   DEFAULT_THEME,
   PALETTES,
@@ -560,10 +561,21 @@ function leaveRoom() {
 }
 function render() {
   applyTheme();
+  document
+    .querySelectorAll(".card-flight-overlay")
+    .forEach((node) => node.remove());
+  const previousDiscard = document
+    .querySelector(".discard-pile .card")
+    ?.cloneNode(true);
   const oldDeckFocus = document.activeElement?.id === "draw-deck";
   const playedSource = packet?.game?.top
     ? document
         .querySelector(`[data-card="${packet.game.top.id}"]`)
+        ?.getBoundingClientRect() ||
+      document
+        .querySelector(
+          `[data-player="${renderedGame?.currentPlayer}"] .mini-card`,
+        )
         ?.getBoundingClientRect()
     : null;
   const previous = renderedGame;
@@ -661,7 +673,7 @@ function render() {
       .filter((p) => p.id !== me)
       .map(
         (p) =>
-          `<div class="opponent ${game?.currentPlayer === p.id && !game?.gameover ? "active" : ""}"><div class="avatar">${escape(p.name[0].toUpperCase())}</div><p class="opponent-name">${escape(p.name)}</p><p class="opponent-count">${game ? `${game.counts[p.id]} card${game.counts[p.id] === 1 ? "" : "s"}` : p.online ? "Ready" : "Offline"}</p>${game ? `<div class="mini-cards" aria-hidden="true">${'<span class="mini-card"></span>'.repeat(Math.min(game.counts[p.id], 5))}</div>` : ""}</div>`,
+          `<div data-player="${p.id}" class="opponent ${game?.currentPlayer === p.id && !game?.gameover ? "active" : ""}"><div class="avatar">${escape(p.name[0].toUpperCase())}</div><p class="opponent-name">${escape(p.name)}</p><p class="opponent-count">${game ? `${game.counts[p.id]} card${game.counts[p.id] === 1 ? "" : "s"}` : p.online ? "Ready" : "Offline"}</p>${game ? `<div class="mini-cards" aria-hidden="true">${'<span class="mini-card"></span>'.repeat(Math.min(game.counts[p.id], 5))}</div>` : ""}</div>`,
       )
       .join("")}</div>
     <div id="taunt-stage" class="taunt-stage" role="status" aria-live="polite"></div>
@@ -791,17 +803,10 @@ function render() {
     if (previous && !firstDeal && previous.top !== game.top.id) {
       const discard = document.querySelector(".discard-pile .card");
       const target = discard.getBoundingClientRect();
-      discard.animate(
-        [
-          {
-            opacity: 0.5,
-            transform: playedSource
-              ? `translate(${playedSource.left - target.left}px,${playedSource.top - target.top}px) rotate(12deg)`
-              : "translateY(-45px) rotate(-12deg) scale(.85)",
-          },
-          { opacity: 1, transform: "translate(0,0) rotate(0) scale(1)" },
-        ],
-        { duration: 350, easing: "cubic-bezier(.2,.8,.2,1)" },
+      animatePlayedCard(
+        discard,
+        previousDiscard,
+        playedSource || { ...target.toJSON(), top: target.top - 80 },
       );
     }
   }
@@ -810,8 +815,40 @@ function render() {
         round: packet.round,
         top: game.top.id,
         hand: mine.map((card) => card.id),
+        currentPlayer: game.currentPlayer,
       }
     : null;
+}
+
+function animatePlayedCard(discard, previousDiscard, source) {
+  const target = discard.getBoundingClientRect();
+  const layer = document.createElement("div");
+  layer.className = "card-flight-overlay";
+  layer.setAttribute("aria-hidden", "true");
+  const flying = discard.cloneNode(true);
+  for (const card of [previousDiscard, flying].filter(Boolean)) {
+    card.classList.add("flying-card");
+    card.style.visibility = "";
+    Object.assign(card.style, {
+      left: `${target.left}px`,
+      top: `${target.top}px`,
+      width: `${target.width}px`,
+      height: `${target.height}px`,
+    });
+    layer.append(card);
+  }
+  document.body.append(layer);
+  discard.style.visibility = "hidden";
+  const flight = flying.animate(flightKeyframes(source, target), {
+    duration: 620,
+    easing: "cubic-bezier(.22,.7,.25,1)",
+    fill: "both",
+  });
+  const finish = () => {
+    discard.style.visibility = "";
+    layer.remove();
+  };
+  flight.finished.then(finish, finish);
 }
 
 function celebrate() {
