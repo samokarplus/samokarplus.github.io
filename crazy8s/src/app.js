@@ -14,6 +14,7 @@ import {
   Trophy,
   MessageSquare,
   MessageSquareOff,
+  SmilePlus,
 } from "lucide";
 import { CrazyEights, SUITS, playable, view } from "./game.js";
 import { cardArt } from "./art.js";
@@ -28,6 +29,7 @@ import {
   TAUNT_COOLDOWN,
   championshipState,
   acceptTaunt,
+  SUIT_CALLS,
 } from "./championship.js";
 
 const app = document.querySelector("#app");
@@ -44,6 +46,7 @@ const icons = {
   Trophy,
   MessageSquare,
   MessageSquareOff,
+  SmilePlus,
 };
 const glyphs = { clubs: "♣", diamonds: "♦", hearts: "♥", spades: "♠" };
 const red = (suit) => ["hearts", "diamonds"].includes(suit);
@@ -89,17 +92,47 @@ let mode = "casual",
   tauntReadyAt = 0,
   tauntTimer;
 const lastTaunts = new Map();
+let activeReaction = null;
+let celebrated = "";
 
-function showTaunt(message) {
+function showTaunt(message, replay = false) {
   const taunt = TAUNTS.find((t) => t.id === message.taunt);
   if (!taunt || mutedTaunts) return;
+  if (!replay) activeReaction = { message, until: Date.now() + 5000 };
   const stage = document.querySelector("#taunt-stage");
   if (!stage) return;
   const bubble = document.createElement("div");
-  bubble.className = `taunt-bubble ${red(taunt.suit) ? "red" : ""}`;
-  bubble.innerHTML = `<span class="taunt-symbol">${taunt.symbol}</span><span><small>${escape(nameFor(message.player))}</small><strong>${taunt.id}!</strong></span>`;
+  bubble.className = `taunt-bubble ${taunt.id === "CAN_AND_WILL" ? "long-shout" : ""} ${taunt.gesture ? "drawing-gesture" : ""} ${red(taunt.suit) ? "red" : ""}`;
+  bubble.innerHTML = `<span class="taunt-symbol">${taunt.symbol}</span><span><small>${escape(nameFor(message.player))}</small><strong>${escape(taunt.label || taunt.id + "!")}</strong></span>`;
   stage.replaceChildren(bubble);
-  setTimeout(() => bubble.remove(), 2600);
+  setTimeout(
+    () => bubble.remove(),
+    Math.max(0, activeReaction.until - Date.now()),
+  );
+  if (taunt.gesture) {
+    const pile = document.querySelector(".center-piles .card-back");
+    if (pile) {
+      const hand = document.createElement("span");
+      hand.className = "draw-hand";
+      hand.textContent = "🫴";
+      pile.parentElement.append(hand);
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches)
+        hand.animate(
+          [
+            { transform: "translateX(70px) rotate(-20deg)" },
+            { transform: "translateX(0) rotate(0)" },
+            { transform: "translateX(70px) rotate(-20deg)" },
+          ],
+          { duration: 700, iterations: 4 },
+        );
+      setTimeout(() => hand.remove(), 2800);
+    }
+  }
+}
+function announce(id, taunt) {
+  const message = { type: "taunt", player: id, taunt };
+  showTaunt(message);
+  for (const conn of connections.values()) if (conn.open) conn.send(message);
 }
 function hostTaunt(id, taunt) {
   if (
@@ -107,9 +140,7 @@ function hostTaunt(id, taunt) {
     !acceptTaunt(lastTaunts, id, taunt, Date.now())
   )
     return;
-  const message = { type: "taunt", player: id, taunt };
-  showTaunt(message);
-  for (const conn of connections.values()) if (conn.open) conn.send(message);
+  announce(id, taunt);
 }
 function sendTaunt(taunt) {
   if (Date.now() < tauntReadyAt || (!host && !connection?.open)) return;
@@ -325,6 +356,11 @@ function hostMove(id, message) {
     (after.ctx.gameover?.winner != null ? [after.ctx.gameover.winner] : []);
   for (const winner of winners) members.find((p) => p.id === winner).wins++;
   broadcast();
+  if (
+    message.move === "play" &&
+    before.G.hands[id].find((c) => c.id === message.card)?.rank === "8"
+  )
+    announce(id, SUIT_CALLS[message.suit].toUpperCase());
 }
 function move(move, card, suit) {
   const message = {
@@ -571,6 +607,11 @@ function render() {
     packet.targetWins,
   ).champion;
   const mine = game?.hand || [];
+  const stage = championshipState(
+    packet.members,
+    packet.mode,
+    packet.targetWins,
+  ).stage;
   const isTurn =
     !!game &&
     game.currentPlayer === me &&
@@ -614,7 +655,7 @@ function render() {
     <button class="secondary leave" id="leave">${icon("log-out")}${host ? "Close room" : "Leave room"}</button></aside>
     <section class="table-area"><div class="table-heading"><span class="connection">${icon("users")}${packet.members.length} players</span><span class="status-pill">${connectingError ? "Disconnected" : game ? "In play" : "Waiting room"}</span></div>
     <div id="taunt-stage" class="taunt-stage" role="status" aria-live="polite"></div>
-    <div class="table"><div class="opponents">${packet.members
+    <div class="table">${stage && !game?.gameover ? `<div class="round-drama ${stage === "SUDDEN DEATH" ? "sudden-death" : ""}">${icon("trophy")}${stage}</div>` : ""}<div class="opponents">${packet.members
       .filter((p) => p.id !== me)
       .map(
         (p) =>
@@ -622,9 +663,16 @@ function render() {
       )
       .join("")}</div>
     <div class="center-piles"><div class="pile-block">${cardHTML(null, { draw: !!game && !game.gameover, disabled: !isTurn || canPlay })}<span class="pile-label">${game ? `${game.stockCount} to draw` : "Fresh deck"}</span></div><div class="pile-block discard-pile">${cardHTML(game?.top || { rank: "8", suit: "hearts" })}<span class="pile-label">${game ? "Discard" : "Eights are wild"}</span></div></div>
-    ${game ? `<div class="active-suit"><span class="suit-token ${red(game.suit) ? "red" : ""}">${glyphs[game.suit]}</span>${game.suit[0].toUpperCase() + game.suit.slice(1)}</div>` : ""}
-    <div class="turn-banner"><p class="turn-title ${game?.gameover ? "winner" : ""}" aria-live="polite">${champion !== null ? icon("trophy") : ""}${escape(title)}</p><p class="turn-detail">${escape(detail)}</p>${game?.gameover && host ? `<button class="primary result-actions" id="${champion !== null ? "new-championship" : "rematch"}">${champion !== null ? "New championship" : packet.mode === "championship" ? "Next round" : "Deal again"}</button>` : ""}</div></div>
-    <div class="taunt-toolbar" aria-label="Taunts">${TAUNTS.map((t) => `<button class="taunt-button ${red(t.suit) ? "red" : ""}" data-taunt="${t.id}" title="Taunt: ${t.id}" aria-label="Taunt ${t.id}"><span>${t.symbol}</span>${t.id}</button>`).join("")}<button class="icon-button" id="mute-taunts" aria-label="${mutedTaunts ? "Unmute" : "Mute"} incoming taunts" title="${mutedTaunts ? "Unmute" : "Mute"} incoming taunts" aria-pressed="${mutedTaunts}">${icon(mutedTaunts ? "message-square-off" : "message-square")}</button></div>
+    ${game ? `<div class="active-suit"><span class="suit-token ${red(game.suit) ? "red" : ""}">${glyphs[game.suit]}</span>${SUIT_CALLS[game.suit]}</div>${game.drawRun >= 3 ? `<div class="drawfest-status">DRAWFEST · ${escape(nameFor(game.drawer))} · ${game.drawRun} drawn</div>` : ""}` : ""}
+    <div class="turn-banner"><p class="turn-title ${game?.gameover ? "winner" : ""}" aria-live="polite">${game?.gameover ? '<span class="winner-trophy">🏆</span>' : ""}${escape(title)}</p><p class="turn-detail">${escape(detail)}</p>${game?.gameover && host ? `<button class="primary result-actions" id="${champion !== null ? "new-championship" : "rematch"}">${champion !== null ? "New championship" : packet.mode === "championship" ? "Next round" : "Deal again"}</button>` : ""}</div></div>
+    <div class="taunt-toolbar" aria-label="Taunts">${TAUNTS.slice(0, 4)
+      .map(
+        (t) =>
+          `<button class="taunt-button ${red(t.suit) ? "red" : ""}" data-taunt="${t.id}" title="Taunt: ${t.id}" aria-label="Taunt ${t.id}"><span>${t.symbol}</span>${t.id}</button>`,
+      )
+      .join(
+        "",
+      )}<button class="icon-button" id="more-taunts" aria-label="More taunts and emoji" title="More taunts and emoji">${icon("smile-plus")}</button><button class="icon-button" id="mute-taunts" aria-label="${mutedTaunts ? "Unmute" : "Mute"} incoming taunts" title="${mutedTaunts ? "Unmute" : "Mute"} incoming taunts" aria-pressed="${mutedTaunts}">${icon(mutedTaunts ? "message-square-off" : "message-square")}</button></div>
     ${
       game
         ? `<div class="hand-area"><div class="hand-heading"><span>Your hand · ${mine.length} card${mine.length === 1 ? "" : "s"}</span></div><div class="hand">${
@@ -651,13 +699,15 @@ function render() {
     }
   };
   document.querySelector("#leave").onclick = leaveRoom;
+  document.querySelector("#more-taunts").onclick = () =>
+    document.querySelector("#reaction-dialog").showModal();
   document.querySelector("#start")?.addEventListener("click", startGame);
   document.querySelector("#rematch")?.addEventListener("click", startGame);
   document
     .querySelector("#new-championship")
     ?.addEventListener("click", newChampionship);
   document
-    .querySelectorAll("[data-taunt]")
+    .querySelectorAll("#app [data-taunt]")
     .forEach(
       (button) => (button.onclick = () => sendTaunt(button.dataset.taunt)),
     );
@@ -702,6 +752,13 @@ function render() {
       }),
   );
   createIcons({ icons });
+  if (activeReaction?.until > Date.now())
+    showTaunt(activeReaction.message, true);
+  const celebrationKey = `${room}:${packet.round}`;
+  if (game?.gameover && celebrated !== celebrationKey) {
+    celebrated = celebrationKey;
+    celebrate();
+  }
   if (oldDeckFocus && document.querySelector("#draw-deck:not(:disabled)"))
     document.querySelector("#draw-deck").focus({ preventScroll: true });
   if (game && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -754,6 +811,51 @@ function render() {
     : null;
 }
 
+function celebrate() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const shower = document.createElement("div");
+  shower.className = "confetti-shower";
+  shower.setAttribute("aria-hidden", "true");
+  document.body.append(shower);
+  for (let i = 0; i < 70; i++) {
+    const piece = document.createElement("span");
+    piece.style.left = `${Math.random() * 100}%`;
+    piece.style.background = [
+      "#ff4f87",
+      "#ffdb39",
+      "#25c9a1",
+      "#ffffff",
+      "#69c9ff",
+    ][i % 5];
+    shower.append(piece);
+    piece.animate(
+      [
+        { transform: "translateY(-30px) rotate(0)", opacity: 1 },
+        {
+          transform: `translate(${(Math.random() - 0.5) * 200}px,110vh) rotate(${Math.random() * 900}deg)`,
+          opacity: 0,
+        },
+      ],
+      {
+        duration: 2600 + Math.random() * 1800,
+        delay: Math.random() * 450,
+        fill: "both",
+      },
+    );
+  }
+  setTimeout(() => shower.remove(), 5000);
+}
+document.querySelector(".reaction-options").innerHTML = TAUNTS.map(
+  (t) =>
+    `<button class="reaction-choice ${red(t.suit) ? "red" : ""} ${t.id === "CAN_AND_WILL" ? "wide-reaction" : ""}" data-taunt="${t.id}"><span>${t.symbol}</span><strong>${escape(t.label || t.id)}</strong></button>`,
+).join("");
+document.querySelectorAll("#reaction-dialog [data-taunt]").forEach(
+  (button) =>
+    (button.onclick = () => {
+      sendTaunt(button.dataset.taunt);
+      document.querySelector("#reaction-dialog").close();
+    }),
+);
 document.querySelector("#rules").onclick = () =>
   document.querySelector("#rules-dialog").showModal();
 document.querySelector("#header-leave").onclick = leaveRoom;
@@ -764,7 +866,7 @@ document
   );
 document.querySelector(".suit-options").innerHTML = SUITS.map(
   (suit) =>
-    `<button class="suit-choice ${red(suit) ? "red" : ""}" data-suit="${suit}"><span>${glyphs[suit]}</span>${suit[0].toUpperCase() + suit.slice(1)}</button>`,
+    `<button class="suit-choice ${red(suit) ? "red" : ""}" data-suit="${suit}"><span>${glyphs[suit]}</span>${SUIT_CALLS[suit]}</button>`,
 ).join("");
 document.querySelectorAll("[data-suit]").forEach(
   (button) =>

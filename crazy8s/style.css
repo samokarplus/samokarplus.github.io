@@ -1,3 +1,86 @@
+.reaction-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.reaction-choice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  text-align: left;
+  background: #fff;
+  border: 1px solid #d6d8dc;
+  border-radius: 6px;
+  min-width: 0;
+}
+.reaction-choice span {
+  font-size: 26px;
+}
+.reaction-choice strong {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.reaction-choice.red {
+  color: #c42c54;
+}
+.wide-reaction {
+  grid-column: 1 / -1;
+}
+.round-drama {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: #23282c;
+  background: #ffde56;
+  font-weight: 800;
+  font-size: 17px;
+  padding: 6px 14px;
+  border-radius: 3px;
+}
+.round-drama.sudden-death {
+  color: #fff;
+  background: #c91b4a;
+  text-shadow: 0 2px 12px #fa285c;
+}
+.drawfest-status {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--table-ink);
+  padding: 4px;
+}
+.winner-trophy {
+  display: inline-block;
+  font-size: 34px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+.confetti-shower {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  overflow: hidden;
+}
+.confetti-shower span {
+  position: absolute;
+  top: 0;
+  width: 9px;
+  height: 15px;
+}
+.draw-hand {
+  position: absolute;
+  top: 25%;
+  left: 85%;
+  z-index: 5;
+  font-size: 48px;
+  pointer-events: none;
+}
+.pile-block {
+  position: relative;
+}
 :root {
   color-scheme: light;
   --ink: #202b27;
@@ -1272,6 +1355,22 @@ svg.court-art {
 }
 .taunt-bubble strong {
   font-size: 17px;
+}
+.taunt-bubble {
+  max-width: 100%;
+  min-width: 0;
+}
+.taunt-bubble > span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.taunt-bubble.long-shout strong {
+  font-size: 12px;
+  line-height: 1.35;
+  display: block;
+}
+.taunt-symbol {
+  flex-shrink: 0;
 }
 .taunt-toolbar {
   display: flex;

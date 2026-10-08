@@ -10,7 +10,11 @@ Setup includes background and table color swatches plus custom color pickers. Th
 
 **Host a championship** starts a race to 3, 5, or 7 round wins. Standings and scores are shared and restored after refresh. The host deals the next round after each finish; a unique leader who reaches the target is the champion. If a blocked round creates tied leaders at the target, play continues until one leads. A new championship resets wins while keeping the room and players.
 
-All players can send **ESPA ♠**, **BITOS ♣**, **TITOS ♥**, and **ZIA ♦** taunts in both casual and championship rooms. Taunts are sent to everyone through the host, with a two-second cooldown per player. Incoming taunts can be muted locally. Taunts do not change cards, turn order, or scores.
+Playing an eight opens symbol buttons for **Espadios ♠**, **Clubitos ♣**, **Ziamondes ♦**, and **Heartitos ♥**. A successful suit choice automatically broadcasts the player's suit shout to everyone.
+
+All players can send the long suit names or **ESPA**, **BITOS**, **TITOS**, and **ZIA**, plus laughing, surprised, and sunglasses emoji reactions. The reaction picker also includes **DRAWFEST**, **Woo! Keep drawing buddy!** with a hand beckoning toward the deck, and **DONT EVER TELL ME I CANT CUZ I PROBABLY CAN AND I PROBABLY WILL**. Three or more consecutive draws show a public DRAWFEST counter. Manual taunts have a two-second cooldown per player and incoming reactions can be muted locally. Taunts never change cards, turn order, or scores.
+
+Match point shows **CHAMPIONSHIP ROUND**. Tied match-point leaders show **SUDDEN DEATH**, including 6–6 in a race to seven. Round winners get a trophy and confetti; the championship winner is named with final standings. Effects respect reduced-motion preferences.
 
 ## Architecture
 

@@ -1,8 +1,34 @@
+export const SUIT_CALLS = {
+  spades: "Espadios",
+  clubs: "Clubitos",
+  diamonds: "Ziamondes",
+  hearts: "Heartitos",
+};
 export const TAUNTS = [
   { id: "ESPA", suit: "spades", symbol: "♠" },
   { id: "BITOS", suit: "clubs", symbol: "♣" },
   { id: "TITOS", suit: "hearts", symbol: "♥" },
   { id: "ZIA", suit: "diamonds", symbol: "♦" },
+  ...Object.entries(SUIT_CALLS).map(([suit, name]) => ({
+    id: name.toUpperCase(),
+    suit,
+    symbol: { spades: "♠", clubs: "♣", diamonds: "♦", hearts: "♥" }[suit],
+  })),
+  { id: "DRAWFEST", symbol: "😂" },
+  {
+    id: "KEEP_DRAWING",
+    label: "Woo! Keep drawing buddy!",
+    symbol: "🫴",
+    gesture: true,
+  },
+  { id: "LAUGH", label: "HAHAHA!", symbol: "🤣" },
+  { id: "WOW", label: "WOW!", symbol: "😮" },
+  { id: "COOL", label: "OH YEAH!", symbol: "😎" },
+  {
+    id: "CAN_AND_WILL",
+    label: "DONT EVER TELL ME I CANT CUZ I PROBABLY CAN AND I PROBABLY WILL",
+    symbol: "💪",
+  },
 ];
 export const TAUNT_COOLDOWN = 2000;
 export function championshipState(members, mode, target) {
@@ -16,7 +42,16 @@ export function championshipState(members, mode, target) {
     standings.filter((p) => p.wins === leader.wins).length === 1
       ? leader.id
       : null;
-  return { standings, champion };
+  const contenders = standings.filter((p) => p.wins >= target - 1);
+  const stage =
+    mode !== "championship" || champion !== null
+      ? ""
+      : contenders.length > 1 && contenders[0].wins === contenders[1].wins
+        ? "SUDDEN DEATH"
+        : contenders.length
+          ? "CHAMPIONSHIP ROUND"
+          : "";
+  return { standings, champion, stage };
 }
 export function acceptTaunt(lastSent, id, taunt, now) {
   if (

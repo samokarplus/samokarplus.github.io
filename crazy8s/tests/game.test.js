@@ -87,8 +87,13 @@ test("each draw adds exactly one card, keeping the turn until playable", () => {
   assert.equal(client.getState().G.hands["0"].length, 4);
   assert.equal(client.getState().ctx.currentPlayer, "0");
   assert.equal(client.getState().G.stock.length, 0);
+  assert.equal(client.getState().G.drawRun, 3);
+  assert.equal(view(client.getState(), "1").drawRun, 3);
+  assert.equal(view(client.getState(), "1").drawer, "0");
   client.moves.draw();
   assert.equal(client.getState().G.hands["0"].length, 4);
+  client.moves.play("clubs-4");
+  assert.equal(client.getState().G.drawRun, 0);
 });
 test("discard recycling preserves the top and all cards", () => {
   const G = fixture();

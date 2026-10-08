@@ -43,6 +43,8 @@ export const CrazyEights = {
       discard: [top],
       suit: top.suit,
       passes: 0,
+      drawRun: 0,
+      drawer: null,
       last: "Cards dealt.",
     };
   },
@@ -65,6 +67,8 @@ export const CrazyEights = {
       G.discard.push(card);
       G.suit = card.rank === "8" ? suit : card.suit;
       G.passes = 0;
+      G.drawRun = 0;
+      G.drawer = null;
       G.last = `played ${card.rank} of ${card.suit}${card.rank === "8" ? `; chose ${suit}` : ""}.`;
       events.endTurn();
     },
@@ -78,6 +82,12 @@ export const CrazyEights = {
       }
       const drawn = G.stock.length ? G.stock.pop() : null;
       if (drawn) hand.push(drawn);
+      G.drawRun = drawn
+        ? G.drawer === ctx.currentPlayer
+          ? (G.drawRun || 0) + 1
+          : 1
+        : 0;
+      G.drawer = ctx.currentPlayer;
       G.last = drawn ? "drew a card." : "No cards left to draw; passed.";
       if (
         !drawn ||
@@ -134,6 +144,8 @@ export function view(state, playerID) {
     currentPlayer: ctx.currentPlayer,
     gameover: ctx.gameover,
     last: G.last,
+    drawRun: G.drawRun || 0,
+    drawer: G.drawer,
     version: state._stateID,
   };
 }
