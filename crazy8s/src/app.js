@@ -11,6 +11,9 @@ import {
   Link,
   Users,
   LogOut,
+  Trophy,
+  MessageSquare,
+  MessageSquareOff,
 } from "lucide";
 import { CrazyEights, SUITS, playable, view } from "./game.js";
 import { cardArt } from "./art.js";
@@ -20,6 +23,12 @@ import {
   normalizeTheme,
   foreground,
 } from "./theme.js";
+import {
+  TAUNTS,
+  TAUNT_COOLDOWN,
+  championshipState,
+  acceptTaunt,
+} from "./championship.js";
 
 const app = document.querySelector("#app");
 const icons = {
@@ -32,6 +41,9 @@ const icons = {
   Link,
   Users,
   LogOut,
+  Trophy,
+  MessageSquare,
+  MessageSquareOff,
 };
 const glyphs = { clubs: "♣", diamonds: "♦", hearts: "♥", spades: "♠" };
 const red = (suit) => ["hearts", "diamonds"].includes(suit);
@@ -71,6 +83,64 @@ try {
   );
 } catch {}
 let renderedGame = null;
+let mode = "casual",
+  targetWins = 3,
+  mutedTaunts = false,
+  tauntReadyAt = 0,
+  tauntTimer;
+const lastTaunts = new Map();
+
+function showTaunt(message) {
+  const taunt = TAUNTS.find((t) => t.id === message.taunt);
+  if (!taunt || mutedTaunts) return;
+  const stage = document.querySelector("#taunt-stage");
+  if (!stage) return;
+  const bubble = document.createElement("div");
+  bubble.className = `taunt-bubble ${red(taunt.suit) ? "red" : ""}`;
+  bubble.innerHTML = `<span class="taunt-symbol">${taunt.symbol}</span><span><small>${escape(nameFor(message.player))}</small><strong>${taunt.id}!</strong></span>`;
+  stage.replaceChildren(bubble);
+  setTimeout(() => bubble.remove(), 2600);
+}
+function hostTaunt(id, taunt) {
+  if (
+    !members.some((p) => p.id === id && p.online) ||
+    !acceptTaunt(lastTaunts, id, taunt, Date.now())
+  )
+    return;
+  const message = { type: "taunt", player: id, taunt };
+  showTaunt(message);
+  for (const conn of connections.values()) if (conn.open) conn.send(message);
+}
+function sendTaunt(taunt) {
+  if (Date.now() < tauntReadyAt || (!host && !connection?.open)) return;
+  tauntReadyAt = Date.now() + TAUNT_COOLDOWN;
+  if (host) hostTaunt("0", taunt);
+  else connection.send({ type: "taunt", taunt });
+  updateTauntControls();
+}
+function updateTauntControls() {
+  clearTimeout(tauntTimer);
+  const waiting = Date.now() < tauntReadyAt;
+  document
+    .querySelectorAll("[data-taunt]")
+    .forEach(
+      (button) => (button.disabled = waiting || (!host && !connection?.open)),
+    );
+  if (waiting)
+    tauntTimer = setTimeout(
+      updateTauntControls,
+      tauntReadyAt - Date.now() + 10,
+    );
+}
+function standingsHTML() {
+  if (packet.mode !== "championship") return "";
+  const { standings, champion } = championshipState(
+    packet.members,
+    packet.mode,
+    packet.targetWins,
+  );
+  return `<details class="standings" open><summary>${icon("trophy")}First to ${packet.targetWins} wins</summary><ol>${standings.map((p) => `<li class="${p.id === champion ? "champion-row" : ""}"><span><i class="online-dot ${p.online ? "" : "offline-dot"}"></i>${escape(p.name)}${p.id === me ? " (you)" : ""}${p.id === champion ? " " + icon("trophy") : ""}</span><strong>${p.wins}<span class="muted"> / ${packet.targetWins}</span></strong>${host && !packet.game && !p.online && p.id !== "0" ? `<button class="icon-button" data-remove="${p.id}" aria-label="Remove ${escape(p.name)}">${icon("x")}</button>` : ""}</li>`).join("")}</ol></details>`;
+}
 
 function applyTheme() {
   const root = document.documentElement.style;
@@ -158,6 +228,8 @@ function saveHost() {
         capacity,
         round,
         theme,
+        mode,
+        targetWins,
         game: engine ? engine.getState() : null,
       }),
     );
@@ -179,6 +251,8 @@ function broadcast() {
     capacity,
     round,
     theme,
+    mode,
+    targetWins,
     phase: state ? "game" : "lobby",
     paused: !!state && members.some((p) => !p.online),
   };
@@ -215,9 +289,19 @@ function bootGame(saved = null) {
 }
 function startGame() {
   if (members.length < 2 || members.some((p) => !p.online)) return;
+  if (engine && !engine.getState().ctx.gameover) return;
+  if (championshipState(members, mode, targetWins).champion !== null) return;
   round++;
   bootGame();
   broadcast();
+}
+function newChampionship() {
+  if (!host || championshipState(members, mode, targetWins).champion === null)
+    return;
+  if (members.some((p) => !p.online)) return;
+  for (const member of members) member.wins = 0;
+  round = 0;
+  startGame();
 }
 function hostMove(id, message) {
   if (!engine || members.some((p) => !p.online)) return;
@@ -302,6 +386,12 @@ function handleGuest(conn) {
       member.online = true;
       broadcast();
     } else if (
+      message.type === "taunt" &&
+      seat !== null &&
+      connections.get(seat.id) === conn
+    ) {
+      hostTaunt(seat.id, message.taunt);
+    } else if (
       message.type === "move" &&
       seat !== null &&
       connections.get(seat.id) === conn
@@ -382,6 +472,8 @@ function connectGuest() {
       reconnectAttempts = 0;
       connectingError = "";
       render();
+    } else if (message?.type === "taunt") {
+      showTaunt(message);
     } else if (message?.type === "error") {
       connectingError = message.text;
       busy = false;
@@ -446,7 +538,8 @@ function render() {
       <form class="form" id="setup"><label>Your name<input name="name" maxlength="20" autocomplete="nickname" placeholder="Your name" value="${escape(sessionStorage.getItem("crazy8s:name") || "")}" required ${busy ? "disabled" : ""}></label>
       ${joining ? "" : '<label>Seats<select name="seats"><option value="2">2 players</option><option value="3">3 players</option><option value="4" selected>4 players</option></select></label>'}
       ${joining ? "" : `<div class="appearance">${colorControls("background", "Background")}${colorControls("table", "Table")}</div>`}
-      <button class="primary" ${busy ? "disabled" : ""}>${icon(busy ? "loader-circle" : "play")}${busy ? "Connecting…" : joining ? "Join room" : "Create room"}</button>
+      <button class="primary" name="mode" value="casual" ${busy ? "disabled" : ""}>${icon(busy ? "loader-circle" : "play")}${busy ? "Connecting…" : joining ? "Join room" : "Create room"}</button>
+      ${joining ? "" : `<div class="championship-setup"><button class="secondary" name="mode" value="championship" ${busy ? "disabled" : ""}>${icon("trophy")}Host a championship</button><label>First to<select name="target" aria-label="Championship target"><option value="3">3 wins</option><option value="5">5 wins</option><option value="7">7 wins</option></select></label></div>`}
       ${connectingError ? `<p class="error" role="alert">${escape(connectingError)}</p><button class="secondary" type="button" id="retry">${icon("refresh-cw")}Reconnect</button>` : ""}</form>
       <p class="small muted">2–4 friends · 52 cards · Wild eights</p><p class="small muted">Keep the host's tab open during the game.</p><div class="separator small muted">${joining ? '<a href="/crazy8s/">Create a different room</a>' : "No account needed."}</div></aside>
       <section class="table-area"><div class="table-heading"><span>A table for friends</span><span class="status-pill">Crazy Eights</span></div><div class="table"><div class="center-piles"><div class="pile-block">${cardHTML(null)}<span class="pile-label">52-card deck</span></div><div class="pile-block">${cardHTML({ rank: "8", suit: "hearts" })}<span class="pile-label">Eights are wild</span></div></div><p class="welcome-note">${joining ? "Your seat is waiting." : "Good company. A fresh deck."}</p></div></section></div>`;
@@ -457,7 +550,14 @@ function render() {
       if (!name) return;
       sessionStorage.setItem("crazy8s:name", name);
       if (joining) openPeer();
-      else createRoom(name, Number(data.get("seats")));
+      else {
+        mode =
+          event.submitter?.value === "championship" ? "championship" : "casual";
+        targetWins = [3, 5, 7].includes(Number(data.get("target")))
+          ? Number(data.get("target"))
+          : 3;
+        createRoom(name, Number(data.get("seats")));
+      }
     };
     document.querySelector("#retry")?.addEventListener("click", openPeer);
     if (!joining) bindColors();
@@ -465,6 +565,11 @@ function render() {
     return;
   }
   const game = packet.game;
+  const champion = championshipState(
+    packet.members,
+    packet.mode,
+    packet.targetWins,
+  ).champion;
   const mine = game?.hand || [];
   const isTurn =
     !!game &&
@@ -478,24 +583,29 @@ function render() {
     game?.gameover?.winners ||
     (game?.gameover?.winner != null ? [game.gameover.winner] : []);
   let title = game
-    ? game.gameover
-      ? `${winners.map(nameFor).join(" & ")} ${winners.length > 1 ? "win" : "wins"}!`
-      : packet.paused
-        ? "Waiting for a player"
-        : isTurn
-          ? "Your turn"
-          : `${nameFor(game.currentPlayer)}'s turn`
+    ? champion !== null
+      ? `${nameFor(champion)} is the champion!`
+      : game.gameover
+        ? `${winners.map(nameFor).join(" & ")} ${winners.length > 1 ? "win" : "wins"}!`
+        : packet.paused
+          ? "Waiting for a player"
+          : isTurn
+            ? "Your turn"
+            : `${nameFor(game.currentPlayer)}'s turn`
     : "The table is open";
   let detail = game
-    ? game.gameover
-      ? game.gameover.blocked
-        ? "No moves remain. Lowest hand score wins."
-        : "Every card played. Nicely done."
-      : game.last === "Cards dealt."
-        ? "Cards dealt."
-        : `${nameFor(game.currentPlayer)} is up next.`
+    ? champion !== null
+      ? `${packet.targetWins} wins. Championship complete.`
+      : game.gameover
+        ? game.gameover.blocked
+          ? "No moves remain. Lowest hand score wins."
+          : "Every card played. Nicely done."
+        : game.last === "Cards dealt."
+          ? "Cards dealt."
+          : `${nameFor(game.currentPlayer)} is up next.`
     : `${packet.members.length} of ${packet.capacity} seats filled`;
-  app.innerHTML = `<div class="shell"><aside class="sidebar room-sidebar"><div class="share-area"><div><p class="eyebrow">Private table</p><h2>Round ${packet.round || 1}</h2></div><button class="secondary" id="share">${icon("link")}Invite friends</button></div><p class="room-link">${escape(roomURL())}</p>
+  app.innerHTML = `<div class="shell"><aside class="sidebar room-sidebar ${packet.mode === "championship" ? "championship-sidebar" : ""}"><div class="share-area"><div><p class="eyebrow">${packet.mode === "championship" ? "Championship" : "Private table"}</p><h2>Round ${packet.round || 1}</h2></div><button class="secondary" id="share">${icon("link")}Invite friends</button></div><p class="room-link">${escape(roomURL())}</p>
+    ${standingsHTML()}
     <ul class="roster">${packet.members.map((p) => `<li><span class="avatar">${escape(p.name[0].toUpperCase())}</span><span class="roster-name"><span class="online-dot ${p.online ? "" : "offline-dot"}"></span>${escape(p.name)}${p.id === me ? " (you)" : ""}<br><span class="small muted">${p.wins} win${p.wins === 1 ? "" : "s"}${p.online ? "" : " · offline"}</span></span>${host && !game && !p.online && p.id !== "0" ? `<button class="icon-button" data-remove="${p.id}" aria-label="Remove ${escape(p.name)}">${icon("x")}</button>` : ""}</li>`).join("")}</ul>
     ${!game && host ? `<div class="separator"><button class="primary" id="start" ${packet.members.length < 2 || packet.members.some((p) => !p.online) ? "disabled" : ""}>${icon("play")}Deal cards</button></div>` : ""}
     ${!game && !host ? '<p class="small muted">Waiting for the host to deal.</p>' : ""}
@@ -503,6 +613,7 @@ function render() {
     ${game ? `<p class="match-log" aria-live="polite">${escape(game.last)}</p>` : ""}
     <button class="secondary leave" id="leave">${icon("log-out")}${host ? "Close room" : "Leave room"}</button></aside>
     <section class="table-area"><div class="table-heading"><span class="connection">${icon("users")}${packet.members.length} players</span><span class="status-pill">${connectingError ? "Disconnected" : game ? "In play" : "Waiting room"}</span></div>
+    <div id="taunt-stage" class="taunt-stage" role="status" aria-live="polite"></div>
     <div class="table"><div class="opponents">${packet.members
       .filter((p) => p.id !== me)
       .map(
@@ -512,7 +623,8 @@ function render() {
       .join("")}</div>
     <div class="center-piles"><div class="pile-block">${cardHTML(null, { draw: !!game && !game.gameover, disabled: !isTurn || canPlay })}<span class="pile-label">${game ? `${game.stockCount} to draw` : "Fresh deck"}</span></div><div class="pile-block discard-pile">${cardHTML(game?.top || { rank: "8", suit: "hearts" })}<span class="pile-label">${game ? "Discard" : "Eights are wild"}</span></div></div>
     ${game ? `<div class="active-suit"><span class="suit-token ${red(game.suit) ? "red" : ""}">${glyphs[game.suit]}</span>${game.suit[0].toUpperCase() + game.suit.slice(1)}</div>` : ""}
-    <div class="turn-banner"><p class="turn-title ${game?.gameover ? "winner" : ""}" aria-live="polite">${escape(title)}</p><p class="turn-detail">${escape(detail)}</p>${game?.gameover && host ? '<button class="primary result-actions" id="rematch">Deal again</button>' : ""}</div></div>
+    <div class="turn-banner"><p class="turn-title ${game?.gameover ? "winner" : ""}" aria-live="polite">${champion !== null ? icon("trophy") : ""}${escape(title)}</p><p class="turn-detail">${escape(detail)}</p>${game?.gameover && host ? `<button class="primary result-actions" id="${champion !== null ? "new-championship" : "rematch"}">${champion !== null ? "New championship" : packet.mode === "championship" ? "Next round" : "Deal again"}</button>` : ""}</div></div>
+    <div class="taunt-toolbar" aria-label="Taunts">${TAUNTS.map((t) => `<button class="taunt-button ${red(t.suit) ? "red" : ""}" data-taunt="${t.id}" title="Taunt: ${t.id}" aria-label="Taunt ${t.id}"><span>${t.symbol}</span>${t.id}</button>`).join("")}<button class="icon-button" id="mute-taunts" aria-label="${mutedTaunts ? "Unmute" : "Mute"} incoming taunts" title="${mutedTaunts ? "Unmute" : "Mute"} incoming taunts" aria-pressed="${mutedTaunts}">${icon(mutedTaunts ? "message-square-off" : "message-square")}</button></div>
     ${
       game
         ? `<div class="hand-area"><div class="hand-heading"><span>Your hand · ${mine.length} card${mine.length === 1 ? "" : "s"}</span></div><div class="hand">${
@@ -541,6 +653,30 @@ function render() {
   document.querySelector("#leave").onclick = leaveRoom;
   document.querySelector("#start")?.addEventListener("click", startGame);
   document.querySelector("#rematch")?.addEventListener("click", startGame);
+  document
+    .querySelector("#new-championship")
+    ?.addEventListener("click", newChampionship);
+  document
+    .querySelectorAll("[data-taunt]")
+    .forEach(
+      (button) => (button.onclick = () => sendTaunt(button.dataset.taunt)),
+    );
+  document.querySelector("#mute-taunts").onclick = () => {
+    mutedTaunts = !mutedTaunts;
+    const button = document.querySelector("#mute-taunts");
+    button.innerHTML = icon(
+      mutedTaunts ? "message-square-off" : "message-square",
+    );
+    button.setAttribute("aria-pressed", String(mutedTaunts));
+    button.setAttribute(
+      "aria-label",
+      `${mutedTaunts ? "Unmute" : "Mute"} incoming taunts`,
+    );
+    button.title = button.getAttribute("aria-label");
+    if (mutedTaunts) document.querySelector("#taunt-stage").replaceChildren();
+    createIcons({ icons });
+  };
+  updateTauntControls();
   document
     .querySelector("#draw-deck")
     ?.addEventListener("click", () => move("draw"));
@@ -650,6 +786,8 @@ if (requestedRoom && roomPattern.test(requestedRoom)) {
       capacity = saved.capacity;
       round = saved.round;
       theme = normalizeTheme(saved.theme);
+      mode = saved.mode === "championship" ? "championship" : "casual";
+      targetWins = [3, 5, 7].includes(saved.targetWins) ? saved.targetWins : 3;
       members = saved.members.map((p) => ({ ...p, online: p.id === "0" }));
       if (saved.game) bootGame(saved.game);
       openPeer();

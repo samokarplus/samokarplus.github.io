@@ -8,6 +8,10 @@ Rules: one 52-card deck, seven cards each for two players or five each for three
 
 Setup includes background and table color swatches plus custom color pickers. The host's colors are shared with guests and saved for room refreshes. Printed pip layouts, illustrated court cards, patterned card backs, and deal/draw/play animations are included; animations respect reduced-motion preferences.
 
+**Host a championship** starts a race to 3, 5, or 7 round wins. Standings and scores are shared and restored after refresh. The host deals the next round after each finish; a unique leader who reaches the target is the champion. If a blocked round creates tied leaders at the target, play continues until one leads. A new championship resets wins while keeping the room and players.
+
+All players can send **ESPA ♠**, **BITOS ♣**, **TITOS ♥**, and **ZIA ♦** taunts in both casual and championship rooms. Taunts are sent to everyone through the host, with a two-second cooldown per player. Incoming taunts can be muted locally. Taunts do not change cards, turn order, or scores.
+
 ## Architecture
 
 - boardgame.io runs the game state, turn order, move validation, shuffling, and game-over flow in the host browser.
