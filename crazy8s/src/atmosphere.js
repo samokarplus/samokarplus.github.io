@@ -20,6 +20,10 @@ export function handRigHTML() {
 }
 
 let pointer = { x: 0, y: 0, inside: false, clientX: 0 };
+let focusIndex = null;
+let room = null;
+let roomCanvas = null;
+let roomState = { seats: 1, active: -1, felt: "#216751" };
 let handLayout = [];
 
 function area() {
@@ -28,6 +32,7 @@ function area() {
 
 // Lay the cards out in a fan; `focus` is the index the pointer is nearest to.
 export function layoutFan(focus = null) {
+  focusIndex = focus;
   const hand = document.querySelector(".hand");
   if (!hand) return;
   const cards = [...hand.querySelectorAll(".card")];
@@ -107,6 +112,7 @@ export function bindAtmosphere() {
     pointer.x = (event.clientX / innerWidth) * 2 - 1;
     pointer.y = (event.clientY / innerHeight) * 2 - 1;
     applyPointer();
+    room?.setPointer(pointer.x, pointer.y);
     const handArea = document.querySelector(".hand-area");
     if (!handArea) return;
     const rect = handArea.getBoundingClientRect();
@@ -120,10 +126,81 @@ export function bindAtmosphere() {
     layoutFan(inside ? nearestIndex(event.clientX) : null);
   });
   document.addEventListener("pointerleave", () => layoutFan(null));
+  // the fan moves under the pointer, so play the card that is lit up, not whatever the click lands on
+  let replaying = false;
+  document.addEventListener(
+    "click",
+    (event) => {
+      const hit = event.target.closest?.(".hand .card");
+      if (!hit || replaying || focusIndex === null) return;
+      const cards = [...document.querySelectorAll(".hand .card")];
+      const chosen = cards[focusIndex];
+      if (!chosen || chosen === hit || chosen.disabled) return;
+      event.stopPropagation();
+      event.preventDefault();
+      replaying = true;
+      chosen.click();
+      replaying = false;
+    },
+    true,
+  );
   addEventListener("resize", () => layoutFan(null));
 }
 
 export function refreshAtmosphere() {
   applyPointer();
   layoutFan(pointer.inside ? nearestIndex(pointer.clientX) : null);
+}
+
+function syncRoomRect() {
+  if (!roomCanvas) return;
+  const el = area();
+  if (!el) {
+    roomCanvas.style.display = "none";
+  } else {
+    const r = el.getBoundingClientRect();
+    Object.assign(roomCanvas.style, {
+      display: "block",
+      left: `${r.left}px`,
+      top: `${r.top}px`,
+      width: `${r.width}px`,
+      height: `${r.height}px`,
+    });
+  }
+  requestAnimationFrame(syncRoomRect);
+}
+
+// Lazily loads the three.js lounge behind the table; falls back to the CSS atmosphere without WebGL.
+export function updateRoom(next) {
+  const prev = roomState;
+  roomState = { ...roomState, ...next };
+  if (room) {
+    if (prev.seats !== roomState.seats) room.setSeats(roomState.seats);
+    room.setActive(roomState.active);
+    if (prev.felt !== roomState.felt) room.setTheme(roomState.felt);
+    return;
+  }
+  if (roomCanvas) {
+    return;
+  }
+  roomCanvas = document.createElement("canvas");
+  roomCanvas.className = "room3d";
+  roomCanvas.setAttribute("aria-hidden", "true");
+  document.body.prepend(roomCanvas);
+  import("./room3d.js")
+    .then((m) => {
+      room = m.createRoom(roomCanvas);
+      room.setSeats(roomState.seats);
+      room.setActive(roomState.active);
+      room.setTheme(roomState.felt);
+      document.body.classList.add("has-room3d");
+      syncRoomRect();
+    })
+    .catch(() => {
+      roomCanvas?.remove();
+    });
+}
+export function roomActive(index) {
+  roomState.active = index;
+  room?.setActive(index);
 }

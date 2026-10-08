@@ -25,6 +25,7 @@ import {
   bindAtmosphere,
   handRigHTML,
   refreshAtmosphere,
+  updateRoom,
 } from "./atmosphere.js";
 import { DEALER_INTRO_MS, playDealIntro } from "./dealer.js";
 import { BOT_NAME, botMove } from "./bot.js";
@@ -612,6 +613,7 @@ function render() {
   headerLeave.title = host ? "Close room" : "Leave room";
   headerLeave.setAttribute("aria-label", headerLeave.title);
   if (!packet) {
+    updateRoom({ seats: 1, active: -1, felt: theme.table });
     const joining = !!room && !host;
     app.innerHTML = `<div class="shell"><aside class="sidebar setup-sidebar"><div><p class="eyebrow">Samo's card table</p><h2>${joining ? "Join your friends" : "Pull up a chair"}</h2></div>
       <form class="form" id="setup"><label>Your name<input name="name" maxlength="20" autocomplete="nickname" placeholder="Your name" value="${escape(sessionStorage.getItem("crazy8s:name") || "")}" required ${busy ? "disabled" : ""}></label>
@@ -796,6 +798,17 @@ function render() {
   );
   createIcons({ icons });
   refreshAtmosphere();
+  {
+    const others = packet ? packet.members.filter((p) => p.id !== me) : [];
+    updateRoom({
+      seats: Math.max(1, others.length),
+      active:
+        game && !game.gameover
+          ? others.findIndex((p) => p.id === game.currentPlayer)
+          : -1,
+      felt: theme.table,
+    });
+  }
   if (activeReaction?.until > Date.now())
     showTaunt(activeReaction.message, true);
   const celebrationKey = `${room}:${packet.round}`;

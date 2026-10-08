@@ -2022,3 +2022,35 @@ svg.court-art {
   z-index: 3;
   text-shadow: 0 1px 8px #000b;
 }
+
+/* three.js lounge behind the table */
+.room3d {
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  display: none;
+}
+#app {
+  position: relative;
+  z-index: 1;
+}
+.masthead {
+  position: relative;
+  z-index: 2;
+}
+body.has-room3d .table-area {
+  background: transparent;
+}
+body.has-room3d .casino-bg,
+body.has-room3d .felt-3d,
+body.has-room3d .chips-layer {
+  display: none;
+}
+body.has-room3d .table-area::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 62%, transparent 40%, #0009 100%);
+}

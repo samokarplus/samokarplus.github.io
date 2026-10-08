@@ -3,16 +3,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "esbuild src/app.js --bundle --minify --format=esm --outfile=app.js",
+    "build": "esbuild src/app.js --bundle --minify --splitting --format=esm --outdir=. --chunk-names=chunks/[name]-[hash]",
     "test": "node --test tests/*.test.js"
   },
   "dependencies": {
     "boardgame.io": "0.50.2",
     "lucide": "0.468.0",
-    "peerjs": "1.5.5"
+    "peerjs": "1.5.5",
+    "three": "^0.170.0"
   },
   "devDependencies": {
-    "esbuild": "0.25.12",
-    "@playwright/test": "1.56.1"
+    "@playwright/test": "1.56.1",
+    "esbuild": "0.25.12"
   }
 }
