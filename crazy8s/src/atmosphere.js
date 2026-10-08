@@ -86,11 +86,13 @@ export function layoutFan(focus = null) {
 function nearestIndex(clientX) {
   const hand = document.querySelector(".hand");
   if (!hand || !handLayout.length) return null;
+  const cards = [...hand.querySelectorAll(".card")];
   const rect = hand.getBoundingClientRect();
   const cx = rect.left + rect.width / 2;
-  let best = 0;
+  let best = null;
   let dist = Infinity;
   handLayout.forEach((x, i) => {
+    if (cards[i]?.disabled) return;
     const d = Math.abs(cx + x - clientX);
     if (d < dist) {
       dist = d;
@@ -98,6 +100,32 @@ function nearestIndex(clientX) {
     }
   });
   return best;
+}
+
+// Stay on the lit card for as long as the pointer is physically over it, so the hand can
+// be moved across the whole card; only hand over to the nearest card once it leaves.
+function pickFocus(event) {
+  const cards = [...document.querySelectorAll(".hand .card")];
+  const current = focusIndex === null ? null : cards[focusIndex];
+  if (
+    current &&
+    !current.disabled &&
+    document.elementsFromPoint(event.clientX, event.clientY).includes(current)
+  )
+    return focusIndex;
+  return nearestIndex(event.clientX);
+}
+
+function overHand(event) {
+  const handArea = document.querySelector(".hand-area");
+  if (!handArea) return false;
+  const rect = handArea.getBoundingClientRect();
+  return (
+    event.clientY > rect.top - 30 &&
+    event.clientY < rect.bottom + 20 &&
+    event.clientX > rect.left &&
+    event.clientX < rect.right
+  );
 }
 
 export function applyPointer() {
@@ -113,37 +141,35 @@ export function bindAtmosphere() {
     pointer.y = (event.clientY / innerHeight) * 2 - 1;
     applyPointer();
     room?.setPointer(pointer.x, pointer.y);
-    const handArea = document.querySelector(".hand-area");
-    if (!handArea) return;
-    const rect = handArea.getBoundingClientRect();
-    const inside =
-      event.clientY > rect.top - 30 &&
-      event.clientY < rect.bottom + 20 &&
-      event.clientX > rect.left &&
-      event.clientX < rect.right;
+    const inside = overHand(event);
     pointer.inside = inside;
     pointer.clientX = event.clientX;
-    layoutFan(inside ? nearestIndex(event.clientX) : null);
+    layoutFan(inside ? pickFocus(event) : null);
   });
   document.addEventListener("pointerleave", () => layoutFan(null));
-  // the fan moves under the pointer, so play the card that is lit up, not whatever the click lands on
-  let replaying = false;
+  // The fan moves under the pointer, so play the card that is lit up, wherever the pointer
+  // physically lands (a gap, a neighbour, or a disabled card that swallows clicks).
   document.addEventListener(
-    "click",
+    "pointerup",
     (event) => {
-      const hit = event.target.closest?.(".hand .card");
-      if (!hit || replaying || focusIndex === null) return;
+      if (event.button !== 0 || !overHand(event)) return;
       const cards = [...document.querySelectorAll(".hand .card")];
-      const chosen = cards[focusIndex];
-      if (!chosen || chosen === hit || chosen.disabled) return;
-      event.stopPropagation();
-      event.preventDefault();
-      replaying = true;
+      const focus = pickFocus(event);
+      const chosen = focus === null ? null : cards[focus];
+      if (!chosen || chosen.disabled) return;
+      const swallow = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+      };
+      document.addEventListener("click", swallow, { capture: true, once: true });
+      setTimeout(() => document.removeEventListener("click", swallow, true), 50);
       chosen.click();
-      replaying = false;
     },
     true,
   );
+  document.addEventListener("pointerdown", (event) => {
+    if (overHand(event)) layoutFan(pickFocus(event));
+  });
   addEventListener("resize", () => layoutFan(null));
 }
 
