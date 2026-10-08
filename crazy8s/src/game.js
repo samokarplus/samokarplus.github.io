@@ -32,7 +32,7 @@ export const CrazyEights = {
     const hands = Object.fromEntries(
       Array.from({ length: ctx.numPlayers }, (_, i) => [String(i), []]),
     );
-    for (let round = 0; round < (ctx.numPlayers === 2 ? 7 : 5); round++) {
+    for (let round = 0; round < 8; round++) {
       for (const hand of Object.values(hands)) hand.push(stock.pop());
     }
     const first = stock.findIndex((card) => card.rank !== "8");

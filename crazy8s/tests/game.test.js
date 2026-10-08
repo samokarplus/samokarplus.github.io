@@ -37,7 +37,7 @@ test("52 unique cards, no jokers, correct deal and non-eight opening", () => {
     assert.equal(new Set(all.map((c) => c.id)).size, 52);
     assert.notEqual(G.discard[0].rank, "8");
     assert.ok(
-      Object.values(G.hands).every((hand) => hand.length === (n === 2 ? 7 : 5)),
+      Object.values(G.hands).every((hand) => hand.length === 8),
     );
   }
 });
