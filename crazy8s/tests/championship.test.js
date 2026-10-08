@@ -1,6 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { championshipState, acceptTaunt, TAUNTS } from "../src/championship.js";
+import {
+  championshipState,
+  acceptTaunt,
+  TAUNTS,
+  cardExclamation,
+} from "../src/championship.js";
 test("championship standings track wins without mutating the roster", () => {
   const members = [
     { id: "0", wins: 1 },
@@ -55,7 +60,26 @@ test("suit shouts and emoji reactions are accepted; cooldown applies per seat", 
   }
 });
 test("responses taunt preserves the requested wording", () => {
-  assert.equal(TAUNTS.find(t => t.id === "RESPONSES").label, "I've got responses. I've got responses");
+  assert.equal(
+    TAUNTS.find((t) => t.id === "RESPONSES").label,
+    "I've got responses. I've got responses",
+  );
+});
+test("jack, king, three and six shouts map to valid manual taunts", () => {
+  for (const [rank, id, label] of [
+    ["J", "JACKQUETTA", "Jackquetta!"],
+    ["K", "KINGUETTA", "Kinguetta!"],
+    ["3", "TRECE", "Trece!"],
+    ["6", "SEISY", "Seisy!"],
+  ]) {
+    assert.equal(cardExclamation({ rank }), id);
+    assert.equal(TAUNTS.find((t) => t.id === id).label, label);
+    assert.equal(acceptTaunt(new Map(), "0", id, 0), true);
+  }
+  assert.equal(cardExclamation({ rank: "8" }, "clubs"), "CLUBITOS");
+  assert.equal(cardExclamation({ rank: "8" }, "unknown"), null);
+  assert.equal(cardExclamation({ rank: "Q" }), null);
+  assert.equal(cardExclamation(undefined), null);
 });
 test("race to seven at 6-6 is sudden death, not a completed match", () => {
   const members = [

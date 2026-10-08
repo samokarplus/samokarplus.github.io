@@ -30,6 +30,7 @@ import {
   championshipState,
   acceptTaunt,
   SUIT_CALLS,
+  cardExclamation,
 } from "./championship.js";
 
 const app = document.querySelector("#app");
@@ -98,12 +99,12 @@ let celebrated = "";
 function showTaunt(message, replay = false) {
   const taunt = TAUNTS.find((t) => t.id === message.taunt);
   if (!taunt || mutedTaunts) return;
-  if (!replay) activeReaction = { message, until: Date.now() + 5000 };
+  if (!replay) activeReaction = { message, until: Date.now() + 6000 };
   const stage = document.querySelector("#taunt-stage");
   if (!stage) return;
   const bubble = document.createElement("div");
   bubble.className = `taunt-bubble ${taunt.long || taunt.id === "CAN_AND_WILL" ? "long-shout" : ""} ${taunt.gesture ? "drawing-gesture" : ""} ${red(taunt.suit) ? "red" : ""}`;
-  bubble.innerHTML = `<span class="taunt-symbol">${taunt.symbol}</span><span><small>${escape(nameFor(message.player))}</small><strong>${escape(taunt.label || taunt.id + "!")}</strong></span>`;
+  bubble.innerHTML = `<span class="speech-avatar" aria-hidden="true">${escape(nameFor(message.player)[0].toUpperCase())}</span><span><small>${escape(nameFor(message.player))}</small><strong>${escape(taunt.label || taunt.id + "!")}</strong></span><span class="taunt-symbol" aria-hidden="true">${taunt.symbol}</span>`;
   stage.replaceChildren(bubble);
   setTimeout(
     () => bubble.remove(),
@@ -356,11 +357,13 @@ function hostMove(id, message) {
     (after.ctx.gameover?.winner != null ? [after.ctx.gameover.winner] : []);
   for (const winner of winners) members.find((p) => p.id === winner).wins++;
   broadcast();
-  if (
-    message.move === "play" &&
-    before.G.hands[id].find((c) => c.id === message.card)?.rank === "8"
-  )
-    announce(id, SUIT_CALLS[message.suit].toUpperCase());
+  if (message.move === "play") {
+    const shout = cardExclamation(
+      before.G.hands[id].find((c) => c.id === message.card),
+      message.suit,
+    );
+    if (shout) announce(id, shout);
+  }
 }
 function move(move, card, suit) {
   const message = {
@@ -654,7 +657,6 @@ function render() {
     ${game ? `<p class="match-log" aria-live="polite">${escape(game.last)}</p>` : ""}
     <button class="secondary leave" id="leave">${icon("log-out")}${host ? "Close room" : "Leave room"}</button></aside>
     <section class="table-area"><div class="table-heading"><span class="connection">${icon("users")}${packet.members.length} players</span><span class="status-pill">${connectingError ? "Disconnected" : game ? "In play" : "Waiting room"}</span></div>
-    <div id="taunt-stage" class="taunt-stage" role="status" aria-live="polite"></div>
     <div class="table">${stage && !game?.gameover ? `<div class="round-drama ${stage === "SUDDEN DEATH" ? "sudden-death" : ""}">${icon("trophy")}${stage}</div>` : ""}<div class="opponents">${packet.members
       .filter((p) => p.id !== me)
       .map(
@@ -662,6 +664,7 @@ function render() {
           `<div class="opponent ${game?.currentPlayer === p.id && !game?.gameover ? "active" : ""}"><div class="avatar">${escape(p.name[0].toUpperCase())}</div><p class="opponent-name">${escape(p.name)}</p><p class="opponent-count">${game ? `${game.counts[p.id]} card${game.counts[p.id] === 1 ? "" : "s"}` : p.online ? "Ready" : "Offline"}</p>${game ? `<div class="mini-cards" aria-hidden="true">${'<span class="mini-card"></span>'.repeat(Math.min(game.counts[p.id], 5))}</div>` : ""}</div>`,
       )
       .join("")}</div>
+    <div id="taunt-stage" class="taunt-stage" role="status" aria-live="polite"></div>
     <div class="center-piles"><div class="pile-block">${cardHTML(null, { draw: !!game && !game.gameover, disabled: !isTurn || canPlay })}<span class="pile-label">${game ? `${game.stockCount} to draw` : "Fresh deck"}</span></div><div class="pile-block discard-pile">${cardHTML(game?.top || { rank: "8", suit: "hearts" })}<span class="pile-label">${game ? "Discard" : "Eights are wild"}</span></div></div>
     ${game ? `<div class="active-suit"><span class="suit-token ${red(game.suit) ? "red" : ""}">${glyphs[game.suit]}</span>${SUIT_CALLS[game.suit]}</div>${game.drawRun >= 3 ? `<div class="drawfest-status">DRAWFEST · ${escape(nameFor(game.drawer))} · ${game.drawRun} drawn</div>` : ""}` : ""}
     <div class="turn-banner"><p class="turn-title ${game?.gameover ? "winner" : ""}" aria-live="polite">${game?.gameover ? '<span class="winner-trophy">🏆</span>' : ""}${escape(title)}</p><p class="turn-detail">${escape(detail)}</p>${game?.gameover && host ? `<button class="primary result-actions" id="${champion !== null ? "new-championship" : "rematch"}">${champion !== null ? "New championship" : packet.mode === "championship" ? "Next round" : "Deal again"}</button>` : ""}</div></div>
@@ -672,7 +675,7 @@ function render() {
       )
       .join(
         "",
-      )}<button class="icon-button" id="more-taunts" aria-label="More taunts and emoji" title="More taunts and emoji">${icon("smile-plus")}</button><button class="icon-button" id="mute-taunts" aria-label="${mutedTaunts ? "Unmute" : "Mute"} incoming taunts" title="${mutedTaunts ? "Unmute" : "Mute"} incoming taunts" aria-pressed="${mutedTaunts}">${icon(mutedTaunts ? "message-square-off" : "message-square")}</button></div>
+      )}<button class="secondary reactions-button" id="more-taunts" aria-label="More taunts and emoji" title="More taunts and emoji">${icon("smile-plus")}Taunts</button><button class="icon-button" id="mute-taunts" aria-label="${mutedTaunts ? "Unmute" : "Mute"} incoming taunts" title="${mutedTaunts ? "Unmute" : "Mute"} incoming taunts" aria-pressed="${mutedTaunts}">${icon(mutedTaunts ? "message-square-off" : "message-square")}</button></div>
     ${
       game
         ? `<div class="hand-area"><div class="hand-heading"><span>Your hand · ${mine.length} card${mine.length === 1 ? "" : "s"}</span></div><div class="hand">${

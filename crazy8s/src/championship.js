@@ -4,6 +4,17 @@ export const SUIT_CALLS = {
   diamonds: "Ziamondes",
   hearts: "Heartitos",
 };
+export const RANK_CALLS = {
+  J: "JACKQUETTA",
+  K: "KINGUETTA",
+  3: "TRECE",
+  6: "SEISY",
+};
+export function cardExclamation(card, suit) {
+  return card?.rank === "8"
+    ? SUIT_CALLS[suit]?.toUpperCase() || null
+    : RANK_CALLS[card?.rank] || null;
+}
 export const TAUNTS = [
   { id: "ESPA", suit: "spades", symbol: "♠" },
   { id: "BITOS", suit: "clubs", symbol: "♣" },
@@ -14,6 +25,10 @@ export const TAUNTS = [
     suit,
     symbol: { spades: "♠", clubs: "♣", diamonds: "♦", hearts: "♥" }[suit],
   })),
+  { id: "JACKQUETTA", label: "Jackquetta!", symbol: "🃏" },
+  { id: "KINGUETTA", label: "Kinguetta!", symbol: "👑" },
+  { id: "TRECE", label: "Trece!", symbol: "✨" },
+  { id: "SEISY", label: "Seisy!", symbol: "😎" },
   { id: "DRAWFEST", symbol: "😂" },
   {
     id: "KEEP_DRAWING",

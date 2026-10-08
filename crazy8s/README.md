@@ -18,6 +18,8 @@ Match point shows **CHAMPIONSHIP ROUND**. Tied match-point leaders show **SUDDEN
 
 ## Architecture
 
+**Jackquetta**, **Kinguetta**, **Trece**, and **Seisy** are available as manual taunts and are automatically exclaimed after a valid Jack, King, 3, or 6 is played, respectively. Speech bubbles now appear prominently between the players and draw pile with a player badge. The labeled **Taunts** button opens all reactions, including **I've got responses. I've got responses**.
+
 - boardgame.io runs the game state, turn order, move validation, shuffling, and game-over flow in the host browser.
 - PeerJS brokers WebRTC connections through its public cloud signaling service. Cards and moves travel between players' browsers; this repo runs no application server.
 - The host is authoritative and sees the full deck. Guests receive only their own hand and public counts. This is a friends' game, not a cheating-resistant competitive service.
