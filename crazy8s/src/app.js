@@ -639,19 +639,17 @@ function render() {
     game?.gameover?.winners ||
     (game?.gameover?.winner != null ? [game.gameover.winner] : []);
   let title = game
-    ? champion !== null
-      ? `${nameFor(champion)} is the champion!`
-      : game.gameover
-        ? `${winners.map(nameFor).join(" & ")} ${winners.length > 1 ? "win" : "wins"}!`
-        : packet.paused
-          ? "Waiting for a player"
-          : isTurn
-            ? "Your turn"
-            : `${nameFor(game.currentPlayer)}'s turn`
+    ? game.gameover
+      ? `${winners.map(nameFor).join(" & ")} ${winners.length > 1 ? "win" : "wins"}!`
+      : packet.paused
+        ? "Waiting for a player"
+        : isTurn
+          ? "Your turn"
+          : `${nameFor(game.currentPlayer)}'s turn`
     : "The table is open";
   let detail = game
     ? champion !== null
-      ? `${packet.targetWins} wins. Championship complete.`
+      ? `${nameFor(champion)} is the champion! ${packet.targetWins} wins. Championship complete.`
       : game.gameover
         ? game.gameover.blocked
           ? "No moves remain. Lowest hand score wins."
@@ -852,7 +850,7 @@ function animatePlayedCard(discard, previousDiscard, source) {
 }
 
 function celebrate() {
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const shower = document.createElement("div");
   shower.className = "confetti-shower";
   shower.setAttribute("aria-hidden", "true");
@@ -868,6 +866,11 @@ function celebrate() {
       "#69c9ff",
     ][i % 5];
     shower.append(piece);
+    if (reducedMotion) {
+      piece.style.top = `${Math.random() * 100}%`;
+      piece.style.transform = `rotate(${Math.random() * 180}deg)`;
+      continue;
+    }
     piece.animate(
       [
         { transform: "translateY(-30px) rotate(0)", opacity: 1 },
@@ -883,7 +886,7 @@ function celebrate() {
       },
     );
   }
-  setTimeout(() => shower.remove(), 5000);
+  setTimeout(() => shower.remove(), reducedMotion ? 2500 : 5000);
 }
 document.querySelector(".reaction-options").innerHTML = TAUNTS.map(
   (t) =>
