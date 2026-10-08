@@ -8,6 +8,10 @@ https://samo.karplus.org
 
 The site is designed so most updates happen through small data files or GitHub Actions, not by editing the main page code.
 
+## Crazy Eights
+
+The homepage's **Play Crazy Eights** button opens [samo.karplus.org/crazy8s](https://samo.karplus.org/crazy8s/), a 2–4 player card game with shareable room links. It uses a standard 52-card deck, wild eights with suit choice, and drawing until playable. See [crazy8s/README.md](crazy8s/README.md) for the rules, multiplayer architecture, and development commands. The host keeps the game tab open; friends join through the room link.
+
 For exact step-by-step instructions, use:
 
 ```text

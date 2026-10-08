@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Play Crazy Eights with 2–4 friends. A standard deck, wild eights, and a private room link."
+    />
+    <title>Crazy Eights · Samo Karplus</title>
+    <link rel="canonical" href="https://samo.karplus.org/crazy8s/" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="masthead">
+      <a href="/" class="back"
+        ><i data-lucide="arrow-left"></i><span>Samo Karplus</span></a
+      >
+      <div class="brand">
+        <span class="eight-mark">8</span>
+        <h1>Crazy Eights</h1>
+      </div>
+      <div class="header-actions">
+        <button
+          id="header-leave"
+          class="icon-button header-leave"
+          title="Leave room"
+          aria-label="Leave room"
+          hidden
+        >
+          <i data-lucide="log-out"></i></button
+        ><button
+          id="rules"
+          class="icon-button"
+          title="Rules"
+          aria-label="Rules"
+        >
+          <i data-lucide="circle-help"></i>
+        </button>
+      </div>
+    </header>
+    <main id="app"></main>
+    <p id="notice" role="status" aria-live="polite"></p>
+    <dialog id="rules-dialog">
+      <div class="dialog-top">
+        <h2>The rules</h2>
+        <button class="icon-button close-dialog" aria-label="Close rules">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <p>
+        One standard 52-card deck. Two players get seven cards each; three or
+        four players get five.
+      </p>
+      <p>
+        Match the top card's rank or the active suit. An eight can be played on
+        any card, and you choose the next suit.
+      </p>
+      <p>
+        If you cannot play, draw until you get a playable card, then play it. If
+        the stock runs out, the discards are shuffled back in, keeping the top
+        card. If no cards remain to draw, your turn passes.
+      </p>
+      <p>
+        First to empty their hand wins. If everyone is stuck, the lowest hand
+        score wins: eights 50, face cards 10, aces 1, other cards their number.
+        No stacking or special action cards.
+      </p>
+      <p class="muted">
+        The host keeps this tab open. A room link admits up to four players.
+        Your hand is shared only with you and the host.
+      </p>
+    </dialog>
+    <dialog id="suit-dialog">
+      <div class="dialog-top">
+        <h2>Choose a suit</h2>
+        <button
+          class="icon-button close-dialog"
+          aria-label="Cancel suit choice"
+        >
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="suit-options"></div>
+    </dialog>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
