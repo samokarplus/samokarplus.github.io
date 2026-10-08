@@ -2,6 +2,8 @@
 
 Live page: https://samo.karplus.org/crazy8s/
 
+Choose **1 player + bot** to play against **Mr. Samo the Crazy 8 bot!**. Solo play starts immediately and runs locally without PeerJS or an invite link. The bot uses only its own hand, plays legal cards, draws one at a time until playable, and chooses the suit it has most of when playing an eight. Solo rounds and championships retain the same rules, shouts, animations, celebrations, and refresh recovery.
+
 This static game supports 2–4 humans through a shared room URL. Open the page, enter a name, create a room, copy the invite link, and deal once friends join. The homepage has a Crazy Eights link and play button.
 
 Rules: one 52-card deck, seven cards each for two players or five each for three/four. Match rank or active suit. Eights are wild and require a suit choice. Click the deck to draw one card at a time until a playable card is found, then play it. Recycle the discards while retaining the top card. Pass only when no draw or play is available. First empty hand wins; a fully blocked game uses the lowest remaining hand score.

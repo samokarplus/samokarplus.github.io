@@ -19,6 +19,7 @@ import {
 import { CrazyEights, SUITS, playable, view } from "./game.js";
 import { cardArt } from "./art.js";
 import { flightKeyframes } from "./motion.js";
+import { BOT_NAME, botMove } from "./bot.js";
 import {
   DEFAULT_THEME,
   PALETTES,
@@ -96,6 +97,22 @@ let mode = "casual",
 const lastTaunts = new Map();
 let activeReaction = null;
 let celebrated = "";
+let botTimer;
+const soloGame = () => members.some((p) => p.bot);
+function scheduleBot() {
+  clearTimeout(botTimer);
+  const state = engine?.getState();
+  const bot = members.find((p) => p.bot && p.id === state?.ctx.currentPlayer);
+  if (!host || !bot || state.ctx.gameover || members.some((p) => !p.online))
+    return;
+  botTimer = setTimeout(() => {
+    hostMove(bot.id, {
+      ...botMove(state.G.hands[bot.id], state.G.discard.at(-1), state.G.suit),
+      round,
+      version: state._stateID,
+    });
+  }, 800);
+}
 
 function showTaunt(message, replay = false) {
   const taunt = TAUNTS.find((t) => t.id === message.taunt);
@@ -272,11 +289,12 @@ function saveHost() {
 }
 function broadcast() {
   const state = engine?.getState();
-  const publicMembers = members.map(({ id, name, wins, online }) => ({
+  const publicMembers = members.map(({ id, name, wins, online, bot }) => ({
     id,
     name,
     wins,
     online,
+    bot,
   }));
   const base = {
     type: "state",
@@ -296,6 +314,7 @@ function broadcast() {
   }
   saveHost();
   render();
+  scheduleBot();
 }
 function bootGame(saved = null) {
   const game = saved
@@ -451,11 +470,14 @@ function handleGuest(conn) {
 function createRoom(name, seats) {
   host = true;
   room = uid().slice(0, 16);
-  capacity = seats;
+  capacity = seats === 1 ? 2 : seats;
   me = "0";
   members = [{ id: "0", name, wins: 0, online: true, token: uid() }];
+  if (seats === 1)
+    members.push({ id: "1", name: BOT_NAME, wins: 0, online: true, bot: true });
   history.replaceState({}, "", `?room=${room}&host=1`);
-  openPeer();
+  if (soloGame()) startGame();
+  else openPeer();
 }
 function openPeer() {
   busy = true;
@@ -553,7 +575,8 @@ function removeMember(id) {
   broadcast();
 }
 function leaveRoom() {
-  if (host && !confirm("Close this room for everyone?")) return;
+  if (host && !soloGame() && !confirm("Close this room for everyone?")) return;
+  clearTimeout(botTimer);
   clearTimeout(reconnectTimer);
   if (host) sessionStorage.removeItem(hostStorage());
   peer?.destroy();
@@ -587,12 +610,12 @@ function render() {
     const joining = !!room && !host;
     app.innerHTML = `<div class="shell"><aside class="sidebar setup-sidebar"><div><p class="eyebrow">Samo's card table</p><h2>${joining ? "Join your friends" : "Pull up a chair"}</h2></div>
       <form class="form" id="setup"><label>Your name<input name="name" maxlength="20" autocomplete="nickname" placeholder="Your name" value="${escape(sessionStorage.getItem("crazy8s:name") || "")}" required ${busy ? "disabled" : ""}></label>
-      ${joining ? "" : '<label>Seats<select name="seats"><option value="2">2 players</option><option value="3">3 players</option><option value="4" selected>4 players</option></select></label>'}
+      ${joining ? "" : '<label>Seats<select name="seats"><option value="1">1 player + bot</option><option value="2">2 players</option><option value="3">3 players</option><option value="4" selected>4 players</option></select></label>'}
       ${joining ? "" : `<div class="appearance">${colorControls("background", "Background")}${colorControls("table", "Table")}</div>`}
       <button class="primary" name="mode" value="casual" ${busy ? "disabled" : ""}>${icon(busy ? "loader-circle" : "play")}${busy ? "Connecting…" : joining ? "Join room" : "Create room"}</button>
       ${joining ? "" : `<div class="championship-setup"><button class="secondary" name="mode" value="championship" ${busy ? "disabled" : ""}>${icon("trophy")}Host a championship</button><label>First to<select name="target" aria-label="Championship target"><option value="3">3 wins</option><option value="5">5 wins</option><option value="7">7 wins</option></select></label></div>`}
       ${connectingError ? `<p class="error" role="alert">${escape(connectingError)}</p><button class="secondary" type="button" id="retry">${icon("refresh-cw")}Reconnect</button>` : ""}</form>
-      <p class="small muted">2–4 friends · 52 cards · Wild eights</p><p class="small muted">Keep the host's tab open during the game.</p><div class="separator small muted">${joining ? '<a href="/crazy8s/">Create a different room</a>' : "No account needed."}</div></aside>
+      <p class="small muted">Solo or 2–4 friends · 52 cards · Wild eights</p><p class="small muted">Keep the host's tab open for multiplayer.</p><div class="separator small muted">${joining ? '<a href="/crazy8s/">Create a different room</a>' : "No account needed."}</div></aside>
       <section class="table-area"><div class="table-heading"><span>A table for friends</span><span class="status-pill">Crazy Eights</span></div><div class="table"><div class="center-piles"><div class="pile-block">${cardHTML(null)}<span class="pile-label">52-card deck</span></div><div class="pile-block">${cardHTML({ rank: "8", suit: "hearts" })}<span class="pile-label">Eights are wild</span></div></div><p class="welcome-note">${joining ? "Your seat is waiting." : "Good company. A fresh deck."}</p></div></section></div>`;
     document.querySelector("#setup").onsubmit = (event) => {
       event.preventDefault();
@@ -658,7 +681,7 @@ function render() {
           ? "Cards dealt."
           : `${nameFor(game.currentPlayer)} is up next.`
     : `${packet.members.length} of ${packet.capacity} seats filled`;
-  app.innerHTML = `<div class="shell"><aside class="sidebar room-sidebar ${packet.mode === "championship" ? "championship-sidebar" : ""}"><div class="share-area"><div><p class="eyebrow">${packet.mode === "championship" ? "Championship" : "Private table"}</p><h2>Round ${packet.round || 1}</h2></div><button class="secondary" id="share">${icon("link")}Invite friends</button></div><p class="room-link">${escape(roomURL())}</p>
+  app.innerHTML = `<div class="shell"><aside class="sidebar room-sidebar ${packet.mode === "championship" ? "championship-sidebar" : ""}"><div class="share-area"><div><p class="eyebrow">${packet.mode === "championship" ? "Championship" : soloGame() ? "Solo table" : "Private table"}</p><h2>Round ${packet.round || 1}</h2></div>${soloGame() ? "" : `<button class="secondary" id="share">${icon("link")}Invite friends</button>`}</div>${soloGame() ? "" : `<p class="room-link">${escape(roomURL())}</p>`}
     ${standingsHTML()}
     <ul class="roster">${packet.members.map((p) => `<li><span class="avatar">${escape(p.name[0].toUpperCase())}</span><span class="roster-name"><span class="online-dot ${p.online ? "" : "offline-dot"}"></span>${escape(p.name)}${p.id === me ? " (you)" : ""}<br><span class="small muted">${p.wins} win${p.wins === 1 ? "" : "s"}${p.online ? "" : " · offline"}</span></span>${host && !game && !p.online && p.id !== "0" ? `<button class="icon-button" data-remove="${p.id}" aria-label="Remove ${escape(p.name)}">${icon("x")}</button>` : ""}</li>`).join("")}</ul>
     ${!game && host ? `<div class="separator"><button class="primary" id="start" ${packet.members.length < 2 || packet.members.some((p) => !p.online) ? "disabled" : ""}>${icon("play")}Deal cards</button></div>` : ""}
@@ -703,14 +726,16 @@ function render() {
           }</div></div>`
         : ""
     }</section></div>`;
-  document.querySelector("#share").onclick = async () => {
-    try {
-      await navigator.clipboard.writeText(roomURL());
-      notify("Room link copied.");
-    } catch {
-      prompt("Share this room link:", roomURL());
-    }
-  };
+  const shareButton = document.querySelector("#share");
+  if (shareButton)
+    shareButton.onclick = async () => {
+      try {
+        await navigator.clipboard.writeText(roomURL());
+        notify("Room link copied.");
+      } catch {
+        prompt("Share this room link:", roomURL());
+      }
+    };
   document.querySelector("#leave").onclick = leaveRoom;
   document.querySelector("#more-taunts").onclick = () =>
     document.querySelector("#reaction-dialog").showModal();
@@ -933,9 +958,13 @@ if (requestedRoom && roomPattern.test(requestedRoom)) {
       theme = normalizeTheme(saved.theme);
       mode = saved.mode === "championship" ? "championship" : "casual";
       targetWins = [3, 5, 7].includes(saved.targetWins) ? saved.targetWins : 3;
-      members = saved.members.map((p) => ({ ...p, online: p.id === "0" }));
+      members = saved.members.map((p) => ({
+        ...p,
+        online: p.id === "0" || !!p.bot,
+      }));
       if (saved.game) bootGame(saved.game);
-      openPeer();
+      if (soloGame()) broadcast();
+      else openPeer();
     } catch {
       connectingError = "This room could not be restored. Create a new room.";
       render();
