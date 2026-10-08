@@ -123,8 +123,102 @@ function makePerson(opts = {}) {
     body.add(arm);
     arms.push(arm);
   }
-  g.userData = { body, head, eyes, arms, phase: Math.random() * 10 };
+  const legs = [];
+  const pants = mat(opts.pants || "#1b1b26", { roughness: 0.8 });
+  for (const sgn of [-1, 1]) {
+    const leg = new THREE.Group();
+    leg.position.set(sgn * 0.14, 0.98, 0);
+    const thigh = new THREE.Mesh(new THREE.CapsuleGeometry(0.095, 0.62, 4, 10), pants);
+    thigh.position.y = -0.42;
+    const shoe = new THREE.Mesh(new THREE.SphereGeometry(0.1, 10, 8), mat("#0b0b10", { roughness: 0.3 }));
+    shoe.scale.set(1, 0.6, 1.5);
+    shoe.position.set(0, -0.84, 0.05);
+    leg.add(thigh, shoe);
+    g.add(leg);
+    legs.push(leg);
+  }
+  const held = new THREE.Mesh(
+    new THREE.BoxGeometry(0.1, 0.15, 0.006),
+    new THREE.MeshStandardMaterial({ color: "#7d304b", roughness: 0.5 }),
+  );
+  held.position.set(0, -0.42, 0.37);
+  held.rotation.x = 0.4;
+  held.visible = false;
+  arms[1].add(held);
+  g.userData = { body, head, eyes, arms, legs, held, baseY: 0, phase: Math.random() * 10, flickStart: null };
   return g;
+}
+
+const FLICK_MS = 760;
+const FLICK_RELEASE = 0.66;
+const ease = (x) => x * x * (3 - 2 * x);
+
+// A deliberate flick: pull the card back over the shoulder, snap it forward, follow through.
+function flickPose(d, p) {
+  const arm = d.arms[1];
+  let x;
+  let z;
+  let lean;
+  if (p < 0.5) {
+    const e = ease(p / 0.5);
+    x = -0.95 - 1.15 * e;
+    z = -0.3 * e;
+    lean = -0.06 * e;
+  } else if (p < FLICK_RELEASE) {
+    const e = ease((p - 0.5) / (FLICK_RELEASE - 0.5));
+    x = -2.1 + 1.65 * e;
+    z = -0.3 + 0.3 * e;
+    lean = -0.06 + 0.2 * e;
+  } else {
+    const e = ease((p - FLICK_RELEASE) / (1 - FLICK_RELEASE));
+    x = -0.45 - 0.5 * e;
+    z = 0;
+    lean = 0.14 - 0.12 * e;
+  }
+  arm.rotation.x = x;
+  arm.rotation.z = z;
+  d.body.rotation.x = lean;
+  d.head.rotation.x = 0.12 * (p < FLICK_RELEASE ? 1 : 0.4);
+  d.held.visible = p < FLICK_RELEASE;
+}
+
+// Victory dance: bounce, hips and head swaying, arms alternating overhead; the move changes every few seconds.
+function dance(person, t, intensity = 1) {
+  const d = person.userData;
+  const b = t * 7;
+  const move = Math.floor(t / 3) % 3;
+  person.position.y = Math.abs(Math.sin(b)) * 0.12 * intensity;
+  d.body.rotation.z = Math.sin(b) * 0.14 * intensity;
+  d.body.rotation.y = Math.sin(b * 0.5) * 0.5 * intensity;
+  d.body.rotation.x = 0;
+  d.body.scale.y = 1;
+  d.head.rotation.z = Math.sin(b) * 0.22 * intensity;
+  d.head.rotation.x = Math.sin(b * 2) * 0.1;
+  d.head.rotation.y = Math.sin(b * 0.5) * 0.3;
+  d.eyes.scale.y = 1;
+  if (move === 0) {
+    d.arms[0].rotation.x = -2.7 + Math.sin(b) * 0.45;
+    d.arms[0].rotation.z = 0.35 + Math.sin(b * 0.5) * 0.3;
+    d.arms[1].rotation.x = -2.7 + Math.sin(b + Math.PI) * 0.45;
+    d.arms[1].rotation.z = -0.35 - Math.sin(b * 0.5) * 0.3;
+  } else if (move === 1) {
+    // disco point
+    const up = Math.sin(b) > 0;
+    d.arms[0].rotation.x = up ? -2.8 : -0.4;
+    d.arms[0].rotation.z = up ? 0.6 : 0.5;
+    d.arms[1].rotation.x = up ? -0.4 : -2.8;
+    d.arms[1].rotation.z = up ? -0.5 : -0.6;
+  } else {
+    // arms waving side to side
+    d.arms[0].rotation.x = -2.2;
+    d.arms[1].rotation.x = -2.2;
+    d.arms[0].rotation.z = 0.5 + Math.sin(b) * 0.6;
+    d.arms[1].rotation.z = -0.5 + Math.sin(b) * 0.6;
+  }
+  d.legs[0].rotation.x = Math.sin(b) * 0.45 * intensity;
+  d.legs[1].rotation.x = -Math.sin(b) * 0.45 * intensity;
+  d.legs[0].rotation.z = 0.08 + Math.max(0, Math.sin(b)) * 0.15;
+  d.legs[1].rotation.z = -0.08 - Math.max(0, -Math.sin(b)) * 0.15;
 }
 
 export function createRoom(canvas) {
@@ -228,6 +322,7 @@ export function createRoom(canvas) {
   }
   const bartender = makePerson({ skin: SKINS[1], shirt: "#f4f1ea", jacket: "#16161d", hair: HAIRS[0] });
   bartender.position.set(1.4, 0.15, -7.1);
+  bartender.userData.baseY = 0.15;
   bartender.scale.setScalar(1.12);
   scene.add(bartender);
 
@@ -327,6 +422,7 @@ export function createRoom(canvas) {
       const slot = slots[slotIndex];
       const p = makePerson({ ...looks[(slotIndex + (count === 1 ? 1 : 0)) % 3], shades: count === 1 });
       p.position.set(slot.pos.x * 0.97, 0.12, slot.pos.z * 0.97);
+      p.userData.baseY = 0.12;
       p.lookAt(0, 0.12, 0.2);
       p.userData.seat = n;
       scene.add(p);
@@ -335,6 +431,31 @@ export function createRoom(canvas) {
   }
   setSeats(1);
   let active = -1;
+
+  // victory party: disco ball, sweeping colour lights and a dancer who steps out for the player
+  const party = new THREE.Group();
+  party.visible = false;
+  const ball = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(0.42, 1),
+    new THREE.MeshStandardMaterial({ color: "#d9dcff", metalness: 1, roughness: 0.12, flatShading: true, emissive: "#555577", emissiveIntensity: 0.6 }),
+  );
+  ball.position.y = 3.3;
+  const ballCord = new THREE.Mesh(new THREE.CylinderGeometry(0.01, 0.01, 2, 4), mat("#222"));
+  ballCord.position.y = 4.3;
+  party.add(ball, ballCord);
+  scene.add(party);
+  const partyLights = ["#ff3d7f", "#3dc9ff", "#ffd23d"].map((c) => {
+    const l = new THREE.PointLight(c, 0, 10, 1.4);
+    scene.add(l);
+    return l;
+  });
+  const dancer = makePerson({ skin: SKINS[0], shirt: "#f4f1ea", jacket: "#4a72d0", hair: HAIRS[0], shades: true });
+  dancer.position.set(1.9, 0, -1.5);
+  dancer.scale.setScalar(1.15);
+  dancer.visible = false;
+  scene.add(dancer);
+  let celebrate = null;
+  let celebrateStart = 0;
 
   // dust motes
   const dustN = 180;
@@ -377,14 +498,64 @@ export function createRoom(canvas) {
     warm.intensity = 8.5 + Math.sin(t * 5.3) * 0.5 + Math.sin(t * 2.1) * 0.6;
     skyMat.color.setHSL(0.06 + Math.sin(t * 0.15) * 0.015, 0.4, 0.62 + Math.sin(t * 0.4) * 0.05);
     stacks.forEach((s, i) => (s.position.y = Math.sin(t * 1.4 + i) * 0.002));
+    const partyT = celebrate ? (t - celebrateStart) : 0;
+    const partyK = celebrate ? Math.min(1, partyT / 0.8) : 0;
+    party.visible = !!celebrate;
+    ball.rotation.y = t * 1.4;
+    ball.scale.setScalar(Math.max(0.001, partyK));
+    partyLights.forEach((l, i) => {
+      const a = t * (0.9 + i * 0.25) + i * 2.1;
+      l.position.set(Math.cos(a) * 3.2, 2.4 + Math.sin(a * 1.7) * 0.5, Math.sin(a) * 2.2 - 0.5);
+      l.intensity = celebrate ? 28 * partyK : 0;
+    });
+    spot.intensity = celebrate ? 30 : 55;
+    dancer.visible = !!celebrate?.me;
+    if (dancer.visible) {
+      dancer.scale.setScalar(1.15 * Math.min(1, partyT / 0.5));
+      dance(dancer, t, 1);
+    }
     for (const person of [...people, bartender]) {
       const d = person.userData;
       const k = t + d.phase;
-      const isActive = people.indexOf(person) === active;
+      const seat = people.indexOf(person);
+      const isActive = seat === active;
+      const winner = celebrate && seat >= 0 && celebrate.seats.includes(seat);
+      d.legs.forEach((leg) => {
+        leg.rotation.x = 0;
+        leg.rotation.z = 0;
+      });
+      d.held.visible = false;
+      if (celebrate && (winner || person === bartender)) {
+        dance(person, t + d.phase * 0.1, winner ? 1 : 0.6);
+        continue;
+      }
+      person.position.y = d.baseY;
+      d.body.rotation.z = 0;
+      d.body.rotation.y = 0;
+      d.arms[0].rotation.z = 0;
+      d.arms[1].rotation.z = 0;
+      if (celebrate && seat >= 0) {
+        // everyone else at the table reacts: clap if the player won, slump if a rival did
+        if (celebrate.me) {
+          const b = t * 9 + d.phase;
+          d.arms[0].rotation.x = -1.35;
+          d.arms[1].rotation.x = -1.35;
+          d.arms[0].rotation.z = 0.25 + Math.sin(b) * 0.2;
+          d.arms[1].rotation.z = -0.25 - Math.sin(b) * 0.2;
+          d.head.rotation.x = -0.08;
+        } else {
+          d.head.rotation.x = 0.45;
+          d.arms[0].rotation.x = -0.7;
+          d.arms[1].rotation.x = -0.7;
+        }
+        d.head.rotation.y = Math.sin(k * 0.4) * 0.2;
+        continue;
+      }
       d.body.scale.y = 1 + Math.sin(k * 1.6) * 0.012;
       d.body.rotation.x = isActive ? 0.12 + Math.sin(k * 3) * 0.03 : Math.sin(k * 0.7) * 0.02;
       d.head.rotation.y = Math.sin(k * 0.5) * 0.45 + (person === bartender ? 0 : pointer.x * 0.2);
       d.head.rotation.x = isActive ? 0.2 : Math.sin(k * 0.8) * 0.06;
+      d.head.rotation.z = 0;
       d.eyes.scale.y = Math.sin(k * 1.1) > 0.985 ? 0.1 : 1;
       if (person === bartender) {
         d.arms[1].rotation.x = -1.0 + Math.sin(k * 2.2) * 0.35;
@@ -393,6 +564,11 @@ export function createRoom(canvas) {
       } else {
         d.arms[0].rotation.x = -0.95 + Math.sin(k * 0.9) * 0.05;
         d.arms[1].rotation.x = isActive ? -1.15 + Math.sin(k * 5) * 0.18 : -0.95 + Math.sin(k * 1.3 + 1) * 0.1;
+        if (d.flickStart !== null) {
+          const p = (performance.now() - d.flickStart) / FLICK_MS;
+          if (p >= 1) d.flickStart = null;
+          else flickPose(d, p);
+        }
       }
     }
     const pos = dust.geometry.attributes.position;
@@ -414,6 +590,35 @@ export function createRoom(canvas) {
     setSeats,
     setActive(i) {
       active = i;
+    },
+    // Starts the patron's flick; resolves with ms until the card leaves the hand.
+    flick(seat) {
+      const p = people[seat];
+      if (!p) return 0;
+      p.userData.flickStart = performance.now();
+      return FLICK_MS * FLICK_RELEASE;
+    },
+    // Where that patron's hand is on screen (client px), so the flying DOM card starts there.
+    handScreenRect(seat) {
+      const p = people[seat];
+      if (!p) return null;
+      camera.updateMatrixWorld();
+      const world = p.localToWorld(new THREE.Vector3(0.3, 1.2, 0.5));
+      const v = world.clone().project(camera);
+      const box = canvas.getBoundingClientRect();
+      const x = box.left + ((v.x + 1) / 2) * box.width;
+      const y = box.top + ((1 - v.y) / 2) * box.height;
+      const dist = camera.position.distanceTo(world);
+      const h = Math.max(22, (0.16 / (2 * dist * Math.tan((camera.fov * Math.PI) / 360))) * box.height);
+      return { left: x - h * 0.35, top: y - h / 2, width: h * 0.7, height: h };
+    },
+    setCelebrate(next) {
+      if (!next) {
+        celebrate = null;
+        return;
+      }
+      if (!celebrate) celebrateStart = clock.getElapsedTime();
+      celebrate = next;
     },
     setPointer(x, y) {
       pointer.x = x;

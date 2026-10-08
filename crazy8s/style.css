@@ -2054,3 +2054,30 @@ body.has-room3d .table-area::before {
   pointer-events: none;
   background: radial-gradient(ellipse at 50% 62%, transparent 40%, #0009 100%);
 }
+
+/* Playable and unplayable cards look identical: no hints, you have to think */
+.hand .card,
+.hand .card:disabled,
+.hand .card:not(:disabled) {
+  opacity: 1;
+  border: 1px solid #dae1dc;
+}
+.hand .card.fan-focus,
+.hand .card.fan-focus:not(:disabled) {
+  box-shadow: 0 14px 24px #000a;
+}
+.draw-deck:disabled,
+.draw-deck:not(:disabled) {
+  outline: none;
+  opacity: 1;
+}
+.draw-deck:hover,
+.draw-deck:disabled:hover {
+  transform: translateY(-4px) rotate(-2deg);
+}
+.draw-deck {
+  cursor: pointer;
+}
+.hand .card {
+  cursor: pointer;
+}

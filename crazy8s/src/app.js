@@ -15,6 +15,8 @@ import {
   MessageSquare,
   MessageSquareOff,
   SmilePlus,
+  Volume2,
+  VolumeX,
 } from "lucide";
 import { CrazyEights, SUITS, playable, view } from "./game.js";
 import { cardArt } from "./art.js";
@@ -25,8 +27,10 @@ import {
   bindAtmosphere,
   handRigHTML,
   refreshAtmosphere,
+  patronFlick,
   updateRoom,
 } from "./atmosphere.js";
+import * as sound from "./sound.js";
 import { DEALER_INTRO_MS, playDealIntro } from "./dealer.js";
 import { BOT_NAME, botMove } from "./bot.js";
 import {
@@ -59,6 +63,8 @@ const icons = {
   MessageSquare,
   MessageSquareOff,
   SmilePlus,
+  Volume2,
+  VolumeX,
 };
 const glyphs = { clubs: "♣", diamonds: "♦", hearts: "♥", spades: "♠" };
 const red = (suit) => ["hearts", "diamonds"].includes(suit);
@@ -807,6 +813,15 @@ function render() {
           ? others.findIndex((p) => p.id === game.currentPlayer)
           : -1,
       felt: theme.table,
+      celebrate: game?.gameover
+        ? {
+            me: winners.includes(me),
+            seats: winners
+              .filter((id) => id !== me)
+              .map((id) => others.findIndex((p) => p.id === id))
+              .filter((i) => i >= 0),
+          }
+        : null,
     });
   }
   if (activeReaction?.until > Date.now())
@@ -828,6 +843,9 @@ function render() {
     document.querySelectorAll(".hand [data-card]").forEach((card, index) => {
       if (!firstDeal && previous.hand.includes(card.dataset.card)) return;
       const target = card.getBoundingClientRect();
+      sound[firstDeal ? "tick" : "draw"](
+        firstDeal ? index * 90 + (dealerIntro ? DEALER_INTRO_MS - 200 : 0) : 0,
+      );
       card.animate(
         [
           {
@@ -850,11 +868,23 @@ function render() {
     if (previous && !firstDeal && previous.top !== game.top.id) {
       const discard = document.querySelector(".discard-pile .card");
       const target = discard.getBoundingClientRect();
-      animatePlayedCard(
-        discard,
-        previousDiscard,
-        playedSource || { ...target.toJSON(), top: target.top - 80 },
-      );
+      const mover = previous.currentPlayer;
+      const rivals = packet.members.filter((p) => p.id !== me);
+      const flick =
+        mover && mover !== me
+          ? patronFlick(rivals.findIndex((p) => p.id === mover))
+          : null;
+      if (flick)
+        animatePlayedCard(discard, previousDiscard, flick.rect, {
+          delay: flick.delay,
+          hand: false,
+        });
+      else
+        animatePlayedCard(
+          discard,
+          previousDiscard,
+          playedSource || { ...target.toJSON(), top: target.top - 80 },
+        );
     }
   }
   renderedGame = game
@@ -867,7 +897,9 @@ function render() {
     : null;
 }
 
-function animatePlayedCard(discard, previousDiscard, source) {
+function animatePlayedCard(discard, previousDiscard, source, opts = {}) {
+  const delay = opts.delay || 0;
+  const withHand = opts.hand !== false;
   const target = discard.getBoundingClientRect();
   document
     .querySelectorAll(".card-flight-overlay")
@@ -888,11 +920,15 @@ function animatePlayedCard(discard, previousDiscard, source) {
     layer.append(card);
   }
   const { wrap, arm, angle } = createPlayHand(source, target);
-  layer.append(wrap);
+  if (withHand) layer.append(wrap);
+  else flying.style.visibility = "hidden";
+  if (delay) setTimeout(() => (flying.style.visibility = ""), delay);
+  sound.whoosh(delay);
+  sound.slap(delay + 790);
   document.body.append(layer);
   discard.style.visibility = "hidden";
   const frames = flightKeyframes(source, target);
-  const options = { duration: 900, easing: "linear", fill: "both" };
+  const options = { duration: 900, easing: "linear", fill: "both", delay };
   const flight = flying.animate(frames, options);
   // the hand rides along with the card (minus the card's own spin), then lets go and pulls back
   wrap.animate(
@@ -910,7 +946,7 @@ function animatePlayedCard(discard, previousDiscard, source) {
       { transform: arm.style.transform + " scale(1)", offset: 0.3 },
       { transform: arm.style.transform + " scale(1)" },
     ],
-    { duration: 900 },
+    { duration: 900, delay },
   );
   const finish = () => {
     discard.style.visibility = "";
@@ -940,6 +976,7 @@ function animatePlayedCard(discard, previousDiscard, source) {
 }
 
 function celebrate() {
+  sound.fanfare();
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const shower = document.createElement("div");
   shower.className = "confetti-shower";
@@ -979,6 +1016,21 @@ function celebrate() {
   setTimeout(() => shower.remove(), reducedMotion ? 2500 : 5000);
 }
 bindAtmosphere();
+document.addEventListener("pointerdown", () => sound.unlockAudio(), { once: true });
+const soundButton = document.querySelector("#sound-toggle");
+function paintSoundButton() {
+  soundButton.innerHTML = `<i data-lucide="${sound.isMuted() ? "volume-x" : "volume-2"}"></i>`;
+  soundButton.setAttribute("aria-pressed", String(!sound.isMuted()));
+  soundButton.title = sound.isMuted() ? "Turn sound on" : "Turn sound off";
+  soundButton.setAttribute("aria-label", soundButton.title);
+  createIcons({ icons });
+}
+soundButton.onclick = () => {
+  sound.setMuted(!sound.isMuted());
+  sound.unlockAudio();
+  paintSoundButton();
+};
+paintSoundButton();
 document.querySelector(".reaction-options").innerHTML = TAUNTS.map(
   (t) =>
     `<button class="reaction-choice ${red(t.suit) ? "red" : ""} ${t.long || t.id === "CAN_AND_WILL" ? "wide-reaction" : ""}" data-taunt="${t.id}"><span>${t.symbol}</span><strong>${escape(t.label || t.id)}</strong></button>`,

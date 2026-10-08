@@ -1,3 +1,4 @@
+import { riffle, whoosh } from "./sound.js";
 export const DEALER_INTRO_MS = 2900;
 
 const DEALER_SVG = `<svg class="dealer-svg" viewBox="0 0 320 360" aria-hidden="true">
@@ -86,6 +87,7 @@ export function playDealIntro(host = document.body) {
   };
 
   run(root, [{ opacity: 0 }, { opacity: 1 }], { duration: 260 });
+  riffle(700, 12, 70);
   run(root.querySelector(".dealer-figure"), [
     { transform: "translateY(160px) scale(.85)", opacity: 0 },
     { transform: "translateY(-14px) scale(1.03)", opacity: 1, offset: 0.7 },
@@ -139,6 +141,7 @@ export function playDealIntro(host = document.body) {
     { transform: "rotate(0deg)" },
   ], { duration: 1100, delay: tossAt - 100 });
   setTimeout(() => (caption.textContent = "Dealing!"), tossAt);
+  for (let i = 0; i < 14; i += 2) whoosh(tossAt + i * 50);
   const dirs = [[-210, 40], [-120, -110], [0, -170], [120, -110], [210, 40], [-170, -40], [170, -40], [60, 130], [-60, 130], [0, 90]];
   for (let i = 0; i < 14; i++) {
     const [dx, dy] = dirs[i % dirs.length];

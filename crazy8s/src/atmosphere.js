@@ -1,4 +1,5 @@
 import { HAND_SVG } from "./hand.js";
+import { nope } from "./sound.js";
 
 const CHIP_COLORS = ["#d8283f", "#2d5bd6", "#1c1c24", "#f4f1e6", "#1f9d6b"];
 
@@ -23,7 +24,7 @@ let pointer = { x: 0, y: 0, inside: false, clientX: 0 };
 let focusIndex = null;
 let room = null;
 let roomCanvas = null;
-let roomState = { seats: 1, active: -1, felt: "#216751" };
+let roomState = { seats: 1, active: -1, felt: "#216751", celebrate: null };
 let handLayout = [];
 
 function area() {
@@ -51,9 +52,9 @@ export function layoutFan(focus = null) {
     if (focus !== null) {
       const off = i - focus;
       if (off === 0) {
-        r *= 0.35;
-        y = mobile ? -20 : -28;
-        s = 1.08;
+        r *= 0.5;
+        y = mobile ? -14 : -20;
+        s = 1.03;
         z = 100;
       } else {
         r += Math.sign(off) * (6 / (0.6 + Math.abs(off)));
@@ -92,7 +93,6 @@ function nearestIndex(clientX) {
   let best = null;
   let dist = Infinity;
   handLayout.forEach((x, i) => {
-    if (cards[i]?.disabled) return;
     const d = Math.abs(cx + x - clientX);
     if (d < dist) {
       dist = d;
@@ -109,7 +109,6 @@ function pickFocus(event) {
   const current = focusIndex === null ? null : cards[focusIndex];
   if (
     current &&
-    !current.disabled &&
     document.elementsFromPoint(event.clientX, event.clientY).includes(current)
   )
     return focusIndex;
@@ -156,7 +155,24 @@ export function bindAtmosphere() {
       const cards = [...document.querySelectorAll(".hand .card")];
       const focus = pickFocus(event);
       const chosen = focus === null ? null : cards[focus];
-      if (!chosen || chosen.disabled) return;
+      if (!chosen) return;
+      if (chosen.disabled) {
+        // looks identical either way; an illegal pick just gets a "nope"
+        if (document.querySelector(".turn-title")?.textContent === "Your turn") {
+          nope();
+          chosen.animate(
+            [
+              { translate: "0" },
+              { translate: "-6px" },
+              { translate: "6px" },
+              { translate: "-4px" },
+              { translate: "0" },
+            ],
+            { duration: 240 },
+          );
+        }
+        return;
+      }
       const swallow = (e) => {
         e.stopPropagation();
         e.preventDefault();
@@ -167,6 +183,20 @@ export function bindAtmosphere() {
     },
     true,
   );
+  document.addEventListener("pointerup", (event) => {
+    const deck = document.querySelector("#draw-deck");
+    if (!deck?.disabled) return;
+    const r = deck.getBoundingClientRect();
+    const inside =
+      event.clientX >= r.left && event.clientX <= r.right && event.clientY >= r.top && event.clientY <= r.bottom;
+    if (inside && document.querySelector(".turn-title")?.textContent === "Your turn") {
+      nope();
+      deck.animate(
+        [{ translate: "0" }, { translate: "-5px" }, { translate: "5px" }, { translate: "0" }],
+        { duration: 220 },
+      );
+    }
+  });
   document.addEventListener("pointerdown", (event) => {
     if (overHand(event)) layoutFan(pickFocus(event));
   });
@@ -201,6 +231,7 @@ export function updateRoom(next) {
   const prev = roomState;
   roomState = { ...roomState, ...next };
   if (room) {
+    room.setCelebrate(roomState.celebrate || null);
     if (prev.seats !== roomState.seats) room.setSeats(roomState.seats);
     room.setActive(roomState.active);
     if (prev.felt !== roomState.felt) room.setTheme(roomState.felt);
@@ -219,6 +250,7 @@ export function updateRoom(next) {
       room.setSeats(roomState.seats);
       room.setActive(roomState.active);
       room.setTheme(roomState.felt);
+      room.setCelebrate(roomState.celebrate || null);
       document.body.classList.add("has-room3d");
       syncRoomRect();
     })
@@ -229,4 +261,12 @@ export function updateRoom(next) {
 export function roomActive(index) {
   roomState.active = index;
   room?.setActive(index);
+}
+
+// A patron flicks a card: returns the ms until release, plus where the hand is on screen.
+export function patronFlick(seat) {
+  if (!room || seat < 0) return null;
+  const rect = room.handScreenRect(seat);
+  if (!rect) return null;
+  return { rect, delay: room.flick(seat) };
 }
