@@ -867,6 +867,23 @@ body[data-hero-quote-position="above"] .hero-photo-frame .hero-card {
   color: var(--muted);
 }
 
+.dinosaur-fact-text {
+  font-size: clamp(1.25rem, 2.4vw, 1.85rem);
+}
+
+.dinosaur-fact-image {
+  object-position: center;
+  object-fit: contain;
+  background: #fff;
+}
+
+.dinosaur-image-credit {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
 .prompt-controls {
   position: absolute;
   left: 1.25rem;
