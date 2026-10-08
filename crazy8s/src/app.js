@@ -104,6 +104,7 @@ try {
   );
 } catch {}
 let renderedGame = null;
+let shownDeal = "";
 let mode = "casual",
   targetWins = 3,
   mutedTaunts = false,
@@ -834,8 +835,12 @@ function render() {
   if (oldDeckFocus && document.querySelector("#draw-deck:not(:disabled)"))
     document.querySelector("#draw-deck").focus({ preventScroll: true });
   if (game) {
-    const firstDeal = !previous || previous.round !== packet.round;
-    const dealerIntro = firstDeal && game.last === "Cards dealt.";
+    // every fresh deal gets the dealer, whether it is the first game or "Deal again" / "Next round"
+    const dealKey = `${room}:${packet.round}`;
+    const dealerIntro = game.last === "Cards dealt." && shownDeal !== dealKey;
+    if (dealerIntro) shownDeal = dealKey;
+    const firstDeal =
+      dealerIntro || !previous || previous.round !== packet.round;
     if (dealerIntro) playDealIntro();
     const source = document
       .querySelector(".card-back")
