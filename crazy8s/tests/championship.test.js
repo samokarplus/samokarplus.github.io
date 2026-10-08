@@ -49,9 +49,13 @@ test("suit shouts and emoji reactions are accepted; cooldown applies per seat", 
     "KEEP_DRAWING",
     "CAN_AND_WILL",
     "LAUGH",
+    "RESPONSES",
   ]) {
     assert.equal(acceptTaunt(new Map(), "0", id, 0), true);
   }
+});
+test("responses taunt preserves the requested wording", () => {
+  assert.equal(TAUNTS.find(t => t.id === "RESPONSES").label, "I've got responses. I've got responses");
 });
 test("race to seven at 6-6 is sudden death, not a completed match", () => {
   const members = [

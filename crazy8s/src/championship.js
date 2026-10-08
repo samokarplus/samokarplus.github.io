@@ -25,6 +25,12 @@ export const TAUNTS = [
   { id: "WOW", label: "WOW!", symbol: "😮" },
   { id: "COOL", label: "OH YEAH!", symbol: "😎" },
   {
+    id: "RESPONSES",
+    label: "I've got responses. I've got responses",
+    symbol: "😏",
+    long: true,
+  },
+  {
     id: "CAN_AND_WILL",
     label: "DONT EVER TELL ME I CANT CUZ I PROBABLY CAN AND I PROBABLY WILL",
     symbol: "💪",

@@ -102,7 +102,7 @@ function showTaunt(message, replay = false) {
   const stage = document.querySelector("#taunt-stage");
   if (!stage) return;
   const bubble = document.createElement("div");
-  bubble.className = `taunt-bubble ${taunt.id === "CAN_AND_WILL" ? "long-shout" : ""} ${taunt.gesture ? "drawing-gesture" : ""} ${red(taunt.suit) ? "red" : ""}`;
+  bubble.className = `taunt-bubble ${taunt.long || taunt.id === "CAN_AND_WILL" ? "long-shout" : ""} ${taunt.gesture ? "drawing-gesture" : ""} ${red(taunt.suit) ? "red" : ""}`;
   bubble.innerHTML = `<span class="taunt-symbol">${taunt.symbol}</span><span><small>${escape(nameFor(message.player))}</small><strong>${escape(taunt.label || taunt.id + "!")}</strong></span>`;
   stage.replaceChildren(bubble);
   setTimeout(
@@ -847,7 +847,7 @@ function celebrate() {
 }
 document.querySelector(".reaction-options").innerHTML = TAUNTS.map(
   (t) =>
-    `<button class="reaction-choice ${red(t.suit) ? "red" : ""} ${t.id === "CAN_AND_WILL" ? "wide-reaction" : ""}" data-taunt="${t.id}"><span>${t.symbol}</span><strong>${escape(t.label || t.id)}</strong></button>`,
+    `<button class="reaction-choice ${red(t.suit) ? "red" : ""} ${t.long || t.id === "CAN_AND_WILL" ? "wide-reaction" : ""}" data-taunt="${t.id}"><span>${t.symbol}</span><strong>${escape(t.label || t.id)}</strong></button>`,
 ).join("");
 document.querySelectorAll("#reaction-dialog [data-taunt]").forEach(
   (button) =>
