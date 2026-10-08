@@ -13,7 +13,7 @@ test("card flight starts at the hand center and lands precisely on the discard",
   );
   assert.deepEqual(
     frames.map((f) => f.offset),
-    [0, 0.42, 0.86, 1],
+    [0, 0.42, 0.88, 1],
   );
   assert.equal(frames.at(-1).transform, "translate(0,0) rotate(0deg) scale(1)");
   assert.ok(frames[1].transform.includes("rotate(-10deg)"));

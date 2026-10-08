@@ -584,9 +584,6 @@ function leaveRoom() {
 }
 function render() {
   applyTheme();
-  document
-    .querySelectorAll(".card-flight-overlay")
-    .forEach((node) => node.remove());
   const previousDiscard = document
     .querySelector(".discard-pile .card")
     ?.cloneNode(true);
@@ -813,12 +810,19 @@ function render() {
             opacity: 0,
             transform: `translate(${source.left - target.left}px,${source.top - target.top}px) rotate(-14deg) scale(.7)`,
           },
-          { opacity: 1, transform: "translate(0,0) rotate(0) scale(1)" },
+          {
+            opacity: 1,
+            offset: 0.2,
+          },
+          {
+            opacity: 1,
+            transform: "translate(0,0) rotate(0) scale(1)",
+          },
         ],
         {
-          duration: 430,
-          delay: firstDeal ? index * 65 : 0,
-          easing: "cubic-bezier(.2,.8,.2,1)",
+          duration: 650,
+          delay: firstDeal ? index * 90 : 0,
+          easing: "cubic-bezier(.22,.8,.25,1)",
           fill: "backwards",
         },
       );
@@ -845,6 +849,9 @@ function render() {
 
 function animatePlayedCard(discard, previousDiscard, source) {
   const target = discard.getBoundingClientRect();
+  document
+    .querySelectorAll(".card-flight-overlay")
+    .forEach((node) => node.remove());
   const layer = document.createElement("div");
   layer.className = "card-flight-overlay";
   layer.setAttribute("aria-hidden", "true");
@@ -863,8 +870,8 @@ function animatePlayedCard(discard, previousDiscard, source) {
   document.body.append(layer);
   discard.style.visibility = "hidden";
   const flight = flying.animate(flightKeyframes(source, target), {
-    duration: 620,
-    easing: "cubic-bezier(.22,.7,.25,1)",
+    duration: 900,
+    easing: "linear",
     fill: "both",
   });
   const finish = () => {
