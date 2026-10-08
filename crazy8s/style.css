@@ -1627,7 +1627,7 @@ svg.court-art {
   z-index: 70;
   display: grid;
   place-items: center;
-  background: radial-gradient(ellipse at 50% 35%, #5a2e4acc 0%, #1a0f24ee 70%);
+  background: radial-gradient(ellipse at 50% 30%, #7a3b2ef0 0%, #3a1646f2 55%, #12081cfa 100%);
   backdrop-filter: blur(6px);
   cursor: pointer;
   perspective: 1000px;
@@ -1642,17 +1642,18 @@ svg.court-art {
 }
 .dealer-stage {
   position: relative;
-  width: min(420px, 92vw);
-  height: min(460px, 70vh);
+  width: min(620px, 96vw);
+  height: min(560px, 72vh);
+  margin-top: 70px;
   transform-style: preserve-3d;
 }
 .dealer-figure {
   position: absolute;
   left: 50%;
   top: 0;
-  width: 78%;
+  width: 64%;
   transform-origin: 50% 100%;
-  margin-left: -39%;
+  margin-left: -32%;
   filter: drop-shadow(0 22px 22px #0008);
 }
 .dealer-svg {
@@ -1736,8 +1737,71 @@ svg.court-art {
   text-transform: uppercase;
   text-shadow: 0 2px 0 #7a4a24, 0 0 16px #ffd98a88;
 }
-@media (prefers-reduced-motion: reduce) {
-  .dealer-intro {
-    display: none;
-  }
+
+.dealer-room {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.dealer-window {
+  position: absolute;
+  top: 18%;
+  width: 11vw;
+  max-width: 130px;
+  min-width: 56px;
+  height: 34vh;
+  border-radius: 999px 999px 8px 8px;
+  background: linear-gradient(#ffd98a, #ff8fb1 55%, #7a5cff);
+  opacity: 0.55;
+  box-shadow: 0 0 60px 10px #ffb86b88, inset 0 0 0 5px #ffffff22;
+  animation: dealer-glow 2.4s ease-in-out infinite alternate;
+}
+.dealer-window:nth-child(1) { left: 4%; }
+.dealer-window:nth-child(2) { left: 17%; animation-delay: -0.8s; background: linear-gradient(#a8f0ff, #6aa8ff 60%, #b05cff); }
+.dealer-window:nth-child(3) { right: 17%; animation-delay: -1.2s; }
+.dealer-window:nth-child(4) { right: 4%; animation-delay: -0.4s; background: linear-gradient(#a8f0ff, #6aa8ff 60%, #b05cff); }
+.dealer-bokeh {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(3px);
+  animation: dealer-glow 2s ease-in-out infinite alternate;
+}
+.dealer-chandelier {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: min(300px, 60vw);
+  margin-left: calc(min(300px, 60vw) / -2);
+  height: auto;
+  filter: drop-shadow(0 0 28px #ffd98acc);
+  animation: dealer-sway 3.4s ease-in-out infinite alternate;
+  transform-origin: 50% 0;
+}
+@keyframes dealer-glow {
+  from { opacity: 0.35; transform: scale(0.96); }
+  to { opacity: 0.85; transform: scale(1.04); }
+}
+@keyframes dealer-sway {
+  from { transform: rotate(-1.4deg); }
+  to { transform: rotate(1.4deg); }
+}
+.dealer-felt::before {
+  content: "";
+  position: absolute;
+  inset: 8px 14px 0;
+  border-radius: inherit;
+  border: 2px solid #f2c45288;
+  border-bottom: 0;
+}
+.dealer-felt::after {
+  content: "\2660   \2665   \2663   \2666";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  text-align: center;
+  color: #f2c45299;
+  font: 22px/1 Georgia, serif;
+  letter-spacing: 0.4em;
 }

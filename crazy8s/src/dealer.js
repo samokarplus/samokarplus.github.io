@@ -58,7 +58,13 @@ export function playDealIntro(host = document.body) {
   const root = document.createElement("div");
   root.className = "dealer-intro";
   root.setAttribute("role", "presentation");
-  root.innerHTML = `<div class="dealer-spot"></div><div class="dealer-stage">
+  const bokeh = Array.from({ length: 14 }, (_, i) => {
+    const size = 14 + ((i * 37) % 46);
+    const colors = ["#ffd98a", "#ff8fb1", "#8fd8ff", "#c9a2ff"];
+    return `<i class="dealer-bokeh" style="left:${(i * 29) % 96}%;top:${8 + ((i * 53) % 70)}%;width:${size}px;height:${size}px;background:${colors[i % 4]};opacity:.5;animation-delay:${-(i % 5) * 0.4}s"></i>`;
+  }).join("");
+  const chandelier = `<svg class="dealer-chandelier" viewBox="0 0 300 110" aria-hidden="true"><path d="M150 0V26" stroke="#c9a23c" stroke-width="3"/><path d="M40 70 Q150 20 260 70" fill="none" stroke="#f2c452" stroke-width="5"/><path d="M80 82 Q150 44 220 82" fill="none" stroke="#f2c452" stroke-width="4"/>${[40, 80, 115, 150, 185, 220, 260].map((x, i) => `<g><rect x="${x - 3}" y="${[70, 76, 62, 50, 62, 76, 70][i]}" width="6" height="14" fill="#fff4cf"/><circle cx="${x}" cy="${[64, 70, 55, 43, 55, 70, 64][i]}" r="9" fill="#ffe9a8"/><circle cx="${x}" cy="${[64, 70, 55, 43, 55, 70, 64][i]}" r="22" fill="#ffd98a" opacity=".28"/></g>`).join("")}</svg>`;
+  root.innerHTML = `<div class="dealer-room"><i class="dealer-window"></i><i class="dealer-window"></i><i class="dealer-window"></i><i class="dealer-window"></i>${bokeh}${chandelier}</div><div class="dealer-spot"></div><div class="dealer-stage">
     <div class="dealer-figure">${DEALER_SVG}</div>
     <div class="dealer-felt"><div class="dealer-rim"></div>
       <div class="dealer-deck">

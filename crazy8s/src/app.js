@@ -797,7 +797,7 @@ function render() {
   }
   if (oldDeckFocus && document.querySelector("#draw-deck:not(:disabled)"))
     document.querySelector("#draw-deck").focus({ preventScroll: true });
-  if (game && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  if (game) {
     const firstDeal = !previous || previous.round !== packet.round;
     const dealerIntro = firstDeal && game.last === "Cards dealt.";
     if (dealerIntro) playDealIntro();
