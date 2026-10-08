@@ -102,16 +102,23 @@ function nearestIndex(clientX) {
   return best;
 }
 
-// Stay on the lit card for as long as the pointer is physically over it, so the hand can
-// be moved across the whole card; only hand over to the nearest card once it leaves.
+// Scrubbing along the fan: the pointer's horizontal position picks the card, with a sticky band
+// around the lit card so small wobbles don't flip it, but moving along the hand glides smoothly
+// from card to card without having to dip under or around the lifted one.
 function pickFocus(event) {
-  const cards = [...document.querySelectorAll(".hand .card")];
-  const current = focusIndex === null ? null : cards[focusIndex];
-  if (
-    current &&
-    document.elementsFromPoint(event.clientX, event.clientY).includes(current)
-  )
-    return focusIndex;
+  const hand = document.querySelector(".hand");
+  if (!hand || !handLayout.length) return null;
+  const rect = hand.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const x = event.clientX - cx;
+  if (focusIndex !== null && focusIndex < handLayout.length) {
+    const here = handLayout[focusIndex];
+    const left = focusIndex > 0 ? here - handLayout[focusIndex - 1] : here - handLayout[focusIndex + 1] || 40;
+    const right = focusIndex < handLayout.length - 1 ? handLayout[focusIndex + 1] - here : left;
+    const lo = here - Math.abs(left) * 0.62;
+    const hi = here + Math.abs(right) * 0.62;
+    if (x >= lo && x <= hi) return focusIndex;
+  }
   return nearestIndex(event.clientX);
 }
 
@@ -120,7 +127,7 @@ function overHand(event) {
   if (!handArea) return false;
   const rect = handArea.getBoundingClientRect();
   return (
-    event.clientY > rect.top - 30 &&
+    event.clientY > rect.top - 70 &&
     event.clientY < rect.bottom + 20 &&
     event.clientX > rect.left &&
     event.clientX < rect.right
