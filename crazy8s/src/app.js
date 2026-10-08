@@ -19,6 +19,13 @@ import {
 import { CrazyEights, SUITS, playable, view } from "./game.js";
 import { cardArt } from "./art.js";
 import { flightKeyframes } from "./motion.js";
+import { createPlayHand } from "./hand.js";
+import {
+  atmosphereHTML,
+  bindAtmosphere,
+  handRigHTML,
+  refreshAtmosphere,
+} from "./atmosphere.js";
 import { DEALER_INTRO_MS, playDealIntro } from "./dealer.js";
 import { BOT_NAME, botMove } from "./bot.js";
 import {
@@ -614,7 +621,7 @@ function render() {
       ${joining ? "" : `<div class="championship-setup"><button class="secondary" name="mode" value="championship" ${busy ? "disabled" : ""}>${icon("trophy")}Host a championship</button><label>First to<select name="target" aria-label="Championship target"><option value="1">1 game</option><option value="3" selected>3 wins</option><option value="5">5 wins</option><option value="7">7 wins</option></select></label></div>`}
       ${connectingError ? `<p class="error" role="alert">${escape(connectingError)}</p><button class="secondary" type="button" id="retry">${icon("refresh-cw")}Reconnect</button>` : ""}</form>
       <p class="small muted">Solo or 2–4 friends · 52 cards · Wild eights</p><p class="small muted">Keep the host's tab open for multiplayer.</p><div class="separator small muted">${joining ? '<a href="/crazy8s/">Create a different room</a>' : "No account needed."}</div></aside>
-      <section class="table-area"><div class="table-heading"><span>A table for friends</span><span class="status-pill">Crazy Eights</span></div><div class="table"><div class="center-piles"><div class="pile-block">${cardHTML(null)}<span class="pile-label">52-card deck</span></div><div class="pile-block">${cardHTML({ rank: "8", suit: "hearts" })}<span class="pile-label">Eights are wild</span></div></div><p class="welcome-note">${joining ? "Your seat is waiting." : "Good company. A fresh deck."}</p></div></section></div>`;
+      <section class="table-area">${atmosphereHTML()}<div class="table-heading"><span>A table for friends</span><span class="status-pill">Crazy Eights</span></div><div class="table"><div class="center-piles"><div class="pile-block">${cardHTML(null)}<span class="pile-label">52-card deck</span></div><div class="pile-block">${cardHTML({ rank: "8", suit: "hearts" })}<span class="pile-label">Eights are wild</span></div></div><p class="welcome-note">${joining ? "Your seat is waiting." : "Good company. A fresh deck."}</p></div></section></div>`;
     document.querySelector("#setup").onsubmit = (event) => {
       event.preventDefault();
       const data = new FormData(event.target);
@@ -687,7 +694,7 @@ function render() {
     ${connectingError || packet.paused ? `<div class="offline-banner" role="alert">${escape(connectingError || "The game is paused until every player reconnects.")}${!host ? '<button class="secondary" id="retry">Reconnect</button>' : ""}</div>` : ""}
     ${game ? `<p class="match-log" aria-live="polite">${escape(game.last)}</p>` : ""}
     <button class="secondary leave" id="leave">${icon("log-out")}${host ? "Close room" : "Leave room"}</button></aside>
-    <section class="table-area"><div class="table-heading"><span class="connection">${icon("users")}${packet.members.length} players</span><span class="status-pill">${connectingError ? "Disconnected" : game ? "In play" : "Waiting room"}</span></div>
+    <section class="table-area">${atmosphereHTML()}<div class="table-heading"><span class="connection">${icon("users")}${packet.members.length} players</span><span class="status-pill">${connectingError ? "Disconnected" : game ? "In play" : "Waiting room"}</span></div>
     <div class="table">${stage && !game?.gameover ? `<div class="round-drama ${stage === "SUDDEN DEATH" ? "sudden-death" : ""}">${icon("trophy")}${stage}</div>` : ""}<div class="opponents">${packet.members
       .filter((p) => p.id !== me)
       .map(
@@ -721,7 +728,7 @@ function render() {
                   )
                   .join("")
               : '<p class="empty-hand">No cards left.</p>'
-          }</div></div>`
+          }</div>${handRigHTML()}</div>`
         : ""
     }</section></div>`;
   const shareButton = document.querySelector("#share");
@@ -788,6 +795,7 @@ function render() {
       }),
   );
   createIcons({ icons });
+  refreshAtmosphere();
   if (activeReaction?.until > Date.now())
     showTaunt(activeReaction.message, true);
   const celebrationKey = `${room}:${packet.round}`;
@@ -816,10 +824,6 @@ function render() {
           {
             opacity: 1,
             offset: 0.2,
-          },
-          {
-            opacity: 1,
-            transform: "translate(0,0) rotate(0) scale(1)",
           },
         ],
         {
@@ -870,18 +874,56 @@ function animatePlayedCard(discard, previousDiscard, source) {
     });
     layer.append(card);
   }
+  const { wrap, arm, angle } = createPlayHand(source, target);
+  layer.append(wrap);
   document.body.append(layer);
   discard.style.visibility = "hidden";
-  const flight = flying.animate(flightKeyframes(source, target), {
-    duration: 900,
-    easing: "linear",
-    fill: "both",
-  });
+  const frames = flightKeyframes(source, target);
+  const options = { duration: 900, easing: "linear", fill: "both" };
+  const flight = flying.animate(frames, options);
+  // the hand rides along with the card (minus the card's own spin), then lets go and pulls back
+  wrap.animate(
+    frames.map((f) => ({
+      ...f,
+      boxShadow: "none",
+      transform: f.transform.replace(/rotate\([^)]*\)/, "rotate(0deg)"),
+    })),
+    options,
+  );
+  const grip = arm.animate(
+    [
+      { transform: arm.style.transform + " scale(1)" },
+      { transform: arm.style.transform + " scale(1.08)", offset: 0.12 },
+      { transform: arm.style.transform + " scale(1)", offset: 0.3 },
+      { transform: arm.style.transform + " scale(1)" },
+    ],
+    { duration: 900 },
+  );
   const finish = () => {
     discard.style.visibility = "";
-    layer.remove();
+    layer
+      .querySelectorAll(".flying-card")
+      .forEach((card) => card.remove());
+    const dx = Math.sin((-angle * Math.PI) / 180) * 140;
+    const dy = Math.cos((-angle * Math.PI) / 180) * 140;
+    wrap
+      .animate(
+        [
+          { transform: "translate(0,0)", opacity: 1 },
+          { transform: `translate(${dx}px,${dy}px)`, opacity: 0 },
+        ],
+        { duration: 380, easing: "cubic-bezier(.5,0,.8,.4)", fill: "forwards" },
+      )
+      .finished.then(
+        () => layer.remove(),
+        () => layer.remove(),
+      );
   };
-  flight.finished.then(finish, finish);
+  flight.finished.then(finish, () => {
+    discard.style.visibility = "";
+    layer.remove();
+  });
+  void grip;
 }
 
 function celebrate() {
@@ -923,6 +965,7 @@ function celebrate() {
   }
   setTimeout(() => shower.remove(), reducedMotion ? 2500 : 5000);
 }
+bindAtmosphere();
 document.querySelector(".reaction-options").innerHTML = TAUNTS.map(
   (t) =>
     `<button class="reaction-choice ${red(t.suit) ? "red" : ""} ${t.long || t.id === "CAN_AND_WILL" ? "wide-reaction" : ""}" data-taunt="${t.id}"><span>${t.symbol}</span><strong>${escape(t.label || t.id)}</strong></button>`,
