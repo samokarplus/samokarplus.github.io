@@ -54,6 +54,7 @@
           <a href="#media">Media &amp; Projects</a>
           <a href="#journal">Journal</a>
           <a href="/crazy8s/">Crazy Eights</a>
+          <a href="#dinosaur-facts">Dinosaur Facts</a>
           <a href="#prompts">Words to Sit With</a>
           <a href="#contact">Contact</a>
         </nav>
@@ -393,6 +394,42 @@
         </section>
 
         <!-- Reflective visitor prompts -->
+        <section class="section prompts dinosaur-facts" id="dinosaur-facts">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Prehistoric Intermission</p>
+            <h2>Dinosaur Facts</h2>
+          </div>
+          <div class="prompt-showcase reveal">
+            <div class="prompt-panel">
+              <p class="prompt-label">Dinosaur Fun Fact</p>
+              <p class="prompt-author" id="dinosaur-fact-title">Stegosaurus</p>
+              <p class="prompt-text dinosaur-fact-text" id="dinosaur-fact-text">
+                Stegosaurus lived closer in time to Tyrannosaurus rex than to the earliest dinosaurs.
+              </p>
+              <div class="prompt-controls">
+                <button class="prompt-arrow" id="prev-dinosaur-fact" type="button" aria-label="Previous dinosaur fact">
+                  &larr;
+                </button>
+                <button class="prompt-arrow" id="next-dinosaur-fact" type="button" aria-label="Next dinosaur fact">
+                  &rarr;
+                </button>
+              </div>
+            </div>
+            <figure class="prompt-portrait-card">
+              <img
+                class="prompt-portrait dinosaur-fact-image"
+                id="dinosaur-fact-image"
+                src="assets/images/dinosaurs/stegosaurus.jpg"
+                alt="Stegosaurus dinosaur skeleton."
+              />
+              <figcaption class="prompt-portrait-name" id="dinosaur-fact-image-name">
+                Stegosaurus
+              </figcaption>
+              <p class="dinosaur-image-credit" id="dinosaur-image-credit"></p>
+            </figure>
+          </div>
+        </section>
+
         <section class="section prompts" id="prompts">
           <div class="section-heading reveal">
             <p class="eyebrow" data-editable-text="textbox42">Who Are You?</p>
@@ -493,6 +530,7 @@
         "about-photo-data.js",
         "photo-data.js",
         "quotes-data.js",
+        "dinosaur-facts-data.js",
         "pr-data.js",
         "races-data.js",
         "site-text-data.js",

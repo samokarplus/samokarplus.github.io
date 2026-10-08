@@ -8,6 +8,13 @@ const promptImage = document.getElementById("prompt-image");
 const promptImageName = document.getElementById("prompt-image-name");
 const prevPromptButton = document.getElementById("prev-prompt");
 const nextPromptButton = document.getElementById("next-prompt");
+const dinosaurFactTitle = document.getElementById("dinosaur-fact-title");
+const dinosaurFactText = document.getElementById("dinosaur-fact-text");
+const dinosaurFactImage = document.getElementById("dinosaur-fact-image");
+const dinosaurFactImageName = document.getElementById("dinosaur-fact-image-name");
+const dinosaurImageCredit = document.getElementById("dinosaur-image-credit");
+const prevDinosaurFactButton = document.getElementById("prev-dinosaur-fact");
+const nextDinosaurFactButton = document.getElementById("next-dinosaur-fact");
 const aboutPhotoTrack = document.getElementById("aboutPhotoTrack");
 const photoTrack = document.getElementById("photoTrack");
 const journalList = document.getElementById("journalList");
@@ -21,11 +28,14 @@ const stravaUpdated = document.getElementById("strava-updated");
 const runningPrList = document.getElementById("runningPrList");
 const upcomingRaceList = document.getElementById("upcomingRaceList");
 const prompts = Array.isArray(window.quoteEntriesData) ? window.quoteEntriesData : [];
+const dinosaurFacts = Array.isArray(window.dinosaurFactEntriesData) ? window.dinosaurFactEntriesData : [];
 const editableTextData = window.editableTextData || {};
 const siteDesignData = window.siteDesignData || {};
 
 let promptIndex = 0;
 let promptIntervalId = null;
+let dinosaurFactIndex = 0;
+let dinosaurFactIntervalId = null;
 
 function applySiteDesign() {
   const root = document.documentElement;
@@ -573,6 +583,68 @@ if (prompts.length && prevPromptButton && nextPromptButton && promptText && prom
     promptIndex = (promptIndex + 1) % prompts.length;
     renderPrompt(promptIndex);
     startPromptRotation();
+  });
+}
+
+function renderDinosaurFact(index) {
+  const dinosaurFact = dinosaurFacts[index];
+
+  if (!dinosaurFact || !dinosaurFactTitle || !dinosaurFactText || !dinosaurFactImage || !dinosaurFactImageName) {
+    return;
+  }
+
+  dinosaurFactTitle.textContent = dinosaurFact.title;
+  dinosaurFactText.textContent = dinosaurFact.fact;
+  dinosaurFactImage.src = dinosaurFact.image;
+  dinosaurFactImage.alt = dinosaurFact.alt;
+  dinosaurFactImageName.textContent = dinosaurFact.title;
+  if (dinosaurImageCredit) {
+    const sourceLink = document.createElement("a");
+    sourceLink.href = dinosaurFact.imageSource;
+    sourceLink.textContent = new DOMParser().parseFromString(dinosaurFact.imageCredit, "text/html").body.textContent;
+    const licenseLink = document.createElement("a");
+    licenseLink.href = dinosaurFact.imageLicenseUrl;
+    licenseLink.textContent = dinosaurFact.imageLicense;
+    dinosaurImageCredit.replaceChildren(sourceLink, document.createTextNode(" / "), licenseLink);
+  }
+}
+
+function startDinosaurFactRotation() {
+  if (!dinosaurFacts.length) {
+    return;
+  }
+
+  if (dinosaurFactIntervalId) {
+    window.clearInterval(dinosaurFactIntervalId);
+  }
+
+  dinosaurFactIntervalId = window.setInterval(() => {
+    dinosaurFactIndex = (dinosaurFactIndex + 1) % dinosaurFacts.length;
+    renderDinosaurFact(dinosaurFactIndex);
+  }, 6000);
+}
+
+if (
+  dinosaurFacts.length &&
+  prevDinosaurFactButton &&
+  nextDinosaurFactButton &&
+  dinosaurFactTitle &&
+  dinosaurFactText &&
+  dinosaurFactImage
+) {
+  renderDinosaurFact(dinosaurFactIndex);
+  startDinosaurFactRotation();
+
+  prevDinosaurFactButton.addEventListener("click", () => {
+    dinosaurFactIndex = (dinosaurFactIndex - 1 + dinosaurFacts.length) % dinosaurFacts.length;
+    renderDinosaurFact(dinosaurFactIndex);
+    startDinosaurFactRotation();
+  });
+
+  nextDinosaurFactButton.addEventListener("click", () => {
+    dinosaurFactIndex = (dinosaurFactIndex + 1) % dinosaurFacts.length;
+    renderDinosaurFact(dinosaurFactIndex);
+    startDinosaurFactRotation();
   });
 }
 
