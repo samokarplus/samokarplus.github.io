@@ -4,7 +4,9 @@ Live page: https://samo.karplus.org/crazy8s/
 
 This static game supports 2–4 humans through a shared room URL. Open the page, enter a name, create a room, copy the invite link, and deal once friends join. The homepage has a Crazy Eights link and play button.
 
-Rules: one 52-card deck, seven cards each for two players or five each for three/four. Match rank or active suit. Eights are wild and require a suit choice. Draw until a playable card is found, then play it. Recycle the discards while retaining the top card. Pass only when no draw or play is available. First empty hand wins; a fully blocked game uses the lowest remaining hand score.
+Rules: one 52-card deck, seven cards each for two players or five each for three/four. Match rank or active suit. Eights are wild and require a suit choice. Click the deck to draw one card at a time until a playable card is found, then play it. Recycle the discards while retaining the top card. Pass only when no draw or play is available. First empty hand wins; a fully blocked game uses the lowest remaining hand score.
+
+Setup includes background and table color swatches plus custom color pickers. The host's colors are shared with guests and saved for room refreshes. Printed pip layouts, illustrated court cards, patterned card backs, and deal/draw/play animations are included; animations respect reduced-motion preferences.
 
 ## Architecture
 

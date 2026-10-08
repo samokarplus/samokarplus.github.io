@@ -67,18 +67,28 @@ test("eight requires suit selection and sets active suit", () => {
   assert.equal(client.getState().G.suit, "diamonds");
   assert.equal(client.getState().ctx.currentPlayer, "1");
 });
-test("drawing is refused when playable; otherwise draw until playable and keep turn", () => {
+test("each draw adds exactly one card, keeping the turn until playable", () => {
   const G = fixture();
   let client = gameWith(G);
   client.moves.draw();
   assert.equal(client.getState().G.hands["0"].length, 2);
+  assert.equal(client.getState().G.stock.length, 2);
+  assert.equal(client.getState().ctx.currentPlayer, "0");
   G.hands["0"] = [card("9", "hearts")];
   G.stock = [card("4"), card("4", "spades"), card("7", "hearts")];
   client = gameWith(G);
   client.moves.draw();
+  assert.equal(client.getState().G.hands["0"].length, 2);
+  assert.equal(client.getState().G.stock.length, 2);
+  assert.equal(client.getState().ctx.currentPlayer, "0");
+  client.moves.draw();
+  assert.equal(client.getState().G.hands["0"].length, 3);
+  client.moves.draw();
   assert.equal(client.getState().G.hands["0"].length, 4);
   assert.equal(client.getState().ctx.currentPlayer, "0");
   assert.equal(client.getState().G.stock.length, 0);
+  client.moves.draw();
+  assert.equal(client.getState().G.hands["0"].length, 4);
 });
 test("discard recycling preserves the top and all cards", () => {
   const G = fixture();

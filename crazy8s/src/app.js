@@ -11,9 +11,15 @@ import {
   Link,
   Users,
   LogOut,
-  Layers,
 } from "lucide";
 import { CrazyEights, SUITS, playable, view } from "./game.js";
+import { cardArt } from "./art.js";
+import {
+  DEFAULT_THEME,
+  PALETTES,
+  normalizeTheme,
+  foreground,
+} from "./theme.js";
 
 const app = document.querySelector("#app");
 const icons = {
@@ -26,7 +32,6 @@ const icons = {
   Link,
   Users,
   LogOut,
-  Layers,
 };
 const glyphs = { clubs: "♣", diamonds: "♦", hearts: "♥", spades: "♠" };
 const red = (suit) => ["hearts", "diamonds"].includes(suit);
@@ -59,6 +64,53 @@ let connectingError = "",
   round = 0;
 let noticeTimer,
   reconnecting = false;
+let theme = DEFAULT_THEME;
+try {
+  theme = normalizeTheme(
+    JSON.parse(localStorage.getItem("crazy8s:theme") || "{}"),
+  );
+} catch {}
+let renderedGame = null;
+
+function applyTheme() {
+  const root = document.documentElement.style;
+  root.setProperty("--page-bg", theme.background);
+  root.setProperty("--chrome-ink", foreground(theme.background));
+  root.setProperty("--green", theme.table);
+  root.setProperty("--table-ink", foreground(theme.table));
+}
+function colorControls(key, label) {
+  return `<fieldset class="color-picker"><legend>${label}</legend><div class="swatches">${PALETTES[key].map(([name, color]) => `<button type="button" class="swatch" data-color-key="${key}" data-color="${color}" style="--swatch:${color}" aria-label="${label}: ${name}" title="${name}" aria-pressed="${theme[key] === color}" ${busy ? "disabled" : ""}></button>`).join("")}<input type="color" name="${key}" value="${theme[key]}" aria-label="Custom ${label.toLowerCase()} color" title="Custom ${label.toLowerCase()} color" ${busy ? "disabled" : ""}></div></fieldset>`;
+}
+function bindColors() {
+  const change = (key, value) => {
+    theme = normalizeTheme({ ...theme, [key]: value });
+    applyTheme();
+    document.querySelector(`input[name="${key}"]`).value = theme[key];
+    document
+      .querySelectorAll(`[data-color-key="${key}"]`)
+      .forEach((button) =>
+        button.setAttribute(
+          "aria-pressed",
+          String(button.dataset.color === theme[key]),
+        ),
+      );
+    try {
+      localStorage.setItem("crazy8s:theme", JSON.stringify(theme));
+    } catch {}
+  };
+  document
+    .querySelectorAll("[data-color-key]")
+    .forEach(
+      (button) =>
+        (button.onclick = () =>
+          change(button.dataset.colorKey, button.dataset.color)),
+    );
+  for (const key of Object.keys(DEFAULT_THEME))
+    document
+      .querySelector(`input[name="${key}"]`)
+      ?.addEventListener("input", (event) => change(key, event.target.value));
+}
 
 function notify(text) {
   document.querySelector("#notice").textContent = text;
@@ -70,8 +122,10 @@ function notify(text) {
 }
 function cardHTML(card, options = {}) {
   if (!card)
-    return '<div class="card card-back" aria-label="Face-down deck">8</div>';
-  const inner = `<span class="card-corner">${card.rank}<span>${glyphs[card.suit]}</span></span><span class="card-center" aria-hidden="true">${glyphs[card.suit]}</span><span class="card-corner bottom" aria-hidden="true">${card.rank}<span>${glyphs[card.suit]}</span></span>`;
+    return options.draw
+      ? `<button id="draw-deck" class="card card-back draw-deck" aria-label="Draw one card" title="Draw one card" ${options.disabled ? "disabled" : ""}></button>`
+      : '<div class="card card-back" aria-label="Face-down deck"></div>';
+  const inner = `<span class="card-corner">${card.rank}<span>${glyphs[card.suit]}</span></span>${cardArt(card)}<span class="card-corner bottom" aria-hidden="true">${card.rank}<span>${glyphs[card.suit]}</span></span>`;
   const cls = `card ${red(card.suit) ? "red" : ""}`;
   return options.button
     ? `<button class="${cls}" data-card="${card.id}" aria-label="Play ${card.rank} of ${card.suit}" ${options.disabled ? "disabled" : ""}>${inner}</button>`
@@ -103,6 +157,7 @@ function saveHost() {
         members,
         capacity,
         round,
+        theme,
         game: engine ? engine.getState() : null,
       }),
     );
@@ -123,6 +178,7 @@ function broadcast() {
     members: publicMembers,
     capacity,
     round,
+    theme,
     phase: state ? "game" : "lobby",
     paused: !!state && members.some((p) => !p.online),
   };
@@ -319,6 +375,7 @@ function connectGuest() {
   connection.on("data", (message) => {
     if (message?.type === "state") {
       packet = message;
+      theme = normalizeTheme(message.theme);
       me = message.me;
       busy = false;
       reconnecting = false;
@@ -371,6 +428,14 @@ function leaveRoom() {
   location.href = "/crazy8s/";
 }
 function render() {
+  applyTheme();
+  const oldDeckFocus = document.activeElement?.id === "draw-deck";
+  const playedSource = packet?.game?.top
+    ? document
+        .querySelector(`[data-card="${packet.game.top.id}"]`)
+        ?.getBoundingClientRect()
+    : null;
+  const previous = renderedGame;
   const headerLeave = document.querySelector("#header-leave");
   headerLeave.hidden = !packet;
   headerLeave.title = host ? "Close room" : "Leave room";
@@ -380,6 +445,7 @@ function render() {
     app.innerHTML = `<div class="shell"><aside class="sidebar setup-sidebar"><div><p class="eyebrow">Samo's card table</p><h2>${joining ? "Join your friends" : "Pull up a chair"}</h2></div>
       <form class="form" id="setup"><label>Your name<input name="name" maxlength="20" autocomplete="nickname" placeholder="Your name" value="${escape(sessionStorage.getItem("crazy8s:name") || "")}" required ${busy ? "disabled" : ""}></label>
       ${joining ? "" : '<label>Seats<select name="seats"><option value="2">2 players</option><option value="3">3 players</option><option value="4" selected>4 players</option></select></label>'}
+      ${joining ? "" : `<div class="appearance">${colorControls("background", "Background")}${colorControls("table", "Table")}</div>`}
       <button class="primary" ${busy ? "disabled" : ""}>${icon(busy ? "loader-circle" : "play")}${busy ? "Connecting…" : joining ? "Join room" : "Create room"}</button>
       ${connectingError ? `<p class="error" role="alert">${escape(connectingError)}</p><button class="secondary" type="button" id="retry">${icon("refresh-cw")}Reconnect</button>` : ""}</form>
       <p class="small muted">2–4 friends · 52 cards · Wild eights</p><p class="small muted">Keep the host's tab open during the game.</p><div class="separator small muted">${joining ? '<a href="/crazy8s/">Create a different room</a>' : "No account needed."}</div></aside>
@@ -394,6 +460,7 @@ function render() {
       else createRoom(name, Number(data.get("seats")));
     };
     document.querySelector("#retry")?.addEventListener("click", openPeer);
+    if (!joining) bindColors();
     createIcons({ icons });
     return;
   }
@@ -443,12 +510,12 @@ function render() {
           `<div class="opponent ${game?.currentPlayer === p.id && !game?.gameover ? "active" : ""}"><div class="avatar">${escape(p.name[0].toUpperCase())}</div><p class="opponent-name">${escape(p.name)}</p><p class="opponent-count">${game ? `${game.counts[p.id]} card${game.counts[p.id] === 1 ? "" : "s"}` : p.online ? "Ready" : "Offline"}</p>${game ? `<div class="mini-cards" aria-hidden="true">${'<span class="mini-card"></span>'.repeat(Math.min(game.counts[p.id], 5))}</div>` : ""}</div>`,
       )
       .join("")}</div>
-    <div class="center-piles"><div class="pile-block">${cardHTML(null)}<span class="pile-label">${game ? `${game.stockCount} to draw` : "Fresh deck"}</span></div><div class="pile-block">${cardHTML(game?.top || { rank: "8", suit: "hearts" })}<span class="pile-label">${game ? "Discard" : "Eights are wild"}</span></div></div>
+    <div class="center-piles"><div class="pile-block">${cardHTML(null, { draw: !!game && !game.gameover, disabled: !isTurn || canPlay })}<span class="pile-label">${game ? `${game.stockCount} to draw` : "Fresh deck"}</span></div><div class="pile-block discard-pile">${cardHTML(game?.top || { rank: "8", suit: "hearts" })}<span class="pile-label">${game ? "Discard" : "Eights are wild"}</span></div></div>
     ${game ? `<div class="active-suit"><span class="suit-token ${red(game.suit) ? "red" : ""}">${glyphs[game.suit]}</span>${game.suit[0].toUpperCase() + game.suit.slice(1)}</div>` : ""}
     <div class="turn-banner"><p class="turn-title ${game?.gameover ? "winner" : ""}" aria-live="polite">${escape(title)}</p><p class="turn-detail">${escape(detail)}</p>${game?.gameover && host ? '<button class="primary result-actions" id="rematch">Deal again</button>' : ""}</div></div>
     ${
       game
-        ? `<div class="hand-area"><div class="hand-heading"><span>Your hand · ${mine.length} card${mine.length === 1 ? "" : "s"}</span>${!game.gameover ? `<button class="primary draw-button" id="draw" ${!isTurn || canPlay ? "disabled" : ""}>${icon("layers")}Draw until playable</button>` : ""}</div><div class="hand">${
+        ? `<div class="hand-area"><div class="hand-heading"><span>Your hand · ${mine.length} card${mine.length === 1 ? "" : "s"}</span></div><div class="hand">${
             mine.length
               ? [...mine]
                   .sort((a, b) => SUITS.indexOf(a.suit) - SUITS.indexOf(b.suit))
@@ -475,7 +542,7 @@ function render() {
   document.querySelector("#start")?.addEventListener("click", startGame);
   document.querySelector("#rematch")?.addEventListener("click", startGame);
   document
-    .querySelector("#draw")
+    .querySelector("#draw-deck")
     ?.addEventListener("click", () => move("draw"));
   document.querySelector("#retry")?.addEventListener("click", () => {
     connectingError = "";
@@ -499,6 +566,56 @@ function render() {
       }),
   );
   createIcons({ icons });
+  if (oldDeckFocus && document.querySelector("#draw-deck:not(:disabled)"))
+    document.querySelector("#draw-deck").focus({ preventScroll: true });
+  if (game && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const firstDeal = !previous || previous.round !== packet.round;
+    const source = document
+      .querySelector(".card-back")
+      ?.getBoundingClientRect();
+    document.querySelectorAll(".hand [data-card]").forEach((card, index) => {
+      if (!firstDeal && previous.hand.includes(card.dataset.card)) return;
+      const target = card.getBoundingClientRect();
+      card.animate(
+        [
+          {
+            opacity: 0,
+            transform: `translate(${source.left - target.left}px,${source.top - target.top}px) rotate(-14deg) scale(.7)`,
+          },
+          { opacity: 1, transform: "translate(0,0) rotate(0) scale(1)" },
+        ],
+        {
+          duration: 430,
+          delay: firstDeal ? index * 65 : 0,
+          easing: "cubic-bezier(.2,.8,.2,1)",
+          fill: "backwards",
+        },
+      );
+    });
+    if (previous && !firstDeal && previous.top !== game.top.id) {
+      const discard = document.querySelector(".discard-pile .card");
+      const target = discard.getBoundingClientRect();
+      discard.animate(
+        [
+          {
+            opacity: 0.5,
+            transform: playedSource
+              ? `translate(${playedSource.left - target.left}px,${playedSource.top - target.top}px) rotate(12deg)`
+              : "translateY(-45px) rotate(-12deg) scale(.85)",
+          },
+          { opacity: 1, transform: "translate(0,0) rotate(0) scale(1)" },
+        ],
+        { duration: 350, easing: "cubic-bezier(.2,.8,.2,1)" },
+      );
+    }
+  }
+  renderedGame = game
+    ? {
+        round: packet.round,
+        top: game.top.id,
+        hand: mine.map((card) => card.id),
+      }
+    : null;
 }
 
 document.querySelector("#rules").onclick = () =>
@@ -532,6 +649,7 @@ if (requestedRoom && roomPattern.test(requestedRoom)) {
       host = true;
       capacity = saved.capacity;
       round = saved.round;
+      theme = normalizeTheme(saved.theme);
       members = saved.members.map((p) => ({ ...p, online: p.id === "0" }));
       if (saved.game) bootGame(saved.game);
       openPeer();

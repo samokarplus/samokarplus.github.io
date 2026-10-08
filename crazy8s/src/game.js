@@ -72,20 +72,21 @@ export const CrazyEights = {
       const hand = G.hands[ctx.currentPlayer];
       const top = G.discard.at(-1);
       if (hand.some((card) => playable(card, top, G.suit))) return INVALID_MOVE;
-      let drawn = 0;
-      while (!hand.some((card) => playable(card, top, G.suit))) {
-        if (!G.stock.length && G.discard.length > 1) {
-          G.stock = random.Shuffle(G.discard.slice(0, -1));
-          G.discard = [top];
-        }
-        if (!G.stock.length) break;
-        hand.push(G.stock.pop());
-        drawn++;
+      if (!G.stock.length && G.discard.length > 1) {
+        G.stock = random.Shuffle(G.discard.slice(0, -1));
+        G.discard = [top];
       }
-      G.last = `drew ${drawn} card${drawn === 1 ? "" : "s"}.`;
-      if (!hand.some((card) => playable(card, top, G.suit))) {
+      const drawn = G.stock.length ? G.stock.pop() : null;
+      if (drawn) hand.push(drawn);
+      G.last = drawn ? "drew a card." : "No cards left to draw; passed.";
+      if (
+        !drawn ||
+        (!G.stock.length &&
+          G.discard.length === 1 &&
+          !hand.some((card) => playable(card, top, G.suit)))
+      ) {
         G.passes++;
-        G.last += " No playable card; passed.";
+        if (drawn) G.last += " No playable card; passed.";
         events.endTurn();
       } else G.passes = 0;
     },
