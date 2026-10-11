@@ -2081,3 +2081,98 @@ body.has-room3d .table-area::before {
 .hand .card {
   cursor: pointer;
 }
+
+/* phones: horizontal drags scrub the fan instead of scrolling; vertical drags still scroll the page */
+.hand-area {
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.hand .card {
+  touch-action: pan-y;
+}
+
+/* phones: fit the whole table and the hand on one screen so you never scroll mid-game */
+@media (max-width: 600px) {
+  .table-area {
+    padding: 8px 12px 0;
+  }
+  .table-heading {
+    min-height: 24px;
+  }
+  .table {
+    min-height: 0;
+    gap: 4px;
+    padding: 0;
+  }
+  .opponents {
+    min-height: 0;
+  }
+  .opponent .avatar {
+    width: 26px;
+    height: 26px;
+  }
+  .opponent-name {
+    margin: 2px 0;
+  }
+  .center-piles {
+    min-height: 0;
+    gap: 22px;
+  }
+  .center-piles .card {
+    width: 66px;
+    height: 94px;
+  }
+  .turn-banner {
+    padding: 0;
+  }
+  .taunt-toolbar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    min-height: 34px;
+    margin: 2px 0;
+    scrollbar-width: none;
+  }
+  .taunt-toolbar::-webkit-scrollbar {
+    display: none;
+  }
+  .taunt-toolbar > * {
+    flex: none;
+  }
+  .hand-area {
+    padding: 0;
+  }
+  .hand-heading {
+    margin-bottom: 0;
+    font-size: 12px;
+  }
+  .hand {
+    height: 150px;
+  }
+  .hand .card {
+    bottom: 18px;
+  }
+  .hand-rig {
+    bottom: -30px;
+  }
+}
+@media (max-width: 600px) {
+  .table-area .taunt-toolbar {
+    flex-wrap: nowrap;
+    min-height: 32px;
+    height: 36px;
+  }
+  .table-area .taunt-button {
+    padding: 4px 7px;
+  }
+  .table-area .reactions-button {
+    padding: 4px 9px;
+  }
+  .hand {
+    height: 132px;
+  }
+  .hand .card {
+    bottom: 8px;
+  }
+}

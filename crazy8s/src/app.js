@@ -495,13 +495,55 @@ function createRoom(name, seats) {
   if (soloGame()) startGame();
   else openPeer();
 }
+// Several STUN servers plus a TURN relay fallback, so players behind strict NATs (phones, schools,
+// offices) can still connect. The relay only carries traffic when a direct connection fails.
+const PEER_OPTIONS = {
+  debug: 0,
+  config: {
+    iceCandidatePoolSize: 4,
+    iceServers: [
+      { urls: "stun:stun.l.google.com:19302" },
+      { urls: "stun:stun1.l.google.com:19302" },
+      { urls: "stun:stun.cloudflare.com:3478" },
+      {
+        urls: [
+          "turn:openrelay.metered.ca:80",
+          "turn:openrelay.metered.ca:443",
+          "turns:openrelay.metered.ca:443?transport=tcp",
+        ],
+        username: "openrelayproject",
+        credential: "openrelayproject",
+      },
+    ],
+  },
+};
+let peerRetries = 0;
+let guestTries = 0;
+const TRANSIENT_PEER_ERRORS = [
+  "network",
+  "server-error",
+  "socket-error",
+  "socket-closed",
+  "webrtc",
+];
+function retryConnection() {
+  connectingError = "";
+  busy = true;
+  guestTries = 0;
+  peerRetries = 0;
+  if (!peer || peer.destroyed || peer.disconnected) openPeer();
+  else connectGuest();
+  render();
+}
 function openPeer() {
   busy = true;
   connectingError = "";
   render();
+  clearTimeout(reconnectTimer);
   peer?.destroy();
-  peer = new Peer(host ? `samo8-${room}` : undefined, { debug: 0 });
+  peer = new Peer(host ? `samo8-${room}` : undefined, PEER_OPTIONS);
   peer.on("open", () => {
+    peerRetries = 0;
     if (host) {
       busy = false;
       broadcast();
@@ -512,6 +554,25 @@ function openPeer() {
     if (!peer.destroyed) peer.reconnect();
   });
   peer.on("error", (error) => {
+    // Flaky network or a stale host id still held by the signalling server: quietly try again
+    const staleId = host && error.type === "unavailable-id";
+    if ((TRANSIENT_PEER_ERRORS.includes(error.type) || staleId) && peerRetries < 6) {
+      peerRetries++;
+      busy = true;
+      connectingError = "";
+      render();
+      clearTimeout(reconnectTimer);
+      reconnectTimer = setTimeout(openPeer, 1200 * peerRetries);
+      return;
+    }
+    if (!host && error.type === "peer-unavailable" && guestTries < 3) {
+      // the host may still be registering with the signalling server; give it a moment
+      guestTries++;
+      busy = true;
+      clearTimeout(reconnectTimer);
+      reconnectTimer = setTimeout(() => peer && !peer.destroyed && connectGuest(), 2000);
+      return;
+    }
     if (error.type === "peer-unavailable")
       connectingError =
         "The host is not online. Ask them to open the room, then reconnect.";
@@ -526,21 +587,28 @@ function openPeer() {
 }
 function connectGuest() {
   const name = sessionStorage.getItem("crazy8s:name") || "Friend";
-  connection = peer.connect(`samo8-${room}`, { reliable: true });
+  connection?.close();
+  const conn = peer.connect(`samo8-${room}`, { reliable: true });
+  connection = conn;
   clearTimeout(reconnectTimer);
   const timeout = setTimeout(() => {
-    if (!connection?.open) {
-      busy = false;
-      connectingError =
-        "Connection timed out. Check that the host is online, then reconnect.";
-      render();
+    if (connection !== conn || conn.open) return;
+    if (guestTries++ < 2) {
+      connectGuest();
+      return;
     }
-  }, 18000);
-  connection.on("open", () => {
+    busy = false;
+    connectingError =
+      "Connection timed out. Check that the host is online, then reconnect.";
+    render();
+  }, 12000);
+  conn.on("open", () => {
     clearTimeout(timeout);
-    connection.send({ type: "join", name, token: tokenForRoom() });
+    guestTries = 0;
+    conn.send({ type: "join", name, token: tokenForRoom() });
   });
-  connection.on("data", (message) => {
+  conn.on("data", (message) => {
+    if (connection !== conn) return;
     if (message?.type === "state") {
       packet = message;
       theme = normalizeTheme(message.theme);
@@ -558,8 +626,9 @@ function connectGuest() {
       render();
     }
   });
-  connection.on("close", () => {
+  conn.on("close", () => {
     clearTimeout(timeout);
+    if (connection !== conn) return;
     if (!connectingError) {
       connectingError = "Connection lost. Waiting for the host…";
       reconnecting = true;
@@ -568,13 +637,26 @@ function connectGuest() {
         reconnectTimer = setTimeout(() => connectGuest(), 3000);
     }
   });
-  connection.on("error", () => {
+  conn.on("error", () => {
     clearTimeout(timeout);
+    if (connection !== conn) return;
+    if (guestTries++ < 2) {
+      reconnectTimer = setTimeout(connectGuest, 1500);
+      return;
+    }
     busy = false;
     connectingError = "Could not reach this room. Reconnect to try again.";
     render();
   });
 }
+// coming back online or returning to the tab: a dropped guest reconnects by itself
+function autoReconnect() {
+  if (!room || host || !packet || (connection?.open && !connectingError)) return;
+  if (document.hidden || busy) return;
+  retryConnection();
+}
+addEventListener("online", autoReconnect);
+document.addEventListener("visibilitychange", autoReconnect);
 function removeMember(id) {
   if (engine || id === "0") return;
   const old = connections.get(id);
@@ -782,12 +864,7 @@ function render() {
   document
     .querySelector("#draw-deck")
     ?.addEventListener("click", () => move("draw"));
-  document.querySelector("#retry")?.addEventListener("click", () => {
-    connectingError = "";
-    busy = true;
-    connectGuest();
-    render();
-  });
+  document.querySelector("#retry")?.addEventListener("click", retryConnection);
   document
     .querySelectorAll("[data-remove]")
     .forEach(

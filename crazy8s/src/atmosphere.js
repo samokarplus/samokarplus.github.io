@@ -41,7 +41,10 @@ export function layoutFan(focus = null) {
   const mobile = innerWidth <= 600;
   const total = Math.min(mobile ? 46 : 54, 6 * (n - 1));
   const step = n > 1 ? total / (n - 1) : 0;
-  const radius = mobile ? 300 : 360;
+  // distance from the fan's pivot to a card's centre, read from the real CSS so the maths always matches
+  const first = cards[0];
+  const originY = first ? parseFloat(getComputedStyle(first).transformOrigin.split(" ")[1]) : 0;
+  const radius = first && originY ? originY - first.offsetHeight / 2 : mobile ? 242 : 372;
   handLayout = [];
   cards.forEach((card, i) => {
     const d = i - (n - 1) / 2;
@@ -57,7 +60,7 @@ export function layoutFan(focus = null) {
         s = 1.03;
         z = 100;
       } else {
-        r += Math.sign(off) * (6 / (0.6 + Math.abs(off)));
+        r += Math.sign(off) * (3.5 / (0.6 + Math.abs(off)));
         y = -Math.max(0, 8 - Math.abs(off) * 3);
       }
     }
@@ -84,42 +87,37 @@ export function layoutFan(focus = null) {
   right.style.setProperty("--hr", `${-14 + t * 10}deg`);
 }
 
-function nearestIndex(clientX) {
+// Cards overlap with later cards on top, so card k's visible strip starts where it starts
+// (x_k - width/2) and runs until card k+1 begins. Picking by that, not by card centre,
+// matches what the pointer is visually over, so no card gets skipped.
+function boundaries() {
   const hand = document.querySelector(".hand");
-  if (!hand || !handLayout.length) return null;
-  const cards = [...hand.querySelectorAll(".card")];
+  const first = hand?.querySelector(".card");
+  if (!hand || !first || !handLayout.length) return null;
   const rect = hand.getBoundingClientRect();
+  const half = first.offsetWidth / 2;
   const cx = rect.left + rect.width / 2;
-  let best = null;
-  let dist = Infinity;
-  handLayout.forEach((x, i) => {
-    const d = Math.abs(cx + x - clientX);
-    if (d < dist) {
-      dist = d;
-      best = i;
-    }
-  });
-  return best;
+  return handLayout.map((x) => cx + x - half);
 }
 
-// Scrubbing along the fan: the pointer's horizontal position picks the card, with a sticky band
-// around the lit card so small wobbles don't flip it, but moving along the hand glides smoothly
-// from card to card without having to dip under or around the lifted one.
+function indexAtX(clientX) {
+  const b = boundaries();
+  if (!b) return null;
+  let k = 0;
+  for (let i = 0; i < b.length; i++) if (clientX >= b[i]) k = i;
+  return k;
+}
+
+// Light hysteresis so a wobble on a strip edge doesn't flicker between two cards.
 function pickFocus(event) {
-  const hand = document.querySelector(".hand");
-  if (!hand || !handLayout.length) return null;
-  const rect = hand.getBoundingClientRect();
-  const cx = rect.left + rect.width / 2;
-  const x = event.clientX - cx;
-  if (focusIndex !== null && focusIndex < handLayout.length) {
-    const here = handLayout[focusIndex];
-    const left = focusIndex > 0 ? here - handLayout[focusIndex - 1] : here - handLayout[focusIndex + 1] || 40;
-    const right = focusIndex < handLayout.length - 1 ? handLayout[focusIndex + 1] - here : left;
-    const lo = here - Math.abs(left) * 0.62;
-    const hi = here + Math.abs(right) * 0.62;
-    if (x >= lo && x <= hi) return focusIndex;
-  }
-  return nearestIndex(event.clientX);
+  const k = indexAtX(event.clientX);
+  if (k === null || focusIndex === null || focusIndex >= handLayout.length || k === focusIndex) return k;
+  const b = boundaries();
+  const strip = Math.abs((b[Math.min(b.length - 1, focusIndex + 1)] - b[focusIndex]) || 30);
+  const margin = strip * 0.18;
+  if (k === focusIndex + 1 && event.clientX < b[k] + margin) return focusIndex;
+  if (k === focusIndex - 1 && event.clientX > b[focusIndex] - margin) return focusIndex;
+  return k;
 }
 
 function overHand(event) {
@@ -141,52 +139,104 @@ export function applyPointer() {
   el.style.setProperty("--py", pointer.y.toFixed(3));
 }
 
+function shake(el, distance = 6) {
+  el.animate(
+    [
+      { translate: "0" },
+      { translate: `-${distance}px` },
+      { translate: `${distance}px` },
+      { translate: `-${distance * 0.6}px` },
+      { translate: "0" },
+    ],
+    { duration: 240 },
+  );
+}
+
+const isMyTurn = () => document.querySelector(".turn-title")?.textContent === "Your turn";
+
+// Play (or refuse) the lit card; cards look identical either way so an illegal pick just says "nope".
+function commitCard(index, swallowMs) {
+  const cards = [...document.querySelectorAll(".hand .card")];
+  const chosen = index === null ? null : cards[index];
+  if (!chosen) return;
+  if (chosen.disabled) {
+    if (isMyTurn()) {
+      nope();
+      shake(chosen);
+    }
+    return;
+  }
+  // run the card's own handler directly, then swallow the browser's follow-up click so it
+  // can't play whichever card the pointer happened to land on
+  chosen.onclick?.(new MouseEvent("click"));
+  const swallow = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+  };
+  document.addEventListener("click", swallow, { capture: true, once: true });
+  setTimeout(() => document.removeEventListener("click", swallow, true), swallowMs);
+}
+
 export function bindAtmosphere() {
+  // Touch: drag along the fan to scrub, lift a card by touching it, tap the lifted card to play it.
+  // Mouse: hover lights the card, click plays it.
+  let touch = null;
   document.addEventListener("pointermove", (event) => {
     pointer.x = (event.clientX / innerWidth) * 2 - 1;
     pointer.y = (event.clientY / innerHeight) * 2 - 1;
     applyPointer();
     room?.setPointer(pointer.x, pointer.y);
+    if (event.pointerType !== "mouse") {
+      if (!touch) return;
+      if (Math.hypot(event.clientX - touch.x, event.clientY - touch.y) > 10) touch.moved = true;
+      if (!touch.inHand) return;
+      pointer.clientX = event.clientX;
+      layoutFan(pickFocus(event));
+      return;
+    }
     const inside = overHand(event);
     pointer.inside = inside;
     pointer.clientX = event.clientX;
     layoutFan(inside ? pickFocus(event) : null);
   });
-  document.addEventListener("pointerleave", () => layoutFan(null));
-  // The fan moves under the pointer, so play the card that is lit up, wherever the pointer
-  // physically lands (a gap, a neighbour, or a disabled card that swallows clicks).
+  document.addEventListener("pointerleave", (event) => {
+    if (event.pointerType === "mouse") layoutFan(null);
+  });
+  document.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "mouse") {
+      if (overHand(event)) layoutFan(pickFocus(event));
+      return;
+    }
+    const inHand = overHand(event);
+    touch = { x: event.clientX, y: event.clientY, moved: false, inHand, before: focusIndex };
+    pointer.inside = inHand;
+    pointer.clientX = event.clientX;
+    if (inHand) layoutFan(pickFocus(event));
+    else if (!event.target.closest?.("button, a, dialog")) layoutFan(null);
+  });
   document.addEventListener(
     "pointerup",
     (event) => {
-      if (event.button !== 0 || !overHand(event)) return;
-      const cards = [...document.querySelectorAll(".hand .card")];
-      const focus = pickFocus(event);
-      const chosen = focus === null ? null : cards[focus];
-      if (!chosen) return;
-      if (chosen.disabled) {
-        // looks identical either way; an illegal pick just gets a "nope"
-        if (document.querySelector(".turn-title")?.textContent === "Your turn") {
-          nope();
-          chosen.animate(
-            [
-              { translate: "0" },
-              { translate: "-6px" },
-              { translate: "6px" },
-              { translate: "-4px" },
-              { translate: "0" },
-            ],
-            { duration: 240 },
-          );
+      if (event.pointerType !== "mouse") {
+        const t = touch;
+        touch = null;
+        if (!t?.inHand) return;
+        const k = pickFocus(event);
+        layoutFan(k);
+        if (!t.moved && t.before === k) commitCard(k, 450); // second tap on the lifted card plays it
+        else {
+          // first touch (or a drag) only lifts the card; stop the browser's own click from playing it
+          const swallow = (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          };
+          document.addEventListener("click", swallow, { capture: true, once: true });
+          setTimeout(() => document.removeEventListener("click", swallow, true), 450);
         }
         return;
       }
-      const swallow = (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-      };
-      document.addEventListener("click", swallow, { capture: true, once: true });
-      setTimeout(() => document.removeEventListener("click", swallow, true), 50);
-      chosen.click();
+      if (event.button !== 0 || !overHand(event)) return;
+      commitCard(pickFocus(event), 50);
     },
     true,
   );
@@ -196,23 +246,20 @@ export function bindAtmosphere() {
     const r = deck.getBoundingClientRect();
     const inside =
       event.clientX >= r.left && event.clientX <= r.right && event.clientY >= r.top && event.clientY <= r.bottom;
-    if (inside && document.querySelector(".turn-title")?.textContent === "Your turn") {
+    if (inside && isMyTurn()) {
       nope();
-      deck.animate(
-        [{ translate: "0" }, { translate: "-5px" }, { translate: "5px" }, { translate: "0" }],
-        { duration: 220 },
-      );
+      shake(deck, 5);
     }
   });
-  document.addEventListener("pointerdown", (event) => {
-    if (overHand(event)) layoutFan(pickFocus(event));
+  document.addEventListener("pointercancel", () => {
+    touch = null;
   });
   addEventListener("resize", () => layoutFan(null));
 }
 
 export function refreshAtmosphere() {
   applyPointer();
-  layoutFan(pointer.inside ? nearestIndex(pointer.clientX) : null);
+  layoutFan(pointer.inside ? indexAtX(pointer.clientX) : null);
 }
 
 function syncRoomRect() {
