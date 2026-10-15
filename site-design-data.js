@@ -19,7 +19,7 @@
 // Best simple rule: use only these two across the site.
 //
 // Current normal font:       "Nunito Sans, sans-serif"
-// Current heading font:      "Fraunces, serif"
+// Current heading font:      "Instrument Serif, serif"
 //
 // QUICK COPY/PASTE TEXT STYLE
 //
@@ -87,7 +87,7 @@ window.siteDesignData = {
   bodyFont: "Nunito Sans, sans-serif",
 
   // Heading and quote font
-  headingFont: "Fraunces, serif",
+  headingFont: "Instrument Serif, serif",
 
   // Normal paragraph size
   normalTextSize: "1rem",
