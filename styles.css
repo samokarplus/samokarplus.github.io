@@ -33,9 +33,9 @@
   --radius-sm: 14px;
   --content-width: 1140px;
   --body-font: "Nunito Sans", sans-serif;
-  --heading-font: "Instrument Serif", serif;
+  --heading-font: "Young Serif", serif;
   --heading-weight: 400;
-  --script-font: "Caveat", cursive;
+  --script-font: "Nunito Sans", sans-serif;
   --normal-text-size: 1rem;
   --heading-scale: 1;
   --hero-quote-size: 1.05rem;
@@ -135,19 +135,19 @@ h3 {
 }
 
 h1 {
-  font-size: calc(clamp(3rem, 7.4vw, 5.9rem) * var(--heading-scale));
+  font-size: calc(clamp(2.7rem, 6.2vw, 5rem) * var(--heading-scale));
   letter-spacing: -0.01em;
   line-height: 1.02;
   max-width: 14ch;
 }
 
 h2 {
-  font-size: calc(clamp(2.4rem, 5.2vw, 3.9rem) * var(--heading-scale));
+  font-size: calc(clamp(2.1rem, 4.4vw, 3.3rem) * var(--heading-scale));
   letter-spacing: -0.01em;
 }
 
 h3 {
-  font-size: calc(1.65rem * var(--heading-scale));
+  font-size: calc(1.4rem * var(--heading-scale));
 }
 
 p {
@@ -166,17 +166,17 @@ p {
   color: var(--terracotta);
 }
 
-/* script-style section labels with a little sun */
+/* section labels: clean small caps with a little sun */
 .eyebrow {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 0.4rem;
-  font-family: var(--script-font);
-  font-size: 1.7rem;
-  font-weight: 600;
-  letter-spacing: 0;
-  text-transform: none;
+  gap: 0.65rem;
+  margin-bottom: 0.7rem;
+  font-family: var(--body-font);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   line-height: 1;
 }
 
@@ -234,7 +234,7 @@ p {
 
 .brand {
   font-family: var(--heading-font);
-  font-size: 1.35rem;
+  font-size: 1.15rem;
   font-weight: var(--heading-weight);
   letter-spacing: 0;
   white-space: nowrap;
@@ -323,7 +323,7 @@ p {
 .site-nav a {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(2.3rem, 6vw, 4rem);
+  font-size: clamp(2rem, 5.2vw, 3.3rem);
   line-height: 1.2;
   color: #fff7ea;
   text-shadow: 0 2px 22px rgba(20, 50, 66, 0.35);
@@ -511,8 +511,8 @@ p {
 .hero-card blockquote {
   margin: 0;
   font-family: var(--heading-font);
-  font-size: clamp(1.05rem, 1.55vw, 1.3rem);
-  line-height: 1.45;
+  font-size: clamp(0.95rem, 1.35vw, 1.12rem);
+  line-height: 1.55;
   font-weight: 400;
   color: var(--h-text);
 }
@@ -608,7 +608,7 @@ p {
   display: block;
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
   line-height: 1.1;
   white-space: nowrap;
 }
@@ -645,7 +645,7 @@ p {
 
 .pr-time {
   font-family: var(--heading-font);
-  font-size: 1.15rem;
+  font-size: 1rem;
   white-space: nowrap;
 }
 
@@ -655,7 +655,7 @@ p {
 
 .race-name {
   margin: 0.1rem 0 0.15rem;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: var(--h-text);
 }
 
@@ -848,32 +848,56 @@ p {
 
 .about-quote {
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
   margin: clamp(1.5rem, 3vw, 2.5rem) auto 0;
   max-width: 50rem;
-  padding: 1.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 2.6rem clamp(1.5rem, 6vw, 4.5rem) 2.2rem;
+  border: 1px solid rgba(245, 236, 208, 0.22);
   border-radius: var(--radius-lg);
-  background: rgba(122, 59, 43, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 28px 60px -34px rgba(60, 25, 15, 0.8);
+  background: #040405 url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 800 300%22 preserveAspectRatio=%22xMidYMid slice%22%3E%3Cdefs%3E%3CradialGradient id=%22n1%22%3E%3Cstop offset=%220%22 stop-color=%22%233a3a42%22 stop-opacity=%22.55%22/%3E%3Cstop offset=%221%22 stop-color=%22%233a3a42%22 stop-opacity=%220%22/%3E%3C/radialGradient%3E%3CradialGradient id=%22g%22%3E%3Cstop offset=%220%22 stop-color=%22%23fff%22 stop-opacity=%22.9%22/%3E%3Cstop offset=%221%22 stop-color=%22%23fff%22 stop-opacity=%220%22/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width=%22800%22 height=%22300%22 fill=%22%23040405%22/%3E%3Cellipse cx=%22260%22 cy=%22120%22 rx=%22330%22 ry=%2270%22 fill=%22url%28%23n1%29%22/%3E%3Cellipse cx=%22560%22 cy=%22210%22 rx=%22300%22 ry=%2260%22 fill=%22url%28%23n1%29%22/%3E%3Ccircle cx=%22181.4%22 cy=%22288.7%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.48%22/%3E%3Ccircle cx=%2235.0%22 cy=%2241.1%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.49%22/%3E%3Ccircle cx=%22513.5%22 cy=%22137.7%22 r=%221%22 fill=%22%23fff%22 opacity=%220.60%22/%3E%3Ccircle cx=%22458.5%22 cy=%22269.2%22 r=%221%22 fill=%22%23fff%22 opacity=%220.41%22/%3E%3Ccircle cx=%22187.3%22 cy=%226.0%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.69%22/%3E%3Ccircle cx=%22379.5%22 cy=%22273.3%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.42%22/%3E%3Ccircle cx=%22206.7%22 cy=%22297.5%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.60%22/%3E%3Ccircle cx=%22663.6%22 cy=%2232.3%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.57%22/%3E%3Ccircle cx=%22553.0%22 cy=%22149.3%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.69%22/%3E%3Ccircle cx=%22166.3%22 cy=%22242.5%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.39%22/%3E%3Ccircle cx=%22756.8%22 cy=%22146.6%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.45%22/%3E%3Ccircle cx=%22688.3%22 cy=%22136.9%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.92%22/%3E%3Ccircle cx=%22228.5%22 cy=%22107.0%22 r=%221%22 fill=%22%23fff%22 opacity=%220.44%22/%3E%3Ccircle cx=%22611.4%22 cy=%2229.3%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.55%22/%3E%3Ccircle cx=%22285.6%22 cy=%22193.2%22 r=%221%22 fill=%22%23fff%22 opacity=%220.68%22/%3E%3Ccircle cx=%22158.1%22 cy=%2245.0%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.53%22/%3E%3Ccircle cx=%22525.6%22 cy=%22242.4%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.94%22/%3E%3Ccircle cx=%22435.9%22 cy=%22103.3%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.54%22/%3E%3Ccircle cx=%22175.8%22 cy=%2210.1%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.60%22/%3E%3Ccircle cx=%22667.5%22 cy=%22267.4%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.78%22/%3E%3Ccircle cx=%2293.0%22 cy=%22279.8%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.48%22/%3E%3Ccircle cx=%22613.2%22 cy=%2290.0%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.87%22/%3E%3Ccircle cx=%22304.4%22 cy=%22250.9%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.63%22/%3E%3Ccircle cx=%22185.4%22 cy=%22123.0%22 r=%221%22 fill=%22%23fff%22 opacity=%220.61%22/%3E%3Ccircle cx=%2264.1%22 cy=%2221.0%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.41%22/%3E%3Ccircle cx=%2268.2%22 cy=%2232.0%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.69%22/%3E%3Ccircle cx=%22122.9%22 cy=%22280.9%22 r=%221%22 fill=%22%23fff%22 opacity=%220.81%22/%3E%3Ccircle cx=%22784.1%22 cy=%2218.9%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.94%22/%3E%3Ccircle cx=%22272.6%22 cy=%22197.5%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.83%22/%3E%3Ccircle cx=%22281.2%22 cy=%22289.5%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.77%22/%3E%3Ccircle cx=%22399.2%22 cy=%2218.2%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.37%22/%3E%3Ccircle cx=%22772.1%22 cy=%22227.8%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.46%22/%3E%3Ccircle cx=%22270.0%22 cy=%22129.3%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.40%22/%3E%3Ccircle cx=%22484.3%22 cy=%22149.2%22 r=%221%22 fill=%22%23fff%22 opacity=%220.86%22/%3E%3Ccircle cx=%22304.9%22 cy=%2232.5%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.64%22/%3E%3Ccircle cx=%22101.2%22 cy=%22131.8%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.41%22/%3E%3Ccircle cx=%22742.8%22 cy=%22169.2%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.65%22/%3E%3Ccircle cx=%2240.7%22 cy=%2214.7%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.42%22/%3E%3Ccircle cx=%22580.1%22 cy=%22212.5%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.94%22/%3E%3Ccircle cx=%22524.2%22 cy=%22248.8%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.41%22/%3E%3Ccircle cx=%22774.2%22 cy=%22226.7%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.88%22/%3E%3Ccircle cx=%22455.2%22 cy=%22150.5%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.69%22/%3E%3Ccircle cx=%22595.2%22 cy=%22194.2%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.54%22/%3E%3Ccircle cx=%22237.2%22 cy=%2224.0%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.95%22/%3E%3Ccircle cx=%22785.4%22 cy=%2267.1%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.40%22/%3E%3Ccircle cx=%22335.6%22 cy=%22223.3%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.90%22/%3E%3Ccircle cx=%22413.0%22 cy=%22187.5%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.86%22/%3E%3Ccircle cx=%22236.7%22 cy=%22253.7%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.67%22/%3E%3Ccircle cx=%22302.9%22 cy=%22175.5%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.48%22/%3E%3Ccircle cx=%22317.6%22 cy=%22115.0%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.69%22/%3E%3Ccircle cx=%22552.5%22 cy=%22106.7%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.74%22/%3E%3Ccircle cx=%22289.7%22 cy=%22128.3%22 r=%221%22 fill=%22%23fff%22 opacity=%220.88%22/%3E%3Ccircle cx=%22405.9%22 cy=%2224.6%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.39%22/%3E%3Ccircle cx=%22586.5%22 cy=%2281.3%22 r=%221%22 fill=%22%23fff%22 opacity=%220.86%22/%3E%3Ccircle cx=%22499.6%22 cy=%22247.5%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.53%22/%3E%3Ccircle cx=%22660.3%22 cy=%2280.6%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.62%22/%3E%3Ccircle cx=%22289.1%22 cy=%22289.6%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.84%22/%3E%3Ccircle cx=%22199.9%22 cy=%22244.0%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.69%22/%3E%3Ccircle cx=%22156.3%22 cy=%22149.0%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.87%22/%3E%3Ccircle cx=%22310.4%22 cy=%22196.4%22 r=%221.2%22 fill=%22%23fff%22 opacity=%221.00%22/%3E%3Ccircle cx=%22736.4%22 cy=%22235.9%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.36%22/%3E%3Ccircle cx=%22153.0%22 cy=%2279.4%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.65%22/%3E%3Ccircle cx=%22695.0%22 cy=%22271.6%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.41%22/%3E%3Ccircle cx=%22485.7%22 cy=%22259.5%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.39%22/%3E%3Ccircle cx=%22632.5%22 cy=%22250.7%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.91%22/%3E%3Ccircle cx=%22522.9%22 cy=%22109.9%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.88%22/%3E%3Ccircle cx=%22579.8%22 cy=%22179.9%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.49%22/%3E%3Ccircle cx=%22595.2%22 cy=%22290.2%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.69%22/%3E%3Ccircle cx=%2291.2%22 cy=%22216.4%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.63%22/%3E%3Ccircle cx=%22125.7%22 cy=%22268.1%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.63%22/%3E%3Ccircle cx=%22625.8%22 cy=%2229.9%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.40%22/%3E%3Ccircle cx=%22740.0%22 cy=%22101.1%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.42%22/%3E%3Ccircle cx=%2240.7%22 cy=%22166.8%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.47%22/%3E%3Ccircle cx=%22136.6%22 cy=%22191.9%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.92%22/%3E%3Ccircle cx=%22588.9%22 cy=%22143.7%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.82%22/%3E%3Ccircle cx=%2266.4%22 cy=%2241.2%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.44%22/%3E%3Ccircle cx=%22261.5%22 cy=%22122.3%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.44%22/%3E%3Ccircle cx=%22352.3%22 cy=%22208.5%22 r=%221%22 fill=%22%23fff%22 opacity=%220.73%22/%3E%3Ccircle cx=%22491.0%22 cy=%22124.4%22 r=%221%22 fill=%22%23fff%22 opacity=%220.73%22/%3E%3Ccircle cx=%22717.2%22 cy=%22276.8%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.72%22/%3E%3Ccircle cx=%22568.0%22 cy=%22260.6%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.90%22/%3E%3Ccircle cx=%22422.4%22 cy=%2292.6%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.96%22/%3E%3Ccircle cx=%22666.4%22 cy=%22251.7%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.67%22/%3E%3Ccircle cx=%22777.3%22 cy=%22160.1%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.54%22/%3E%3Ccircle cx=%22174.0%22 cy=%22158.0%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.89%22/%3E%3Ccircle cx=%22517.9%22 cy=%2237.3%22 r=%221%22 fill=%22%23fff%22 opacity=%220.37%22/%3E%3Ccircle cx=%22695.2%22 cy=%22152.0%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.58%22/%3E%3Ccircle cx=%22559.2%22 cy=%22186.4%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.89%22/%3E%3Ccircle cx=%2211.6%22 cy=%22248.3%22 r=%221%22 fill=%22%23fff%22 opacity=%220.73%22/%3E%3Ccircle cx=%22101.9%22 cy=%22289.3%22 r=%221%22 fill=%22%23fff%22 opacity=%220.72%22/%3E%3Ccircle cx=%22463.0%22 cy=%22263.1%22 r=%220.8%22 fill=%22%23fff%22 opacity=%221.00%22/%3E%3Ccircle cx=%2231.7%22 cy=%22180.4%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.59%22/%3E%3Ccircle cx=%22787.3%22 cy=%2231.9%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.77%22/%3E%3Ccircle cx=%22381.3%22 cy=%2250.9%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.66%22/%3E%3Ccircle cx=%22461.1%22 cy=%22279.8%22 r=%221%22 fill=%22%23fff%22 opacity=%220.59%22/%3E%3Ccircle cx=%22502.9%22 cy=%2211.6%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.95%22/%3E%3Ccircle cx=%22530.4%22 cy=%22195.2%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.37%22/%3E%3Ccircle cx=%22186.1%22 cy=%22108.1%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.66%22/%3E%3Ccircle cx=%22138.5%22 cy=%2241.8%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.86%22/%3E%3Ccircle cx=%22626.6%22 cy=%22222.4%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.79%22/%3E%3Ccircle cx=%22363.4%22 cy=%2288.9%22 r=%221%22 fill=%22%23fff%22 opacity=%220.91%22/%3E%3Ccircle cx=%22357.7%22 cy=%22188.8%22 r=%221%22 fill=%22%23fff%22 opacity=%220.93%22/%3E%3Ccircle cx=%22351.0%22 cy=%2240.7%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.42%22/%3E%3Ccircle cx=%22574.1%22 cy=%22200.1%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.66%22/%3E%3Ccircle cx=%22306.9%22 cy=%22164.0%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.73%22/%3E%3Ccircle cx=%22625.6%22 cy=%22151.3%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.41%22/%3E%3Ccircle cx=%22634.5%22 cy=%22227.7%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.45%22/%3E%3Ccircle cx=%22320.6%22 cy=%22284.3%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.97%22/%3E%3Ccircle cx=%2211.2%22 cy=%22132.9%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.56%22/%3E%3Ccircle cx=%2222.3%22 cy=%221.6%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.83%22/%3E%3Ccircle cx=%22460.7%22 cy=%22192.2%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.38%22/%3E%3Ccircle cx=%22170.7%22 cy=%2295.0%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.62%22/%3E%3Ccircle cx=%22729.0%22 cy=%220.1%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.41%22/%3E%3Ccircle cx=%22408.8%22 cy=%22144.5%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.88%22/%3E%3Ccircle cx=%22337.3%22 cy=%2233.6%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.45%22/%3E%3Ccircle cx=%22116.7%22 cy=%22212.8%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.81%22/%3E%3Ccircle cx=%22749.0%22 cy=%22130.9%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.51%22/%3E%3Ccircle cx=%22555.2%22 cy=%2259.7%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.54%22/%3E%3Ccircle cx=%22615.8%22 cy=%2294.5%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.50%22/%3E%3Ccircle cx=%22317.5%22 cy=%22207.9%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.55%22/%3E%3Ccircle cx=%22221.4%22 cy=%226.5%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.81%22/%3E%3Ccircle cx=%22555.9%22 cy=%2263.3%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.87%22/%3E%3Ccircle cx=%22524.2%22 cy=%22259.9%22 r=%221%22 fill=%22%23fff%22 opacity=%220.45%22/%3E%3Ccircle cx=%22659.8%22 cy=%2271.7%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.63%22/%3E%3Ccircle cx=%22714.4%22 cy=%22247.5%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.79%22/%3E%3Ccircle cx=%22727.2%22 cy=%22260.8%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.75%22/%3E%3Ccircle cx=%22493.4%22 cy=%22140.7%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.69%22/%3E%3Ccircle cx=%22269.5%22 cy=%22283.8%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.51%22/%3E%3Ccircle cx=%22176.7%22 cy=%22216.8%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.95%22/%3E%3Ccircle cx=%22270.2%22 cy=%2238.5%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.40%22/%3E%3Ccircle cx=%22258.6%22 cy=%22171.4%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.50%22/%3E%3Ccircle cx=%22475.0%22 cy=%22252.0%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.61%22/%3E%3Ccircle cx=%22615.1%22 cy=%2235.6%22 r=%221%22 fill=%22%23fff%22 opacity=%220.79%22/%3E%3Ccircle cx=%22739.9%22 cy=%22257.4%22 r=%221%22 fill=%22%23fff%22 opacity=%220.74%22/%3E%3Ccircle cx=%22390.0%22 cy=%22164.4%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.36%22/%3E%3Ccircle cx=%2212.2%22 cy=%22211.3%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.68%22/%3E%3Ccircle cx=%22298.0%22 cy=%22145.2%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.42%22/%3E%3Ccircle cx=%22140.2%22 cy=%2216.4%22 r=%221%22 fill=%22%23fff%22 opacity=%220.53%22/%3E%3Ccircle cx=%22438.0%22 cy=%2259.5%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.95%22/%3E%3Ccircle cx=%2247.9%22 cy=%22103.4%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.55%22/%3E%3Ccircle cx=%22389.8%22 cy=%2247.5%22 r=%221%22 fill=%22%23fff%22 opacity=%220.83%22/%3E%3Ccircle cx=%22219.9%22 cy=%22282.6%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.66%22/%3E%3Ccircle cx=%22374.3%22 cy=%22228.7%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.99%22/%3E%3Ccircle cx=%22626.6%22 cy=%2217.3%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.77%22/%3E%3Ccircle cx=%22751.8%22 cy=%22157.0%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.45%22/%3E%3Ccircle cx=%2294.1%22 cy=%22277.0%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.87%22/%3E%3Ccircle cx=%22137.0%22 cy=%2298.9%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.72%22/%3E%3Ccircle cx=%22761.7%22 cy=%22187.2%22 r=%221%22 fill=%22%23fff%22 opacity=%220.71%22/%3E%3Ccircle cx=%22238.4%22 cy=%22224.5%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.58%22/%3E%3Ccircle cx=%2244.7%22 cy=%22120.1%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.40%22/%3E%3Ccircle cx=%22197.3%22 cy=%22249.9%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.66%22/%3E%3Ccircle cx=%22228.0%22 cy=%22282.9%22 r=%221%22 fill=%22%23fff%22 opacity=%220.71%22/%3E%3Ccircle cx=%22521.2%22 cy=%22188.8%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.39%22/%3E%3Ccircle cx=%22315.9%22 cy=%22164.1%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.47%22/%3E%3Ccircle cx=%22388.3%22 cy=%22170.6%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.48%22/%3E%3Ccircle cx=%22199.9%22 cy=%22113.8%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.58%22/%3E%3Ccircle cx=%2295.5%22 cy=%22154.9%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.38%22/%3E%3Ccircle cx=%2275.6%22 cy=%22218.5%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.56%22/%3E%3Ccircle cx=%2285.0%22 cy=%2258.0%22 r=%221%22 fill=%22%23fff%22 opacity=%220.63%22/%3E%3Ccircle cx=%22360.1%22 cy=%22207.3%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.37%22/%3E%3Ccircle cx=%22100.9%22 cy=%22134.4%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.79%22/%3E%3Ccircle cx=%22729.2%22 cy=%22127.2%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.86%22/%3E%3Ccircle cx=%22376.1%22 cy=%22202.9%22 r=%221%22 fill=%22%23fff%22 opacity=%220.89%22/%3E%3Ccircle cx=%22621.8%22 cy=%22215.6%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.64%22/%3E%3Ccircle cx=%22220.9%22 cy=%22168.2%22 r=%221.5%22 fill=%22%23fff%22 opacity=%220.89%22/%3E%3Ccircle cx=%22729.8%22 cy=%2263.6%22 r=%221.2%22 fill=%22%23fff%22 opacity=%220.35%22/%3E%3Ccircle cx=%22711.5%22 cy=%22295.4%22 r=%220.8%22 fill=%22%23fff%22 opacity=%220.41%22/%3E%3Ccircle cx=%22131.9%22 cy=%2295.8%22 r=%221%22 fill=%22%23fff%22 opacity=%220.96%22/%3E%3Ccircle cx=%22240.2%22 cy=%2265.9%22 r=%220.5%22 fill=%22%23fff%22 opacity=%220.73%22/%3E%3Ccircle cx=%22721.4%22 cy=%2266.3%22 r=%220.6%22 fill=%22%23fff%22 opacity=%220.77%22/%3E%3Ccircle cx=%2260%22 cy=%2260%22 r=%2214.4%22 fill=%22url%28%23g%29%22 opacity=%22.55%22/%3E%3Cpath d=%22M60 44 Q61.92 58.08 76 60 Q61.92 61.92 60 76 Q58.08 61.92 44 60 Q58.08 58.08 60 44Z%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22150%22 cy=%22230%22 r=%229.0%22 fill=%22url%28%23g%29%22 opacity=%22.55%22/%3E%3Cpath d=%22M150 220 Q151.2 228.8 160 230 Q151.2 231.2 150 240 Q148.8 231.2 140 230 Q148.8 228.8 150 220Z%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22330%22 cy=%2240%22 r=%229.9%22 fill=%22url%28%23g%29%22 opacity=%22.55%22/%3E%3Cpath d=%22M330 29 Q331.32 38.68 341 40 Q331.32 41.32 330 51 Q328.68 41.32 319 40 Q328.68 38.68 330 29Z%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22420%22 cy=%22200%22 r=%2218.0%22 fill=%22url%28%23g%29%22 opacity=%22.55%22/%3E%3Cpath d=%22M420 180 Q422.4 197.6 440 200 Q422.4 202.4 420 220 Q417.6 202.4 400 200 Q417.6 197.6 420 180Z%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22520%22 cy=%2270%22 r=%2211.700000000000001%22 fill=%22url%28%23g%29%22 opacity=%22.55%22/%3E%3Cpath d=%22M520 57 Q521.56 68.44 533 70 Q521.56 71.56 520 83 Q518.44 71.56 507 70 Q518.44 68.44 520 57Z%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22610%22 cy=%22250%22 r=%229.0%22 fill=%22url%28%23g%29%22 opacity=%22.55%22/%3E%3Cpath d=%22M610 240 Q611.2 248.8 620 250 Q611.2 251.2 610 260 Q608.8 251.2 600 250 Q608.8 248.8 610 240Z%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22700%22 cy=%22120%22 r=%2216.2%22 fill=%22url%28%23g%29%22 opacity=%22.55%22/%3E%3Cpath d=%22M700 102 Q702.16 117.84 718 120 Q702.16 122.16 700 138 Q697.84 122.16 682 120 Q697.84 117.84 700 102Z%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22760%22 cy=%2240%22 r=%228.1%22 fill=%22url%28%23g%29%22 opacity=%22.55%22/%3E%3Cpath d=%22M760 31 Q761.08 38.92 769 40 Q761.08 41.08 760 49 Q758.92 41.08 751 40 Q758.92 38.92 760 31Z%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22240%22 cy=%22150%22 r=%228.1%22 fill=%22url%28%23g%29%22 opacity=%22.55%22/%3E%3Cpath d=%22M240 141 Q241.08 148.92 249 150 Q241.08 151.08 240 159 Q238.92 151.08 231 150 Q238.92 148.92 240 141Z%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22570%22 cy=%22160%22 r=%227.2%22 fill=%22url%28%23g%29%22 opacity=%22.55%22/%3E%3Cpath d=%22M570 152 Q570.96 159.04 578 160 Q570.96 160.96 570 168 Q569.04 160.96 562 160 Q569.04 159.04 570 152Z%22 fill=%22%23fff%22/%3E%3Ccircle cx=%2230%22 cy=%22170%22 r=%227.2%22 fill=%22url%28%23g%29%22 opacity=%22.55%22/%3E%3Cpath d=%22M30 162 Q30.96 169.04 38 170 Q30.96 170.96 30 178 Q29.04 170.96 22 170 Q29.04 169.04 30 162Z%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22680%22 cy=%22230%22 r=%2210.8%22 fill=%22url%28%23g%29%22 opacity=%22.55%22/%3E%3Cpath d=%22M680 218 Q681.44 228.56 692 230 Q681.44 231.44 680 242 Q678.56 231.44 668 230 Q678.56 228.56 680 218Z%22 fill=%22%23fff%22/%3E%3C/svg%3E") center / cover no-repeat;
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.85), inset 0 0 60px rgba(0, 0, 0, 0.5);
   text-align: center;
-  color: #fff7ea;
+  color: #f5ecd0;
+}
+
+/* a pale crescent moon with a soft glow */
+.about-quote::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 1.4rem;
+  right: clamp(1.4rem, 6vw, 3.4rem);
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: inset -0.85rem 0.3rem 0 0 #f5ecd0;
+  filter: drop-shadow(0 0 14px rgba(245, 236, 208, 0.55));
+  transform: rotate(-18deg);
 }
 
 .about-quote::before {
   content: "";
   display: block;
   width: 4.5rem;
-  height: 3px;
-  margin: 0 auto 1rem;
+  height: 2px;
+  margin: 0 auto 1.2rem;
   border-radius: 999px;
-  background: var(--sun);
+  background: linear-gradient(90deg, transparent, #e7c98a, transparent);
 }
 
 .about-quote .quote-accent,
 .about-quote .quote-source {
-  color: #fff7ea;
+  color: #f5ecd0;
+}
+
+.about-quote .quote-accent {
+  text-shadow: 0 0 22px rgba(245, 236, 208, 0.25);
+}
+
+.about-quote .quote-source {
+  color: #e7c98a;
 }
 
 .content-card h3 {
@@ -882,8 +906,8 @@ p {
 
 .quote-accent {
   font-family: var(--heading-font);
-  font-size: clamp(1.35rem, 2.3vw, 1.7rem);
-  line-height: 1.4;
+  font-size: clamp(1.1rem, 1.9vw, 1.35rem);
+  line-height: 1.5;
   color: var(--terracotta);
   font-weight: var(--heading-weight);
 }
@@ -943,9 +967,9 @@ p {
 
 .photo-carousel-title {
   margin: 0 0 0.2rem;
-  font-family: var(--script-font);
-  font-size: clamp(1.9rem, 3vw, 2.5rem);
-  font-weight: 600;
+  font-family: var(--heading-font);
+  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  font-weight: var(--heading-weight);
   color: var(--ocean);
 }
 
@@ -980,7 +1004,7 @@ p {
 
 .gallery-card {
   position: relative;
-  flex: 0 0 clamp(11rem, 18vw, 15rem);
+  flex: 0 0 clamp(11rem, 17vw, 14rem);
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 18px;
@@ -998,13 +1022,6 @@ p {
   height: auto;
   aspect-ratio: 4 / 5;
   border-radius: 0;
-}
-
-.gallery-card figcaption {
-  padding: 0.85rem 1rem 1rem;
-  color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.45;
 }
 
 @keyframes photo-scroll {
@@ -1144,7 +1161,7 @@ p {
 .journal-month-label {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: 1.65rem;
+  font-size: 1.4rem;
 }
 
 .journal-month-count {
@@ -1196,10 +1213,10 @@ p {
 
 .journal-toggle .entry-meta {
   margin: 0;
-  font-family: var(--script-font);
-  font-size: 1.35rem;
-  font-weight: 600;
-  letter-spacing: 0;
+  font-family: var(--body-font);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
   text-transform: none;
 }
 
@@ -1325,16 +1342,16 @@ p {
   margin-bottom: 0.9rem;
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
-  line-height: 1.2;
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  line-height: 1.25;
   color: var(--ocean-deep);
 }
 
 .prompt-text {
   margin-bottom: 0;
   font-family: var(--heading-font);
-  font-size: clamp(1.7rem, 3.2vw, calc(var(--words-quote-size) * 1.2));
-  line-height: 1.35;
+  font-size: clamp(1.45rem, 2.7vw, calc(var(--words-quote-size) * 1.05));
+  line-height: 1.45;
 }
 
 .prompt-portrait-card {
@@ -1369,7 +1386,7 @@ p {
 }
 
 .dinosaur-fact-text {
-  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  font-size: clamp(1.3rem, 2.4vw, 1.85rem);
 }
 
 .dinosaur-fact-image {

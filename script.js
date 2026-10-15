@@ -333,18 +333,12 @@ function renderAboutPhotos() {
 function createPhotoCard(photo) {
   const figure = document.createElement("figure");
   const image = document.createElement("img");
-  const caption = document.createElement("figcaption");
 
   figure.className = "gallery-card";
   image.src = photo.src;
   image.alt = photo.alt;
-  caption.textContent = photo.caption;
 
   figure.appendChild(image);
-
-  if (photo.caption) {
-    figure.appendChild(caption);
-  }
 
   return figure;
 }
