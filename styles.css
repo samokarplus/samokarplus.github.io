@@ -11,31 +11,31 @@
   --page-top: #fdf6ea;
   --surface: rgba(255, 250, 241, 0.8);
   --surface-strong: #fffaf1;
-  --text: #3f3029;
-  --muted: #7d6558;
+  --text: #2f3a40;
+  --muted: #6e6a60;
   --gold: #1f7a9c; /* primary button */
-  --terracotta: #d9623a; /* sunset coral accent */
-  --button-hover: #d9623a;
+  --terracotta: #2a8f94; /* sea-glass teal accent */
+  --button-hover: #16485f;
   --sage: #9bbf9e;
 
   /* coastal extras */
   --ocean: #1f7a9c;
   --ocean-deep: #16485f;
-  --sun: #f2c58b;
-  --glow: #e58a55;
+  --sun: #ecd9a8;
+  --glow: #7cc0c0;
   --sea-glass: #cfe5e6;
   --line: rgba(214, 170, 120, 0.38);
   --border: rgba(214, 170, 120, 0.38);
-  --shadow: 0 26px 54px -32px rgba(122, 59, 43, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --shadow: 0 26px 54px -32px rgba(22, 72, 95, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 
   --radius-lg: 28px;
   --radius-md: 20px;
   --radius-sm: 14px;
   --content-width: 1140px;
-  --body-font: "Nunito Sans", sans-serif;
-  --heading-font: "Young Serif", serif;
+  --body-font: "DM Sans", sans-serif;
+  --heading-font: "DM Serif Display", serif;
   --heading-weight: 400;
-  --script-font: "Nunito Sans", sans-serif;
+  --script-font: "DM Sans", sans-serif;
   --normal-text-size: 1rem;
   --heading-scale: 1;
   --hero-quote-size: 1.05rem;
@@ -78,11 +78,11 @@ body {
     180deg,
     var(--bg) 0%,
     var(--bg) 9%,
-    #fdebd2 24%,
-    #fbdfc4 46%,
-    #f8e5d0 66%,
-    #e3eeea 88%,
-    #cfe5e6 100%
+    #f9efdc 24%,
+    #f5e9d3 46%,
+    #ece9d9 66%,
+    #dcebe6 88%,
+    #cde4e4 100%
   );
 }
 
@@ -187,7 +187,7 @@ p {
   height: 1.05rem;
   border-radius: 50%;
   background: radial-gradient(circle, var(--sun) 40%, var(--glow) 41% 62%, transparent 63%);
-  box-shadow: 0 0 0 3px rgba(242, 197, 139, 0.35);
+  box-shadow: 0 0 0 3px rgba(236, 217, 168, 0.45);
 }
 
 .hero-text,
@@ -304,8 +304,8 @@ p {
   gap: 0.15rem;
   padding: 5rem clamp(1.5rem, 8vw, 7rem) 4rem;
   background:
-    radial-gradient(60vw 30vh at 50% 100%, rgba(255, 233, 196, 0.55), transparent 70%),
-    linear-gradient(165deg, #2f8fb0 0%, #1d6f8c 34%, #c8643f 80%, #e9835b 100%);
+    radial-gradient(60vw 30vh at 50% 100%, rgba(236, 217, 168, 0.4), transparent 70%),
+    linear-gradient(165deg, #3a9fc4 0%, #1d6f8c 38%, #14465d 100%);
   color: #fff7ea;
   visibility: hidden;
   pointer-events: none;
@@ -670,7 +670,7 @@ p {
 .palms {
   display: none;
   pointer-events: none;
-  color: #5a2f26;
+  color: #1f4a5a;
 }
 
 .palms i {
@@ -732,8 +732,8 @@ p {
 
 .button.primary:hover,
 .button.primary:focus-visible {
-  background: linear-gradient(135deg, #f0a35e, var(--button-hover));
-  box-shadow: 0 14px 28px -12px rgba(217, 98, 58, 0.75);
+  background: linear-gradient(135deg, #1f7a9c, var(--button-hover));
+  box-shadow: 0 14px 28px -12px rgba(22, 72, 95, 0.7);
 }
 
 .hero .button {
@@ -799,7 +799,7 @@ p {
   width: 100vw;
   transform: translateX(-50%);
   background:
-    linear-gradient(180deg, rgba(255, 205, 150, 0.5), rgba(226, 120, 76, 0.42) 60%, rgba(122, 59, 43, 0.4)),
+    linear-gradient(180deg, rgba(236, 224, 190, 0.45), rgba(70, 150, 170, 0.3) 60%, rgba(22, 72, 95, 0.4)),
     url("assets/images/about-ocean.jpeg") 50% 6% / cover no-repeat;
   filter: sepia(0.35) saturate(1.05);
   -webkit-mask-image: linear-gradient(transparent 0%, #000 16%, #000 46%, transparent 66%);
@@ -1009,13 +1009,13 @@ p {
   border: 1px solid var(--border);
   border-radius: 18px;
   background: #fffdf8;
-  box-shadow: 0 18px 34px -22px rgba(122, 59, 43, 0.55);
+  box-shadow: 0 18px 34px -22px rgba(22, 72, 95, 0.55);
   transition: transform 350ms var(--ease), box-shadow 350ms;
 }
 
 .gallery-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 26px 40px -22px rgba(122, 59, 43, 0.6);
+  box-shadow: 0 26px 40px -22px rgba(22, 72, 95, 0.6);
 }
 
 .gallery-card img {
@@ -1095,7 +1095,7 @@ p {
   justify-content: center;
   padding: 0.6rem 1.1rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, #f0a35e, var(--terracotta));
+  background: linear-gradient(135deg, #2a93b3, #16485f);
   color: #fff;
   font-weight: 700;
   font-size: 0.9rem;
@@ -1135,7 +1135,7 @@ p {
   border: 1px solid var(--border);
   border-radius: 1.5rem;
   background: rgba(255, 250, 241, 0.5);
-  box-shadow: 0 16px 36px -28px rgba(122, 59, 43, 0.55);
+  box-shadow: 0 16px 36px -28px rgba(22, 72, 95, 0.55);
 }
 
 .journal-month-toggle {
@@ -1200,7 +1200,7 @@ p {
   gap: 1rem;
   padding: 0.95rem 1.2rem;
   border: 0;
-  background: rgba(242, 197, 139, 0.2);
+  background: rgba(236, 217, 168, 0.28);
   color: var(--text);
   text-align: left;
   cursor: pointer;
@@ -1208,7 +1208,7 @@ p {
 
 .journal-toggle:hover,
 .journal-toggle:focus-visible {
-  background: rgba(242, 197, 139, 0.34);
+  background: rgba(236, 217, 168, 0.5);
 }
 
 .journal-toggle .entry-meta {

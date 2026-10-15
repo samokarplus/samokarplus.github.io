@@ -7,7 +7,7 @@
 // Soft white:      "#fffdf8"
 // Dark text:       "#33332d"
 // Soft gray text:  "#6d6a60"
-// Sunset coral:     "#d9623a"
+// Sea glass:        "#2a8f94"
 // Sage green:      "#9bbf9e"
 // Light blue:      "#b7d7e8"
 // Deeper blue:     "#8fb6c8"
@@ -18,8 +18,8 @@
 // QUICK COPY/PASTE FONTS
 // Best simple rule: use only these two across the site.
 //
-// Current normal font:       "Nunito Sans, sans-serif"
-// Current heading font:      "Young Serif, serif"
+// Current normal font:       "DM Sans, sans-serif"
+// Current heading font:      "DM Serif Display, serif"
 //
 // QUICK COPY/PASTE TEXT STYLE
 //
@@ -66,28 +66,28 @@ window.siteDesignData = {
   pageTopColor: "#fdf6ea",
 
   // Main text color
-  textColor: "#3f3029",
+  textColor: "#2f3a40",
 
   // Softer text color for subtitles and smaller notes
-  softTextColor: "#7d6558",
+  softTextColor: "#6e6a60",
 
   // Small label color, link hover color, and accent color
-  accentColor: "#d9623a",
+  accentColor: "#2a8f94",
 
   // Main button color
   buttonColor: "#1f7a9c",
 
   // Button color when you hover over it
-  buttonHoverColor: "#d9623a",
+  buttonHoverColor: "#16485f",
 
   // Card background color
   cardColor: "rgba(255, 250, 241, 0.8)",
 
   // Normal paragraph font
-  bodyFont: "Nunito Sans, sans-serif",
+  bodyFont: "DM Sans, sans-serif",
 
   // Heading and quote font
-  headingFont: "Young Serif, serif",
+  headingFont: "DM Serif Display, serif",
 
   // Normal paragraph size
   normalTextSize: "1rem",
