@@ -7,7 +7,7 @@
 // Soft white:      "#fffdf8"
 // Dark text:       "#33332d"
 // Soft gray text:  "#6d6a60"
-// Terracotta:      "#d9745f"
+// Sunset coral:     "#d9623a"
 // Sage green:      "#9bbf9e"
 // Light blue:      "#b7d7e8"
 // Deeper blue:     "#8fb6c8"
@@ -18,8 +18,8 @@
 // QUICK COPY/PASTE FONTS
 // Best simple rule: use only these two across the site.
 //
-// Current normal font:       "Lato, sans-serif"
-// Current heading font:      "Merriweather, serif"
+// Current normal font:       "Nunito Sans, sans-serif"
+// Current heading font:      "Fraunces, serif"
 //
 // QUICK COPY/PASTE TEXT STYLE
 //
@@ -60,34 +60,34 @@
 // Pill button:   "999px"
 window.siteDesignData = {
   // Whole page background color
-  backgroundColor: "#faf7f0",
+  backgroundColor: "#fbf3e4",
 
   // Slightly lighter color at the top of the page
-  pageTopColor: "#fdf9f1",
+  pageTopColor: "#fdf6ea",
 
   // Main text color
-  textColor: "#33332d",
+  textColor: "#3f3029",
 
   // Softer text color for subtitles and smaller notes
-  softTextColor: "#6d6a60",
+  softTextColor: "#7d6558",
 
   // Small label color, link hover color, and accent color
-  accentColor: "#d9745f",
+  accentColor: "#d9623a",
 
   // Main button color
-  buttonColor: "#b7d7e8",
+  buttonColor: "#1f7a9c",
 
   // Button color when you hover over it
-  buttonHoverColor: "#8fb6c8",
+  buttonHoverColor: "#d9623a",
 
   // Card background color
-  cardColor: "rgba(255, 252, 245, 0.82)",
+  cardColor: "rgba(255, 250, 241, 0.8)",
 
   // Normal paragraph font
-  bodyFont: "Lato, sans-serif",
+  bodyFont: "Nunito Sans, sans-serif",
 
   // Heading and quote font
-  headingFont: "Merriweather, serif",
+  headingFont: "Fraunces, serif",
 
   // Normal paragraph size
   normalTextSize: "1rem",
@@ -105,7 +105,7 @@ window.siteDesignData = {
   pageWidth: "1140px",
 
   // Space between sections
-  sectionSpacing: "5rem",
+  sectionSpacing: "4.6rem",
 
   // Space above and below the first homepage area
   heroTopSpacing: "2rem",
@@ -118,7 +118,7 @@ window.siteDesignData = {
   cardRoundness: "28px",
 
   // Image corner roundness
-  imageRoundness: "34px",
+  imageRoundness: "26px",
 
   // Button corner roundness
   buttonRoundness: "999px",
@@ -127,7 +127,7 @@ window.siteDesignData = {
   heroPictureWidth: "100%",
 
   // First picture focus point: try "center", "top", or "bottom"
-  heroPicturePosition: "center",
+  heroPicturePosition: "50% 52%",
 
   // Big quote box width
   heroQuoteWidth: "100%",
@@ -150,61 +150,46 @@ window.siteDesignData = {
   textboxes: {
     // Textbox 1: Homepage subtitle under "Samo Karplus"
     textbox1: {
-      size: "1rem",
-      font: "Lato, sans-serif",
+      size: "1.3rem",
       style: "normal",
       weight: "400",
-      color: "#6d6a60",
       align: "left"
     },
 
     // Textbox 5: Swamiji quote beneath the first picture
     textbox5: {
       size: "1.05rem",
-      font: "Merriweather, serif",
       style: "normal",
       weight: "400",
-      color: "#33332d",
       align: "left"
     },
 
     // Textbox 6: Author under the Swamiji quote beneath the first picture
     textbox6: {
       size: "1rem",
-      font: "Lato, sans-serif",
       style: "normal",
       weight: "400",
-      color: "#6d6a60",
       align: "left"
     },
 
     // Textbox 7: Rumi quote beneath the About Me boxes
     textbox7: {
-      size: "1.4rem",
-      font: "Merriweather, serif",
+      size: "1.5rem",
       style: "normal",
-      weight: "700",
-      color: "#33332d",
+      weight: "600",
       align: "center"
     },
 
     // Textbox 8: Author under the Rumi quote beneath the About Me boxes
     textbox8: {
       size: "1rem",
-      font: "Lato, sans-serif",
       style: "normal",
       weight: "700",
-      color: "#6d6a60",
       align: "center"
     },
 
     // Textbox 43: Words to Sit With section title
     textbox43: {
-      size: "3rem",
-      font: "Merriweather, serif",
-      style: "normal",
-      weight: "400",
-      color: "#33332d",
       align: "left"
     }
   }

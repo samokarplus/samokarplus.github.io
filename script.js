@@ -503,16 +503,30 @@ renderUpcomingRaces();
 renderStravaStats();
 
 if (navToggle && siteNav) {
+  const setMenu = (open) => {
+    siteNav.classList.toggle("is-open", open);
+    document.body.classList.toggle("menu-open", open);
+    navToggle.setAttribute("aria-expanded", String(open));
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    const label = navToggle.querySelector(".nav-label");
+    if (label) {
+      label.textContent = open ? "Close" : "Menu";
+    }
+  };
+
   navToggle.addEventListener("click", () => {
-    const isOpen = siteNav.classList.toggle("is-open");
-    navToggle.setAttribute("aria-expanded", String(isOpen));
+    setMenu(!siteNav.classList.contains("is-open"));
   });
 
   navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      siteNav.classList.remove("is-open");
-      navToggle.setAttribute("aria-expanded", "false");
-    });
+    link.addEventListener("click", () => setMenu(false));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && siteNav.classList.contains("is-open")) {
+      setMenu(false);
+      navToggle.focus();
+    }
   });
 }
 
