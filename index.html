@@ -28,12 +28,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=DM+Serif+Display&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=16" />
+    <link rel="stylesheet" href="styles.css?v=21" />
   </head>
   <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="palm" viewBox="0 0 124 230"><g fill="none" stroke="currentColor" stroke-linecap="round"><path d="M60 228 C58 170 68 118 62 72" stroke-width="7"/><path d="M62 72 C40 40 10 40 0 64" stroke-width="5"/><path d="M62 72 C42 62 20 72 8 102" stroke-width="5"/><path d="M62 72 C84 38 114 40 124 64" stroke-width="5"/><path d="M62 72 C82 62 104 72 116 102" stroke-width="5"/><path d="M62 72 C50 40 44 20 30 8" stroke-width="5"/><path d="M62 72 C74 40 80 20 94 8" stroke-width="5"/><path d="M62 72 C62 52 62 32 62 14" stroke-width="5"/></g><circle cx="58" cy="78" r="5" fill="currentColor"/><circle cx="68" cy="80" r="5" fill="currentColor"/></symbol></svg>
     <div class="page-shell">
       <header class="site-header">
         <a class="brand" href="#home">Samo Karplus</a>
@@ -44,9 +45,8 @@
           aria-controls="site-nav"
           aria-label="Open menu"
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          <span class="nav-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="nav-label">Menu</span>
         </button>
         <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <a href="#about">About Me</a>
@@ -63,6 +63,7 @@
       <main>
         <!-- Landing -->
         <section class="hero section" id="home">
+          <div class="palms palms-hero" aria-hidden="true"><i><svg viewBox="0 0 124 230" aria-hidden="true" focusable="false"><use href="#palm"/></svg></i><i><svg viewBox="0 0 124 230" aria-hidden="true" focusable="false"><use href="#palm"/></svg></i></div>
           <div class="hero-copy reveal">
             <h1>Samo Karplus</h1>
             <p class="hero-text" data-editable-text="textbox1">
@@ -117,12 +118,22 @@
                 alt="Samo standing joyfully in an open mountain landscape at sunset."
               />
               <figcaption class="hero-card">
+                <img
+                  class="swami-photo"
+                  src="assets/images/swamiji.webp"
+                  alt="Swamiji smiling with his hands pressed together in prayer, standing on a beach."
+                  width="900"
+                  height="1135"
+                  loading="lazy"
+                />
+                <div class="hero-card-text">
                 <blockquote data-editable-paragraphs="textbox5">
                   <p>Love is the only reality. Everything else is either its expression or its absence.</p>
                   <p>Fear is love hiding in darkness. Anger is wounded love. Longing is love searching for itself.</p>
                   <p>When every illusion falls away, what remains is neither “you” nor “me”—only love, flowing silently through existence. ❤️</p>
                 </blockquote>
                 <p class="quote-source" data-editable-text="textbox6">-Swamiji</p>
+              </div>
               </figcaption>
             </figure>
           </div>
@@ -135,7 +146,8 @@
             <h2 data-editable-text="textbox10">About Me</h2>
           </div>
           <div class="about-grid">
-            <article class="content-card reveal">
+            <div class="about-col">
+              <article class="content-card about-bio reveal">
               <h3 data-editable-text="textbox11">Personal Bio</h3>
               <div data-editable-paragraphs="textbox12">
               <p>
@@ -151,7 +163,19 @@
               </p>
               </div>
             </article>
-            <article class="content-card reveal">
+              <article class="content-card about-hobbies reveal">
+              <h3 data-editable-text="textbox17">Hobbies</h3>
+              <ul class="timeline-list" data-editable-list="textbox18">
+                <li>Ultramarathoner</li>
+                <li>Triathlete</li>
+                <li>Lover of all nondual philsopohy</li>
+                <li>Student of Advaita Vedanta</li>
+                <li>Devotee to Sri Nisargadatta Maharaj, Sri Ramana Maharshi, and Sri Anandamayi Ma Divine Mother</li>
+              </ul>
+            </article>
+            </div>
+            <div class="about-col">
+              <article class="content-card about-spirit reveal">
               <h3 data-editable-text="textbox13">Spiritual Journey</h3>
               <div data-editable-paragraphs="textbox14">
               <p>
@@ -173,7 +197,7 @@
               </p>
               </div>
             </article>
-            <article class="content-card reveal">
+              <article class="content-card about-mind reveal">
               <h3 data-editable-text="textbox15">Mental Health Reflections</h3>
               <div data-editable-paragraphs="textbox16">
               <p>
@@ -183,16 +207,7 @@
               </p>
               </div>
             </article>
-            <article class="content-card reveal">
-              <h3 data-editable-text="textbox17">Hobbies</h3>
-              <ul class="timeline-list" data-editable-list="textbox18">
-                <li>Ultramarathoner</li>
-                <li>Triathlete</li>
-                <li>Lover of all nondual philsopohy</li>
-                <li>Student of Advaita Vedanta</li>
-                <li>Devotee to Sri Nisargadatta Maharaj, Sri Ramana Maharshi, and Sri Anandamayi Ma Divine Mother</li>
-              </ul>
-            </article>
+            </div>
           </div>
           <div class="about-quote reveal">
             <p class="quote-accent" data-editable-text="textbox7">
@@ -393,6 +408,30 @@
           <div class="journal-list" id="journalList"></div>
         </section>
 
+        <!-- Crazy Eights -->
+        <section class="section crazy" id="crazy8s" aria-labelledby="crazy8s-title">
+          <div class="section-heading reveal">
+            <p class="eyebrow">A game table</p>
+            <h2 id="crazy8s-title">Crazy Eights</h2>
+          </div>
+          <div class="crazy-card reveal">
+            <div class="crazy-cards" aria-hidden="true">
+              <span class="pcard back" style="--r:-14deg;--x:-40px"></span>
+              <span class="pcard face red" style="--r:-4deg;--x:-6px"><b>8</b><i>♥</i></span>
+              <span class="pcard face" style="--r:7deg;--x:28px"><b>8</b><i>♠</i></span>
+              <span class="pcard face red" style="--r:17deg;--x:62px"><b>K</b><i>♦</i></span>
+            </div>
+            <div class="crazy-copy">
+              <h3>Play against Mr. Samo the bot, or with friends</h3>
+              <p>
+                A standard deck, wild eights and private tables for 2–4 players.
+                Solo play, championships, taunts, and a dealer who has seen it all.
+              </p>
+              <a class="button primary" href="/crazy8s/">Play Crazy Eights</a>
+            </div>
+          </div>
+        </section>
+
         <!-- Reflective visitor prompts -->
         <section class="section prompts dinosaur-facts" id="dinosaur-facts">
           <div class="section-heading reveal">
@@ -519,6 +558,10 @@
       </main>
 
       <footer class="site-footer">
+        <div class="footer-scene" aria-hidden="true">
+          <svg class="skyline" viewBox="0 0 900 150" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false"><g fill="currentColor"><rect x="0" y="96" width="46" height="54"/><rect x="52" y="78" width="34" height="72"/><rect x="92" y="104" width="40" height="46"/><rect x="138" y="70" width="30" height="80"/><rect x="174" y="92" width="44" height="58"/><path d="M226 150 V60 h6 v-14 h6 v14 h6 V150Z"/><rect x="262" y="84" width="38" height="66"/><rect x="306" y="40" width="46" height="110"/><path d="M306 40 h46 l-6 -10 h-34Z"/><rect x="358" y="74" width="30" height="76"/><rect x="394" y="22" width="36" height="128"/><path d="M394 22 h36 l-8 -12 h-20Z"/><rect x="436" y="60" width="44" height="90"/><path d="M486 150 V50 l8 -34 l8 34 V150Z"/><rect x="508" y="82" width="36" height="68"/><rect x="550" y="66" width="42" height="84"/><rect x="598" y="98" width="34" height="52"/><rect x="638" y="72" width="40" height="78"/><rect x="684" y="90" width="30" height="60"/><rect x="720" y="58" width="44" height="92"/><rect x="770" y="100" width="36" height="50"/><rect x="812" y="80" width="38" height="70"/><rect x="856" y="104" width="44" height="46"/></g></svg>
+          <div class="palms palms-foot"><i><svg viewBox="0 0 124 230" aria-hidden="true" focusable="false"><use href="#palm"/></svg></i><i><svg viewBox="0 0 124 230" aria-hidden="true" focusable="false"><use href="#palm"/></svg></i><i><svg viewBox="0 0 124 230" aria-hidden="true" focusable="false"><use href="#palm"/></svg></i><i><svg viewBox="0 0 124 230" aria-hidden="true" focusable="false"><use href="#palm"/></svg></i><i><svg viewBox="0 0 124 230" aria-hidden="true" focusable="false"><use href="#palm"/></svg></i></div>
+        </div>
       </footer>
     </div>
 

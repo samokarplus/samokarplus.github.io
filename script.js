@@ -333,18 +333,12 @@ function renderAboutPhotos() {
 function createPhotoCard(photo) {
   const figure = document.createElement("figure");
   const image = document.createElement("img");
-  const caption = document.createElement("figcaption");
 
   figure.className = "gallery-card";
   image.src = photo.src;
   image.alt = photo.alt;
-  caption.textContent = photo.caption;
 
   figure.appendChild(image);
-
-  if (photo.caption) {
-    figure.appendChild(caption);
-  }
 
   return figure;
 }
@@ -503,16 +497,46 @@ renderUpcomingRaces();
 renderStravaStats();
 
 if (navToggle && siteNav) {
+  const setMenu = (open) => {
+    siteNav.classList.toggle("is-open", open);
+    navToggle.setAttribute("aria-expanded", String(open));
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    const label = navToggle.querySelector(".nav-label");
+    if (label) {
+      label.textContent = open ? "Close" : "Menu";
+    }
+  };
+
   navToggle.addEventListener("click", () => {
-    const isOpen = siteNav.classList.toggle("is-open");
-    navToggle.setAttribute("aria-expanded", String(isOpen));
+    setMenu(!siteNav.classList.contains("is-open"));
   });
 
-  navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      siteNav.classList.remove("is-open");
-      navToggle.setAttribute("aria-expanded", "false");
+  // with a mouse, the menu unfolds on hover and folds away when you leave it
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    let closeTimer;
+    const hold = () => {
+      clearTimeout(closeTimer);
+      setMenu(true);
+    };
+    const release = () => {
+      clearTimeout(closeTimer);
+      closeTimer = setTimeout(() => setMenu(false), 350);
+    };
+    [navToggle, siteNav].forEach((el) => {
+      el.addEventListener("mouseenter", hold);
+      el.addEventListener("mouseleave", release);
     });
+  }
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => setMenu(false));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && siteNav.classList.contains("is-open")) {
+      setMenu(false);
+      navToggle.focus();
+    }
   });
 }
 

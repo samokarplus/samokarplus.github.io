@@ -10,9 +10,9 @@
 // },
 window.upcomingRaceEntriesData = [
 {
-    name: "Boulderthon Half Marathon",
-    date: "2026-09-27",
-    distance: "13.1 Miles",
+    name: "ColderBOLDER 5K",
+    date: "2026-12-05",
+    distance: "3.1 Miles",
     location: "Boulder, CO"
   }
 ];
