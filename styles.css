@@ -86,10 +86,6 @@ body {
   );
 }
 
-body.menu-open {
-  overflow: hidden;
-}
-
 img,
 iframe {
   max-width: 100%;
@@ -292,69 +288,89 @@ p {
   transform: rotate(-45deg);
 }
 
-/* the menu: a sunset-over-the-ocean takeover */
+/* the menu: a card that unfolds from the Menu pill (hover, click or tap) */
 .site-nav {
   position: fixed;
-  inset: 0;
+  top: 4.7rem;
+  right: clamp(0.75rem, 3vw, 2rem);
   z-index: 1;
+  width: min(21rem, calc(100vw - 1.5rem));
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 0.15rem;
-  padding: 5rem clamp(1.5rem, 8vw, 7rem) 4rem;
-  background:
-    radial-gradient(60vw 30vh at 50% 100%, rgba(236, 217, 168, 0.4), transparent 70%),
-    linear-gradient(165deg, #3a9fc4 0%, #1d6f8c 38%, #14465d 100%);
-  color: #fff7ea;
+  gap: 0.1rem;
+  padding: 0.7rem;
+  background: linear-gradient(165deg, rgba(34, 128, 164, 0.97), rgba(17, 62, 84, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  box-shadow: 0 34px 70px -28px rgba(8, 40, 56, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: #f4fbfd;
+  opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  clip-path: circle(0 at calc(100% - 4.5rem) 2.6rem);
-  transition: clip-path 700ms var(--ease), visibility 0s linear 700ms;
+  transform: translateY(-10px) scale(0.97);
+  transform-origin: top right;
+  transition: opacity 220ms ease, transform 320ms var(--ease), visibility 0s linear 320ms;
+}
+
+/* an invisible bridge so the card stays open while the pointer travels to it */
+.site-nav::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1.4rem;
+  height: 1.4rem;
 }
 
 .site-nav.is-open {
+  opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  clip-path: circle(150% at calc(100% - 4.5rem) 2.6rem);
-  transition: clip-path 700ms var(--ease), visibility 0s;
+  transform: none;
+  transition-delay: 0s;
 }
 
 .site-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 1rem;
+  border-radius: 14px;
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(2rem, 5.2vw, 3.3rem);
+  font-size: 1.4rem;
   line-height: 1.2;
-  color: #fff7ea;
-  text-shadow: 0 2px 22px rgba(20, 50, 66, 0.35);
-  padding: 0.12rem 0;
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 500ms, transform 500ms var(--ease), color 200ms, padding 250ms var(--ease);
+  color: #f4fbfd;
+  transition: background 180ms, padding 220ms var(--ease);
 }
 
-.site-nav.is-open a {
+.site-nav a::after {
+  content: "→";
+  font-family: var(--body-font);
+  font-size: 1rem;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 180ms, transform 220ms var(--ease);
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  background: rgba(255, 255, 255, 0.14);
+  padding-left: 1.3rem;
+}
+
+.site-nav a:hover::after,
+.site-nav a:focus-visible::after {
   opacity: 1;
   transform: none;
 }
 
-.site-nav.is-open a:nth-child(1) { transition-delay: 0.1s; }
-.site-nav.is-open a:nth-child(2) { transition-delay: 0.15s; }
-.site-nav.is-open a:nth-child(3) { transition-delay: 0.2s; }
-.site-nav.is-open a:nth-child(4) { transition-delay: 0.25s; }
-.site-nav.is-open a:nth-child(5) { transition-delay: 0.3s; }
-.site-nav.is-open a:nth-child(6) { transition-delay: 0.35s; }
-.site-nav.is-open a:nth-child(7) { transition-delay: 0.4s; }
-.site-nav.is-open a:nth-child(8) { transition-delay: 0.45s; }
-
-.site-nav a:hover,
 .site-nav a:focus-visible {
-  color: #ffe2b5;
-  padding-left: 0.8rem;
-}
-
-.site-nav a:focus-visible {
-  outline-color: #fff7ea;
+  outline-color: #fff;
+  outline-offset: -3px;
 }
 
 /* ---------- section scaffolding ---------- */
@@ -405,7 +421,7 @@ p {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   align-content: end;
-  gap: 1.1rem 1.4rem;
+  gap: 1.2rem 1.4rem;
   width: 100vw;
   min-height: min(1020px, 100svh);
   margin-left: calc(50% - 50vw);
@@ -495,8 +511,12 @@ p {
   grid-column: 5 / -1;
   grid-row: 4;
   align-self: start;
-  max-width: 36rem;
-  margin-top: 0.5rem;
+  display: grid;
+  grid-template-columns: 6.4rem minmax(0, 1fr);
+  gap: 1.3rem;
+  align-items: start;
+  max-width: none;
+  margin-top: 0.3rem;
   padding: 1.3rem 1.4rem;
   color: var(--h-text);
   background: var(--h-card);
@@ -506,6 +526,16 @@ p {
   -webkit-backdrop-filter: blur(14px) saturate(1.1);
   box-shadow: 0 24px 50px -30px rgba(10, 40, 55, 0.7);
   text-align: left;
+}
+
+.swami-photo {
+  width: 6.4rem;
+  height: 8.2rem;
+  object-fit: cover;
+  object-position: 50% 14%;
+  border-radius: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 16px 30px -16px rgba(5, 30, 44, 0.8);
 }
 
 .hero-card blockquote {
@@ -532,8 +562,10 @@ p {
 
 .hero .running-log {
   grid-row: 5;
-  margin: 0.6rem 0 0;
-  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  margin: 0.9rem 0 0;
+  padding: 1.1rem 1.2rem;
   color: var(--h-text);
   background: var(--h-card);
   border: 1px solid var(--h-card-line);
@@ -544,13 +576,13 @@ p {
 }
 
 .hero .running-log:not(.pr-log):not(.compact-log) {
-  grid-column: 1 / 6;
+  grid-column: 1 / 5;
 }
 .hero .pr-log {
-  grid-column: 6 / 10;
+  grid-column: 5 / 9;
 }
 .hero .compact-log {
-  grid-column: 10 / 13;
+  grid-column: 9 / 13;
 }
 
 .hero .pr-list {
@@ -591,7 +623,7 @@ p {
 .running-stat-card {
   grid-column: span 2;
   min-width: 0;
-  padding: 0.6rem 0.7rem;
+  padding: 0.55rem 0.65rem;
   border-radius: var(--radius-sm);
   background: rgba(255, 255, 255, 0.1);
 }
@@ -608,7 +640,7 @@ p {
   display: block;
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  font-size: clamp(1.15rem, 1.7vw, 1.45rem);
   line-height: 1.1;
   white-space: nowrap;
 }
@@ -815,14 +847,19 @@ p {
 
 .about-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
+  align-items: stretch;
   gap: 1rem;
 }
 
 .about-col {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
   min-width: 0;
+}
+
+.about-col > .content-card:last-child {
+  flex: 1;
 }
 
 .about .content-card {
@@ -1611,6 +1648,8 @@ p {
 
   .hero-card {
     order: 4;
+    grid-template-columns: 4.8rem minmax(0, 1fr);
+    gap: 1rem;
     max-width: none;
     margin: 1.4rem 0 0;
     backdrop-filter: none;
@@ -1634,6 +1673,12 @@ p {
 
   .hero-card .quote-source {
     color: var(--terracotta);
+  }
+
+  .swami-photo {
+    width: 4.8rem;
+    height: 6.2rem;
+    border-color: #fff;
   }
 
   .palms-hero {

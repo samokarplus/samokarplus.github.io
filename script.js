@@ -499,7 +499,6 @@ renderStravaStats();
 if (navToggle && siteNav) {
   const setMenu = (open) => {
     siteNav.classList.toggle("is-open", open);
-    document.body.classList.toggle("menu-open", open);
     navToggle.setAttribute("aria-expanded", String(open));
     navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
     const label = navToggle.querySelector(".nav-label");
@@ -511,6 +510,23 @@ if (navToggle && siteNav) {
   navToggle.addEventListener("click", () => {
     setMenu(!siteNav.classList.contains("is-open"));
   });
+
+  // with a mouse, the menu unfolds on hover and folds away when you leave it
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    let closeTimer;
+    const hold = () => {
+      clearTimeout(closeTimer);
+      setMenu(true);
+    };
+    const release = () => {
+      clearTimeout(closeTimer);
+      closeTimer = setTimeout(() => setMenu(false), 350);
+    };
+    [navToggle, siteNav].forEach((el) => {
+      el.addEventListener("mouseenter", hold);
+      el.addEventListener("mouseleave", release);
+    });
+  }
 
   navLinks.forEach((link) => {
     link.addEventListener("click", () => setMenu(false));
