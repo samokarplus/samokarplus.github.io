@@ -172,7 +172,7 @@
   /* ---- Gallery ---- */
   function gallery() {
     const intro = el(`<section class="intro">
-      <h2>Ten ways your site could look</h2>
+      <h2>Ten (plus one) ways your site could look</h2>
       <p>Every preview below is <strong>your real homepage</strong>: your portrait, Strava stats, About cards, photos, films, journal, games and contact. Open any one in the Studio to remix fonts, colors, corners, layout and menu style.</p>
     </section>`);
     const grid = el(`<div class="gallery-grid"></div>`);
@@ -591,7 +591,6 @@
         S.base = t.dataset.try;
         S.config = clone(THEMES[S.base]);
         // apply the suggested mix touches
-        if (S.base === "coastal") S.config.layout.nav = "drawer";
         if (S.base === "forest") S.config.layout.nav = "rail";
         store.set("base", S.base);
         refreshMix();

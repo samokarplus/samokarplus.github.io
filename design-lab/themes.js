@@ -25,6 +25,7 @@
     F("DM Sans", '"DM Sans", system-ui, sans-serif'),
     F("Unbounded", '"Unbounded", system-ui, sans-serif'),
     F("Space Grotesk", '"Space Grotesk", system-ui, sans-serif'),
+    F("Caveat", '"Caveat", "Comic Sans MS", cursive'),
   ];
 
   // Option lists for the layout controls (value, label)
@@ -103,7 +104,19 @@
 
   window.LAB_THEMES = {
     coastal: T({
-      name: "California Coastal",
+      name: "California Coastal · Warm LA",
+      tagline: "Golden-hour cream, terracotta and sea-glass. Homey, sunny, a little Venice Beach.",
+      palette: { bg: "#fff4e4", surface: "#fffaf1", ink: "#4a2f25", muted: "#85695a", accent: "#d8683c", accentInk: "#fffaf1", accent2: "#f2c58b", line: "#ecd6b8", deep: "#7a3b2b", deepInk: "#fff6e8" },
+      type: { head: "Fraunces", body: "Nunito Sans", weight: 600, upper: false, tracking: -0.01, scale: 1.02, bodyScale: 1.03 },
+      shape: { radius: 28, space: 0.9, shadow: 1 },
+      layout: { nav: "hamburger", hero: "immersive", about: "float", photos: "polaroid", media: "cards", journal: "accordion", cards: "glass", btn: "pill", headers: "plain" },
+      photos: { hero: "hero-mountain.jpg", landscape: "about-ocean.jpeg" },
+      filter: "sepia(.14) saturate(1.1) contrast(1.02)",
+      flavor: "la",
+      tags: ["homey", "golden hour", "flowing"],
+    }),
+    coastalv1: T({
+      name: "California Coastal (first pass)",
       tagline: "Warm sand, ocean blue, a relaxed Santa Monica afternoon.",
       palette: { bg: "#fbf6ec", surface: "#ffffff", ink: "#1f3440", muted: "#5f717b", accent: "#1f7a9c", accentInk: "#ffffff", accent2: "#e8d3a9", line: "#e4d9c4", deep: "#0f3a4f", deepInk: "#fdf9f1" },
       type: { head: "Fraunces", body: "Nunito Sans", weight: 600, upper: false, tracking: -0.01, scale: 1, bodyScale: 1 },
@@ -219,14 +232,14 @@
     }),
   };
 
-  window.LAB_ORDER = ["coastal", "mono", "mediterranean", "luxury", "zen", "editorial", "desert", "forest", "nordic", "creative"];
+  window.LAB_ORDER = ["coastal", "coastalv1", "mono", "mediterranean", "luxury", "zen", "editorial", "desert", "forest", "nordic", "creative"];
 
   window.LAB_RECOMMENDATIONS = [
     {
       id: "coastal",
-      title: "California Coastal, softened",
-      why: "Your site is about warmth: love, healing, running, a childhood by the sea. Sand and ocean blue make serious subjects feel safe without feeling heavy, and the frosted About cards floating over a big landscape keep the intimacy you liked. Your own mountain and bay photos do the heavy lifting, so nothing looks like stock.",
-      mix: "Try it with the Slide-out sidebar menu and the Polaroid gallery for the childhood photos.",
+      title: "California Coastal · Warm LA",
+      why: "Your site is about warmth: love, healing, running, a childhood by the sea. Golden-hour cream and terracotta make serious subjects feel safe, and the page flows like one long afternoon instead of separate boxes, with soft sunset-stripe breaks between sections. Your own mountain and bay photos do the heavy lifting, and the childhood photos become taped-in scrapbook polaroids.",
+      mix: "Try the Slide-out sidebar menu instead of the full-screen hamburger, or swap in the Editorial typeface for a more grown-up feel.",
     },
     {
       id: "editorial",
