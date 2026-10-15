@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Design Lab · Samo Karplus</title>
+    <link rel="stylesheet" href="lab.css" />
+  </head>
+  <body>
+    <a class="skip" href="#view">Skip to the previews</a>
+    <header class="top">
+      <div class="logo">
+        <span class="logo-mark" aria-hidden="true">◐</span>
+        <div>
+          <h1>Design Lab</h1>
+          <p>Samo Karplus · ten directions, your real content · nothing here touches the live site</p>
+        </div>
+      </div>
+      <nav class="tabs" role="tablist" aria-label="Lab views">
+        <button role="tab" data-view="gallery" aria-selected="true">Gallery</button>
+        <button role="tab" data-view="studio" aria-selected="false">Studio</button>
+        <button role="tab" data-view="compare" aria-selected="false">Compare</button>
+        <button role="tab" data-view="menus" aria-selected="false">Menus</button>
+        <button role="tab" data-view="top3" aria-selected="false">Top 3</button>
+      </nav>
+    </header>
+
+    <main id="view" tabindex="-1"></main>
+
+    <script src="themes.js"></script>
+    <script src="lab.js"></script>
+  </body>
+</html>
