@@ -81,7 +81,10 @@ def build(world_file, us_file):
         code = f["properties"]["ADM0_A3"]
         if code == "ATA":
             continue
-        d = geometry_path(f["geometry"], equal_earth, scale, -scale, tx, ty, 0.35)
+        geom = f["geometry"]
+        if code == "FRA":  # mainland + Corsica only (drops French Guiana and other overseas pieces)
+            geom = {"type": "MultiPolygon", "coordinates": [p for p in geom["coordinates"] if p[0][0][0] > -10 and p[0][0][1] > 40]}
+        d = geometry_path(geom, equal_earth, scale, -scale, tx, ty, 0.35)
         if d:
             countries[code] = {"n": f["properties"]["ADMIN"], "d": d}
     us = json.load(open(us_file))
