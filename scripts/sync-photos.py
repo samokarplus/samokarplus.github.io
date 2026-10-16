@@ -11,7 +11,7 @@ Delete a picture from a folder (or anywhere in assets) -> it is removed from the
 Photos already listed keep their order and captions; new photos go on the end.
 Runs automatically on GitHub (.github/workflows/sync-photos.yml); you can also run it by hand.
 """
-import os, re
+import os, re, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXTS = (".jpg", ".jpeg", ".png", ".webp", ".avif", ".gif")
@@ -62,6 +62,8 @@ def sync(data_file, folder, with_caption):
         open(path, "w", encoding="utf-8").write(result)
         print(f"{data_file}: {len(new)} added, {len(blocks) - len(kept)} removed")
 
+
+subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "resize-photos.py")], check=False)
 
 for args in CAROUSELS:
     sync(*args)

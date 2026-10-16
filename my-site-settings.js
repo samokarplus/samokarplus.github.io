@@ -12,6 +12,15 @@
 //
 // Careful: keep the quotes, the commas, and the curly brackets exactly as they are.
 window.mySiteSettings = {
+  // EXTRAS
+  scrollAnimations: true,   // true = things glide in as you scroll. false = everything just appears.
+  nightModeButton: true,    // true = a little moon button lets visitors switch to a starry night look.
+
+  // ORDER of the sections (and the menu). Top to bottom.
+  // Easiest way to change it: samo.karplus.org/edit/ -> "Reorder the sections" (drag, then copy).
+  // Or just move the words around yourself. Keep the quotes and commas.
+  order: ["about", "photos", "places", "media", "journal", "dinosaurFacts", "wordsToSitWith", "crazyEights", "contact"],
+
   // THE PHOTO CAROUSELS (inside the Photos section)
   carousels: {
     baby:   { show: true, title: "Baby Samo" },

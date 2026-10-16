@@ -13,6 +13,9 @@ You never need to touch code for these. Everything on the site updates itself.
 | **Add a country or state I've been to** | **Actions -> Add Place -> Run workflow**, pick country or US state, type the name (like `Japan` or `Oregon`), run. Pin, color, flag and count all appear. |
 | **Add a journal entry** | **Actions -> Add Journal Entry -> Run workflow**, type the date (like `10-15-26`) and paste the entry. |
 | **Rename or hide a carousel/section** | Open `my-site-settings.js`, click the pencil. Change a title in quotes, or change `show: true` to `show: false` to hide it (and its menu item). Commit. |
+| **Change my email / add a social link** | Open `my-info.js`, click the pencil, change the words in quotes (or add a link line). Commit. |
+| **Reorder the sections** | Open `samo.karplus.org/edit/` -> "Reorder the sections". Drag, tap Copy, open the form, paste, run. |
+| **Turn off scroll animations or the night-mode moon** | `my-site-settings.js`: set `scrollAnimations` or `nightModeButton` to `false`. |
 | **Add a PR or a race** | Open `pr-data.js` or `races-data.js`, click the pencil, copy a block, change the words, commit. |
 
 Photo folders (upload pictures into these):
@@ -27,7 +30,8 @@ Tips:
 
 - New photos go on the end of the slideshow. To reorder, edit that carousel's `*-photo-data.js` file (move the blocks around).
 - The little description (alt text) is made from the file name, so a name like `beach-day-santa-monica.jpg` is nicer than `IMG_4821.jpg`.
-- Resize big photos first (about 1000px wide is plenty) so the site stays fast.
+- Big photos are shrunk automatically (to about 1600px wide) so the site stays fast. Phone photos work fine.
+- If you ever make a typo in a data file (a missing comma or bracket), GitHub fixes it for you, or undoes the edit if it can't. Check the Actions tab if an edit seems to vanish.
 - Prefer typing? `places-data.js` is just two lists of names. Add `"Japan",` under countries or `"Oregon",` under states and save. A 2-letter state code works too.
 - If you type a place wrong, the map just skips it. Check the spelling.
 - Tiny islands that have no outline on the map (like the British Virgin Islands) go in the `otherPlaces` list in `places-data.js` with a flag and a rough latitude/longitude.

@@ -22,6 +22,15 @@
   a.btn:hover { background:#fff; transform:translateY(-1px); }
   a.btn small { display:block; font-weight:400; color:var(--muted); margin-top:.15rem; }
   ol { padding-left:1.2rem; color:var(--muted); }
+  .order-list { list-style:none; margin:.8rem 0 .6rem; padding:0; display:grid; gap:.4rem; }
+  .order-list li { display:flex; align-items:center; gap:.6rem; background:#fff; border:1px solid rgba(22,72,95,.15); border-radius:12px; padding:.55rem .8rem; font-weight:600; cursor:grab; touch-action:none; user-select:none; }
+  .order-list li.drag { opacity:.4; }
+  .order-list .grip { color:var(--muted); }
+  .order-list .name { flex:1; }
+  .order-list button { border:0; background:rgba(22,72,95,.08); color:var(--ink); border-radius:8px; width:2rem; height:2rem; cursor:pointer; font-size:1rem; }
+  .order-actions { display:flex; flex-wrap:wrap; gap:.6rem; align-items:center; }
+  .order-actions button, .order-link { background:var(--teal); color:#fff; border:0; border-radius:999px; padding:.55rem 1rem; font:inherit; font-weight:700; cursor:pointer; text-decoration:none; }
+  .copy-note { color:var(--muted); font-size:.9rem; font-weight:400; }
   .note { font-size:.9rem; color:var(--muted); margin-top:2rem; }
 </style>
 </head>
@@ -52,6 +61,25 @@
     <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/edit/main/my-site-settings.js">✏️ Titles and what shows<small>Rename a carousel or section, or hide it: change a word in quotes, or change true to false. Then click "Commit changes".</small></a>
   </div>
 
+  <h2>Reorder the sections</h2>
+  <div class="grid">
+    <div class="btn" style="cursor:default">
+      🔀 Drag a row (or use the arrows), then copy
+      <small>Top of the list = top of the page and menu. When you're happy, tap "Copy order", then "Open the form", paste, and run.</small>
+      <ul id="orderList" class="order-list"></ul>
+      <div class="order-actions">
+        <button type="button" id="copyOrder">Copy order</button>
+        <a class="order-link" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/actions/workflows/set-order.yml">Open the form ›</a>
+        <span id="copyNote" class="copy-note"></span>
+      </div>
+    </div>
+  </div>
+
+  <h2>My info</h2>
+  <div class="grid">
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/edit/main/my-info.js">📇 Email, social links, booking calendar<small>Change the words in quotes, add a link line, click "Commit changes".</small></a>
+  </div>
+
   <h2>Training</h2>
   <div class="grid">
     <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/edit/main/races-data.js">🏃 Upcoming races<small>Copy a block, change the words, click "Commit changes".</small></a>
@@ -60,5 +88,64 @@
 
   <p class="note">Tip: name photos something descriptive (like <b>beach-day.jpg</b>) and keep them under about 1000px wide. Need help? Full instructions are in <a href="https://github.com/samokarplus/samokarplus.github.io/blob/main/EDITING.md">EDITING.md</a>.</p>
 </main>
+<script>
+(function () {
+  var names = {
+    about: "🌴 About Me", photos: "📸 Photos", places: "✈️ Places I've Been", media: "🎬 Media & Projects",
+    journal: "📓 Journal", dinosaurFacts: "🦖 Dinosaur Facts", wordsToSitWith: "🌙 Words to Sit With",
+    crazyEights: "🃏 Crazy Eights (menu only)", contact: "✉️ Contact"
+  };
+  var order = ["about", "photos", "places", "media", "journal", "dinosaurFacts", "wordsToSitWith", "crazyEights", "contact"];
+  var list = document.getElementById("orderList");
+  var note = document.getElementById("copyNote");
+  var dragging = null;
+
+  // start from the order the live site is using
+  var script = document.createElement("script");
+  script.src = "/my-site-settings.js?v=" + Date.now();
+  script.onload = function () {
+    var saved = window.mySiteSettings && window.mySiteSettings.order;
+    if (saved && saved.length) { order = saved.filter(function (k) { return names[k]; }); Object.keys(names).forEach(function (k) { if (order.indexOf(k) < 0) order.push(k); }); }
+    draw();
+  };
+  script.onerror = draw;
+  document.head.appendChild(script);
+
+  function move(from, to) {
+    if (to < 0 || to >= order.length) return;
+    order.splice(to, 0, order.splice(from, 1)[0]);
+    draw();
+  }
+
+  function draw() {
+    list.innerHTML = "";
+    order.forEach(function (key, i) {
+      var li = document.createElement("li");
+      li.draggable = true;
+      li.dataset.index = i;
+      li.innerHTML = '<span class="grip">⠿</span><span class="name"></span>';
+      li.querySelector(".name").textContent = names[key];
+      [["↑", -1], ["↓", 1]].forEach(function (b) {
+        var btn = document.createElement("button");
+        btn.type = "button"; btn.textContent = b[0]; btn.setAttribute("aria-label", b[1] < 0 ? "Move up" : "Move down");
+        btn.onclick = function () { move(i, i + b[1]); };
+        li.appendChild(btn);
+      });
+      li.addEventListener("dragstart", function () { dragging = i; li.classList.add("drag"); });
+      li.addEventListener("dragend", function () { li.classList.remove("drag"); });
+      li.addEventListener("dragover", function (e) { e.preventDefault(); });
+      li.addEventListener("drop", function (e) { e.preventDefault(); if (dragging !== null) move(dragging, i); dragging = null; });
+      list.appendChild(li);
+    });
+  }
+
+  document.getElementById("copyOrder").onclick = function () {
+    var text = order.join(", ");
+    var done = function () { note.textContent = "Copied! Now open the form and paste."; };
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(done, function () { note.textContent = text; }); }
+    else { note.textContent = text; }
+  };
+})();
+</script>
 </body>
 </html>

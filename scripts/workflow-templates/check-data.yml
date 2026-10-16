@@ -1,0 +1,37 @@
+name: Check Data Files
+
+# After any edit to a data file: make sure it still works. Fix simple typos, or undo a broken edit.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "*-data.js"
+      - "my-site-settings.js"
+      - "my-info.js"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Check and repair data files
+        run: python3 scripts/check-data.py
+      - name: Commit any repair
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Everything looks good."
+            exit 0
+          fi
+          git commit -m "Auto-fix a typo in a data file"
+          git pull --rebase origin main
+          git push origin HEAD:main

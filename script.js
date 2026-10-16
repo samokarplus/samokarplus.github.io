@@ -587,10 +587,86 @@ function applySiteSettings() {
       title.textContent = config.title;
     }
   });
+
+  // extras: animations on/off and section order
+  if (settings.scrollAnimations === false) {
+    document.documentElement.classList.add("no-reveal");
+  }
+
+  if (Array.isArray(settings.order)) {
+    const main = document.querySelector("main");
+    const nav = document.querySelector(".site-nav");
+    let anchor = document.getElementById("home");
+
+    settings.order.forEach((key) => {
+      const section = sectionIds[key] ? document.getElementById(sectionIds[key]) : null;
+
+      if (section && anchor && main) {
+        anchor.after(section);
+        anchor = section;
+      }
+
+      const href = key === "crazyEights" ? "/crazy8s/" : `#${sectionIds[key]}`;
+      const link = nav ? nav.querySelector(`a[href="${href}"]`) : null;
+
+      if (link) {
+        nav.appendChild(link);
+      }
+    });
+  }
+}
+
+// my-info.js: contact details and links
+function applyMyInfo() {
+  const info = window.myInfo;
+
+  if (!info) {
+    return;
+  }
+
+  if (info.email) {
+    document.querySelectorAll('.contact-card a[href^="mailto:"]').forEach((link) => {
+      link.href = `mailto:${info.email}`;
+      link.textContent = info.email;
+    });
+  }
+
+  const socials = document.querySelector(".social-links");
+
+  if (socials && Array.isArray(info.links)) {
+    socials.replaceChildren();
+
+    info.links.forEach((item) => {
+      if (!item || !item.url) {
+        return;
+      }
+
+      const slug = String(item.name || "link").toLowerCase().replace(/[^a-z0-9]/g, "");
+      const link = document.createElement("a");
+      link.className = `button social-button ${slug}-button`;
+      link.href = item.url;
+      link.target = "_blank";
+      link.rel = "noreferrer";
+      const label = document.createElement("span");
+      label.textContent = item.name || item.url;
+      link.appendChild(label);
+      socials.appendChild(link);
+    });
+  }
+
+  const calendly = document.querySelector(".calendly-inline-widget");
+  const calendlyCard = document.querySelector(".calendly-card");
+
+  if (calendly && info.calendlyUrl) {
+    calendly.setAttribute("data-url", info.calendlyUrl);
+  } else if (calendlyCard && info.calendlyUrl === "") {
+    calendlyCard.style.display = "none";
+  }
 }
 
 renderEditableText();
 applySiteSettings();
+applyMyInfo();
 renderAboutPhotos();
 renderCouplePhotos();
 renderPhotoGallery();
@@ -1018,7 +1094,7 @@ if (navToggle && siteNav) {
 }
 
 // Gentle reveal animation as sections enter view
-if ("IntersectionObserver" in window) {
+if ("IntersectionObserver" in window && !document.documentElement.classList.contains("no-reveal")) {
   const revealItems = document.querySelectorAll(".reveal");
   const observer = new IntersectionObserver(
     (entries) => {
@@ -1181,3 +1257,49 @@ document.querySelectorAll(".journal-entry").forEach((entry) => {
     content.hidden = isOpen;
   });
 });
+
+// night mode: a little moon button (turn off with nightModeButton: false in my-site-settings.js)
+function setUpNightMode() {
+  const settings = window.mySiteSettings || {};
+
+  if (settings.nightModeButton === false) {
+    return;
+  }
+
+  let saved = null;
+
+  try {
+    saved = localStorage.getItem("night-mode");
+  } catch (error) {
+    saved = null;
+  }
+
+  const root = document.documentElement;
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "night-toggle";
+
+  const apply = (on) => {
+    root.classList.toggle("night", on);
+    button.textContent = on ? "☀️" : "🌙";
+    button.setAttribute("aria-label", on ? "Switch to day mode" : "Switch to night mode");
+    button.setAttribute("aria-pressed", String(on));
+  };
+
+  apply(saved === "on");
+
+  button.addEventListener("click", () => {
+    const on = !root.classList.contains("night");
+    apply(on);
+
+    try {
+      localStorage.setItem("night-mode", on ? "on" : "off");
+    } catch (error) {
+      // fine: it just won't be remembered
+    }
+  });
+
+  document.body.appendChild(button);
+}
+
+setUpNightMode();

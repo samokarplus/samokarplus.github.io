@@ -2050,3 +2050,87 @@ p {
 .europe-map .land {
   stroke-width: 0.35;
 }
+
+/* scrollAnimations: false in my-site-settings.js */
+.no-reveal .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* ---------- night mode (the moon button; see nightModeButton in my-site-settings.js) ---------- */
+.night-toggle {
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 70;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  background: rgba(255, 247, 234, 0.9);
+  box-shadow: 0 12px 30px -14px rgba(22, 72, 95, 0.6);
+  transition: transform 200ms var(--ease, ease);
+}
+
+.night-toggle:hover {
+  transform: translateY(-2px) rotate(-12deg);
+}
+
+/* a quick, cozy dark theme: flip the light colours, then flip photos back */
+html.night {
+  filter: invert(0.92) hue-rotate(180deg);
+  background: #0b1822;
+}
+
+html.night img,
+html.night video,
+html.night iframe,
+html.night .hero,
+html.night .about-quote,
+html.night .night-toggle,
+html.night .calendly-inline-widget,
+html.night .crazy-cards,
+html.night .tooth-egg {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+html.night body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.2px 1.2px at 12% 18%, #fff 50%, transparent 52%),
+    radial-gradient(1px 1px at 78% 12%, #fff 50%, transparent 52%),
+    radial-gradient(1.4px 1.4px at 44% 36%, #fff 50%, transparent 52%),
+    radial-gradient(1px 1px at 90% 52%, #fff 50%, transparent 52%),
+    radial-gradient(1.2px 1.2px at 28% 70%, #fff 50%, transparent 52%),
+    radial-gradient(1px 1px at 64% 82%, #fff 50%, transparent 52%),
+    radial-gradient(1.3px 1.3px at 6% 90%, #fff 50%, transparent 52%);
+  background-size: 420px 420px;
+  opacity: 0.55;
+}
+
+/* tint the whole night page toward deep blue (instead of brown) */
+html.night body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  background: #1d4f8f;
+  mix-blend-mode: color;
+  opacity: 0.7;
+}
+
+/* the hero is flipped back as a whole, so its photos must not be flipped twice */
+html.night .hero img {
+  filter: none;
+}
