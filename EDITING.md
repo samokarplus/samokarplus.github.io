@@ -1,5 +1,36 @@
 # Editing Guide
 
+## THE LAZY CHEAT SHEET (start here)
+
+You never need to touch code for these. Everything on the site updates itself.
+
+| I want to... | Do this |
+|---|---|
+| **Add a photo to a carousel** | On GitHub, open the folder for that carousel, click **Add file -> Upload files**, drop the picture in, click **Commit changes**. Wait about a minute. It's in the slideshow. |
+| **Remove a photo** | Open the picture in its folder on GitHub, click the trash can, commit. It leaves the slideshow. |
+| **Add a country or state I've been to** | **Actions -> Add Place -> Run workflow**, pick country or US state, type the name (like `Japan` or `Oregon`), run. Pin, color, flag and count all appear. |
+| **Add a journal entry** | **Actions -> Add Journal Entry -> Run workflow**, type the date (like `10-15-26`) and paste the entry. |
+| **Add a PR or a race** | Open `pr-data.js` or `races-data.js`, click the pencil, copy a block, change the words, commit. |
+
+Photo folders (upload pictures into these):
+
+```text
+assets/images/baby/     Baby Samo carousel
+assets/images/older/    Older Samo carousel
+assets/images/couple/   Zooboo Booboo Teeny Tiny Baby carousel
+```
+
+Tips:
+
+- New photos go on the end of the slideshow. To reorder, edit that carousel's `*-photo-data.js` file (move the blocks around).
+- The little description (alt text) is made from the file name, so a name like `beach-day-santa-monica.jpg` is nicer than `IMG_4821.jpg`.
+- Resize big photos first (about 1000px wide is plenty) so the site stays fast.
+- Prefer typing? `places-data.js` is just two lists of names. Add `"Japan",` under countries or `"Oregon",` under states and save. A 2-letter state code works too.
+- If you type a place wrong, the map just skips it. Check the spelling.
+- Tiny islands that have no outline on the map (like the British Virgin Islands) go in the `otherPlaces` list in `places-data.js` with a flag and a rough latitude/longitude.
+
+---
+
 This file has step-by-step instructions for updating the site without editing the main HTML.
 
 For a plain-English map of what each file does, read `README.md`.
@@ -16,6 +47,7 @@ races-data.js          Upcoming races
 photo-data.js          Baby Samo photos
 about-photo-data.js    Older Samo photos
 couple-photo-data.js   "Zooboo Booboo Teeny Tiny Baby" photos (third carousel)
+places-data.js         Countries and states on the Places I've Been maps
 ```
 
 You do not need to bump cache versions after normal edits. The site loads fresh data automatically.
