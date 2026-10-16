@@ -15,4 +15,4 @@ window.upcomingRaceEntriesData = [
     distance: "3.1 Miles",
     location: "Boulder, CO"
   }
-];
+
