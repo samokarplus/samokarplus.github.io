@@ -14,7 +14,7 @@ window.journalEntriesData = [
   },
   {
     date: "10-15-26",
-    text: `On another note, I’ve really enjoyed vacation in California and just relaxing in the beautiful warm sunny weather. I finished up much of my schoolwork for the next while, many weeks ago. So I’ve been here on vacation for only 24 hours and it’s just been lovely and peaceful. Getting to edit my website and transform it to make it more ME and more polished was quite fun today! I made a lot of headway quickly. I feel it’s really a beautiful website and I made it super easy to edit on the backend as well so I can manually edit a ton of it, adding images, journals, map stuff (feature I just added today), etc. Grateful for love, life, my path, family, the support around me, and especially my girlfriend.`
+    text: `I’ve really enjoyed vacation in California and just relaxing in the beautiful warm sunny weather. I finished up much of my schoolwork for the next while, many weeks ago. So I’ve been here on vacation for only 24 hours and it’s just been lovely and peaceful. Getting to edit my website and transform it to make it more ME and more polished was quite fun today! I made a lot of headway quickly. I feel it’s really a beautiful website and I made it super easy to edit on the backend as well so I can manually edit a ton of it, adding images, journals, map stuff (feature I just added today), etc. Grateful for love, life, my path, family, the support around me, and especially my girlfriend.`
   },
   {
     date: "10-05-26",
