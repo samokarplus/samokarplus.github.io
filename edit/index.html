@@ -20,7 +20,7 @@
   .grid { display:grid; gap:.7rem; }
   a.btn { display:block; background:var(--card); border:1px solid rgba(22,72,95,.15); border-radius:16px; padding:1rem 1.2rem; color:var(--ink); text-decoration:none; font-weight:600; box-shadow:0 2px 8px rgba(22,72,95,.06); }
   a.btn:hover { background:#fff; transform:translateY(-1px); }
-  a.btn small { display:block; font-weight:400; color:var(--muted); margin-top:.15rem; }
+  
   ol { padding-left:1.2rem; color:var(--muted); }
   .order-list { list-style:none; margin:.8rem 0 .6rem; padding:0; display:grid; gap:.4rem; }
   .order-list li { display:flex; align-items:center; gap:.6rem; background:#fff; border:1px solid rgba(22,72,95,.15); border-radius:12px; padding:.55rem .8rem; font-weight:600; cursor:grab; touch-action:none; user-select:none; }
@@ -31,41 +31,39 @@
   .order-actions { display:flex; flex-wrap:wrap; gap:.6rem; align-items:center; }
   .order-actions button, .order-link { background:var(--teal); color:#fff; border:0; border-radius:999px; padding:.55rem 1rem; font:inherit; font-weight:700; cursor:pointer; text-decoration:none; }
   .copy-note { color:var(--muted); font-size:.9rem; font-weight:400; }
+  ol.steps { margin:.35rem 0 0; padding-left:1.2rem; font-weight:400; color:var(--muted); font-size:.92rem; }
+  ol.steps li { margin:.1rem 0; }
+  ol.steps b { color:var(--ink); }
   .note { font-size:.9rem; color:var(--muted); margin-top:2rem; }
 </style>
 </head>
 <body>
 <main>
   <h1>Edit my site 🌴</h1>
-  <p class="lead">Tap a button, do the one thing, done. You need to be signed in to GitHub. The site updates about a minute later.</p>
+  <p class="lead">Tap a card, follow the 1-2-3, done. Be signed in to GitHub. Changes show up in about a minute.</p>
 
-  <h2>Add photos</h2>
+  <h2>Add stuff</h2>
   <div class="grid">
-    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/upload/main/assets/images/baby">👶 Baby Samo carousel<small>Drag pictures onto the page, then click the green "Commit changes".</small></a>
-    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/upload/main/assets/images/older">🧑 Older Samo carousel<small>Drag pictures onto the page, then click the green "Commit changes".</small></a>
-    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/upload/main/assets/images/couple">💕 Zooboo Booboo Teeny Tiny Baby carousel<small>Drag pictures onto the page, then click the green "Commit changes".</small></a>
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/upload/main/assets/images/baby">👶 Photo → Baby Samo<ol class="steps"><li>Drag your pictures onto the page</li><li>Tap the green <b>Commit changes</b> button</li></ol></a>
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/upload/main/assets/images/older">🧑 Photo → Older Samo<ol class="steps"><li>Drag your pictures onto the page</li><li>Tap the green <b>Commit changes</b> button</li></ol></a>
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/upload/main/assets/images/couple">💕 Photo → Zooboo Booboo Teeny Tiny Baby<ol class="steps"><li>Drag your pictures onto the page</li><li>Tap the green <b>Commit changes</b> button</li></ol></a>
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/actions/workflows/add-journal-entry.yml">📓 Journal entry<ol class="steps"><li>Tap <b>Run workflow</b></li><li>Type the date (like 10-17-26) and paste your entry</li><li>Tap the green <b>Run workflow</b> button</li></ol></a>
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/actions/workflows/add-place.yml">✈️ Place I've been<ol class="steps"><li>Tap <b>Run workflow</b></li><li>Pick country or state, type the name</li><li>Tap the green <b>Run workflow</b> button</li></ol></a>
   </div>
 
-  <h2>Add a place I've been</h2>
+  <h2>Change words &amp; links</h2>
   <div class="grid">
-    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/actions/workflows/add-place.yml">✈️ Add a country or US state<small>Click "Run workflow", pick country or state, type the name, click the green "Run workflow".</small></a>
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/edit/main/my-site-settings.js">✏️ Rename or hide a section or carousel<ol class="steps"><li>Change the words in quotes (or change <b>true</b> to <b>false</b> to hide)</li><li>Tap the green <b>Commit changes</b> button</li></ol></a>
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/edit/main/my-info.js">📇 Email, social links, booking calendar<ol class="steps"><li>Change the words in quotes</li><li>Tap the green <b>Commit changes</b> button</li></ol></a>
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/edit/main/races-data.js">🏃 Upcoming races<ol class="steps"><li>Copy a block, change the words</li><li>Tap the green <b>Commit changes</b> button</li></ol></a>
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/edit/main/pr-data.js">🏅 Running PRs<ol class="steps"><li>Copy a block, change the words</li><li>Tap the green <b>Commit changes</b> button</li></ol></a>
   </div>
 
-  <h2>Write</h2>
-  <div class="grid">
-    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/actions/workflows/add-journal-entry.yml">📓 Add a journal entry<small>Click "Run workflow", type the date like 10-17-26, paste your entry, run.</small></a>
-  </div>
-
-  <h2>Rename or hide things</h2>
-  <div class="grid">
-    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/edit/main/my-site-settings.js">✏️ Titles and what shows<small>Rename a carousel or section, or hide it: change a word in quotes, or change true to false. Then click "Commit changes".</small></a>
-  </div>
-
-  <h2>Reorder the sections</h2>
+  <h2>Rearrange</h2>
   <div class="grid">
     <div class="btn" style="cursor:default">
-      🔀 Drag a row (or use the arrows), then copy
-      <small>Top of the list = top of the page and menu. When you're happy, tap "Copy order", then "Open the form", paste, and run.</small>
+      🔀 Reorder the sections
+      <ol class="steps"><li>Drag the rows (or use the arrows) into the order you want</li><li>Tap <b>Copy order</b></li><li>Tap <b>Open the form</b>, paste it in, and tap the green <b>Run workflow</b> button</li></ol>
       <ul id="orderList" class="order-list"></ul>
       <div class="order-actions">
         <button type="button" id="copyOrder">Copy order</button>
@@ -75,18 +73,7 @@
     </div>
   </div>
 
-  <h2>My info</h2>
-  <div class="grid">
-    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/edit/main/my-info.js">📇 Email, social links, booking calendar<small>Change the words in quotes, add a link line, click "Commit changes".</small></a>
-  </div>
-
-  <h2>Training</h2>
-  <div class="grid">
-    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/edit/main/races-data.js">🏃 Upcoming races<small>Copy a block, change the words, click "Commit changes".</small></a>
-    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/edit/main/pr-data.js">🏅 Running PRs<small>Copy a block, change the words, click "Commit changes".</small></a>
-  </div>
-
-  <p class="note">Tip: name photos something descriptive (like <b>beach-day.jpg</b>) and keep them under about 1000px wide. Need help? Full instructions are in <a href="https://github.com/samokarplus/samokarplus.github.io/blob/main/EDITING.md">EDITING.md</a>.</p>
+  <p class="note">Tips: name photos something descriptive (like <b>beach-day.jpg</b>). Big photos are shrunk for you. If you mistype something, GitHub fixes it or undoes it. More help: <a href="https://github.com/samokarplus/samokarplus.github.io/blob/main/EDITING.md">EDITING.md</a>.</p>
 </main>
 <script>
 (function () {
