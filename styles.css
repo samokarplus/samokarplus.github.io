@@ -1598,16 +1598,49 @@ p {
   width: clamp(54px, 8vw, 110px);
 }
 
-/* ---------- reveal ---------- */
+/* ---------- reveal: things glide in as you scroll (pairs from opposite sides) ---------- */
 .reveal {
+  --rx: 0px;
+  --ry: 22px;
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 700ms ease, transform 700ms ease;
+  transform: translate(var(--rx), var(--ry));
+  transition: opacity 800ms ease, transform 800ms var(--ease);
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+}
+
+.about-col:nth-child(odd) .reveal,
+.places-grid > :nth-child(odd),
+.contact-grid > :nth-child(odd),
+.prompt-showcase > :nth-child(odd),
+.media-highlight-grid > :nth-child(odd) {
+  --rx: -34px;
+  --ry: 0px;
+}
+
+.about-col:nth-child(even) .reveal,
+.places-grid > :nth-child(even),
+.contact-grid > :nth-child(even),
+.prompt-showcase > :nth-child(even),
+.media-highlight-grid > :nth-child(even) {
+  --rx: 34px;
+  --ry: 0px;
+}
+
+/* a gentle stagger within a group */
+.reveal:nth-child(2) {
+  transition-delay: 90ms;
+}
+
+.reveal:nth-child(3) {
+  transition-delay: 180ms;
+}
+
+.reveal:nth-child(4) {
+  transition-delay: 270ms;
 }
 
 /* ---------- responsive ---------- */
@@ -1778,10 +1811,10 @@ p {
     scroll-behavior: auto;
   }
 
+  /* with "reduce motion" on, things still ease in, but as a fade only (no sliding) */
   .reveal {
-    opacity: 1;
     transform: none;
-    transition: none;
+    transition: opacity 600ms ease;
   }
 
   .site-nav,
