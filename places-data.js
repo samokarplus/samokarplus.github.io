@@ -32,6 +32,7 @@ window.placesData = {
     { name: "Illinois", code: "IL", lat: 40.0, lon: -89.2 },
     { name: "Wisconsin", code: "WI", lat: 44.6, lon: -89.9 },
     { name: "Nevada", code: "NV", lat: 39.3, lon: -116.6 },
+    { name: "New Mexico", code: "NM", lat: 34.4, lon: -106.1 },
     { name: "South Carolina", code: "SC", lat: 33.9, lon: -80.9 },
     { name: "Utah", code: "UT", lat: 39.3, lon: -111.7 },
     { name: "Washington", code: "WA", lat: 47.4, lon: -120.5 },
