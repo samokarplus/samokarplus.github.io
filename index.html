@@ -31,7 +31,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=DM+Serif+Display&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=23" />
+    <link rel="stylesheet" href="styles.css?v=26" />
   </head>
   <body>
     <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="palm" viewBox="0 0 124 230"><g fill="none" stroke="currentColor" stroke-linecap="round"><path d="M60 228 C58 170 68 118 62 72" stroke-width="7"/><path d="M62 72 C40 40 10 40 0 64" stroke-width="5"/><path d="M62 72 C42 62 20 72 8 102" stroke-width="5"/><path d="M62 72 C84 38 114 40 124 64" stroke-width="5"/><path d="M62 72 C82 62 104 72 116 102" stroke-width="5"/><path d="M62 72 C50 40 44 20 30 8" stroke-width="5"/><path d="M62 72 C74 40 80 20 94 8" stroke-width="5"/><path d="M62 72 C62 52 62 32 62 14" stroke-width="5"/></g><circle cx="58" cy="78" r="5" fill="currentColor"/><circle cx="68" cy="80" r="5" fill="currentColor"/></symbol></svg>
@@ -51,6 +51,7 @@
         <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <a href="#about"><span class="nav-emoji" aria-hidden="true">🌴</span><span class="nav-text">About Me</span></a>
           <a href="#gallery"><span class="nav-emoji" aria-hidden="true">📸</span><span class="nav-text">Photos</span></a>
+          <a href="#places"><span class="nav-emoji" aria-hidden="true">✈️</span><span class="nav-text">Places</span></a>
           <a href="#media"><span class="nav-emoji" aria-hidden="true">🎬</span><span class="nav-text">Media &amp; Projects</span></a>
           <a href="#journal"><span class="nav-emoji" aria-hidden="true">📓</span><span class="nav-text">Journal</span></a>
           <a href="/crazy8s/"><span class="nav-emoji" aria-hidden="true">🃏</span><span class="nav-text">Crazy Eights</span></a>
@@ -64,6 +65,7 @@
         <!-- Landing -->
         <section class="hero section" id="home">
           <div class="palms palms-hero" aria-hidden="true"><i><svg viewBox="0 0 124 230" aria-hidden="true" focusable="false"><use href="#palm"/></svg></i><i><svg viewBox="0 0 124 230" aria-hidden="true" focusable="false"><use href="#palm"/></svg></i></div>
+          <a class="tooth-egg" href="/crazy8s/" tabindex="-1" aria-hidden="true"></a>
           <div class="hero-copy reveal">
             <h1>Samo Karplus</h1>
             <p class="hero-text" data-editable-text="textbox1">
@@ -243,6 +245,29 @@
                 <div class="photo-track" id="couplePhotoTrack"></div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <!-- Places I've been -->
+        <section class="section places" id="places" aria-labelledby="places-title">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Travel</p>
+            <h2 id="places-title">Places I&rsquo;ve Been</h2>
+            <p class="places-summary" id="placesSummary"></p>
+          </div>
+          <div class="places-grid">
+            <article class="map-card reveal">
+              <h3>Around the world</h3>
+              <div class="map-wrap world-map" id="worldMap" aria-live="polite"></div>
+              <p class="map-tag">Zoomed in on Europe</p>
+              <div class="map-wrap europe-map" id="europeMap" aria-live="polite"></div>
+              <ul class="chip-list" id="countryList" aria-label="Countries I have visited"></ul>
+            </article>
+            <article class="map-card reveal">
+              <h3>Across the United States</h3>
+              <div class="map-wrap us-map" id="usMap" aria-live="polite"></div>
+              <ul class="chip-list" id="stateList" aria-label="States I have visited"></ul>
+            </article>
           </div>
         </section>
 
@@ -578,6 +603,7 @@
         "journal-data.js",
         "about-photo-data.js",
         "couple-photo-data.js",
+        "places-data.js",
         "photo-data.js",
         "quotes-data.js",
         "dinosaur-facts-data.js",

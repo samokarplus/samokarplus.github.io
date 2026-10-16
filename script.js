@@ -513,6 +513,291 @@ renderRunningPrs();
 renderUpcomingRaces();
 renderStravaStats();
 
+// ---------- Places I've been: world + US maps with pins ----------
+const EA = { A1: 1.340264, A2: -0.081106, A3: 0.000893, A4: 0.003796 };
+
+function equalEarth(lon, lat) {
+  const l = (lon * Math.PI) / 180;
+  const p = (lat * Math.PI) / 180;
+  const t = Math.asin((Math.sqrt(3) / 2) * Math.sin(p));
+  const t2 = t * t;
+  const t6 = t2 * t2 * t2;
+  const x = (2 * Math.sqrt(3) * l * Math.cos(t)) / (3 * (9 * EA.A4 * t6 * t2 + 7 * EA.A3 * t6 + 3 * EA.A2 * t2 + EA.A1));
+  const y = t * (EA.A1 + EA.A2 * t2 + t6 * (EA.A3 + EA.A4 * t2));
+  return [x, y];
+}
+
+const ALB = (() => {
+  const r = (d) => (d * Math.PI) / 180;
+  const phi1 = r(29.5);
+  const phi2 = r(45.5);
+  const n = (Math.sin(phi1) + Math.sin(phi2)) / 2;
+  const c = Math.cos(phi1) ** 2 + 2 * n * Math.sin(phi1);
+  const rho0 = Math.sqrt(c - 2 * n * Math.sin(r(37.5))) / n;
+  return { n, c, rho0, lam0: r(-96), r };
+})();
+
+function albersUsa(lon, lat) {
+  const rho = Math.sqrt(ALB.c - 2 * ALB.n * Math.sin(ALB.r(lat))) / ALB.n;
+  const th = ALB.n * (ALB.r(lon) - ALB.lam0);
+  return [rho * Math.sin(th), ALB.rho0 - rho * Math.cos(th)];
+}
+
+const SVG_NS = "http://www.w3.org/2000/svg";
+const PIN_PATH = "M0 0C-3 -4 -5 -6.5 -5 -9.5a5 5 0 1 1 10 0C5 -6.5 3 -4 0 0Z";
+
+function svgEl(name, attrs = {}) {
+  const el = document.createElementNS(SVG_NS, name);
+  Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
+  return el;
+}
+
+function buildMap(container, { width, height, viewBox, shapes, visitedIds, pins, label, pinScale }) {
+  const svg = svgEl("svg", { viewBox: viewBox || `0 0 ${width} ${height}`, role: "img", "aria-label": label });
+  const land = svgEl("g", { class: "map-land" });
+
+  Object.entries(shapes).forEach(([id, shape]) => {
+    const path = svgEl("path", { d: shape.d, class: visitedIds.has(id) ? "land visited" : "land" });
+    const title = svgEl("title");
+    title.textContent = shape.n;
+    path.appendChild(title);
+    land.appendChild(path);
+  });
+
+  svg.appendChild(land);
+
+  const pinLayer = svgEl("g", { class: "map-pins" });
+
+  pins.forEach((pin, index) => {
+    const group = svgEl("g", {
+      class: "pin",
+      transform: `translate(${pin.x.toFixed(1)} ${pin.y.toFixed(1)})`,
+      "data-place": pin.name
+    });
+    group.style.setProperty("--i", index);
+    const inner = svgEl("g", { class: "pin-inner", transform: `scale(${pinScale})` });
+    inner.appendChild(svgEl("circle", { class: "pin-pulse", r: 7, cy: -9.5 }));
+    inner.appendChild(svgEl("path", { class: "pin-head", d: PIN_PATH }));
+    inner.appendChild(svgEl("circle", { class: "pin-dot", r: 1.9, cy: -9.5 }));
+    const title = svgEl("title");
+    title.textContent = pin.name;
+    group.append(inner, title);
+    pinLayer.appendChild(group);
+  });
+
+  svg.appendChild(pinLayer);
+  container.replaceChildren(svg);
+}
+
+function renderChips(list, items, labelFor) {
+  list.replaceChildren();
+
+  items.forEach((item) => {
+    const li = document.createElement("li");
+    li.className = "chip";
+    li.dataset.place = item.name;
+    li.tabIndex = 0;
+
+    if (item.flag) {
+      const flag = document.createElement("span");
+      flag.setAttribute("aria-hidden", "true");
+      flag.textContent = item.flag;
+      li.appendChild(flag);
+    }
+
+    li.appendChild(document.createTextNode(labelFor ? labelFor(item) : item.name));
+    list.appendChild(li);
+  });
+}
+
+function wireChipHover(section) {
+  const toggle = (name, on) => {
+    section.querySelectorAll(".pin").forEach((pin) => {
+      if (pin.dataset.place === name) {
+        pin.classList.toggle("is-hot", on);
+      }
+    });
+  };
+
+  section.querySelectorAll(".chip").forEach((chip) => {
+    const name = chip.dataset.place;
+    ["mouseenter", "focus"].forEach((type) => chip.addEventListener(type, () => toggle(name, true)));
+    ["mouseleave", "blur"].forEach((type) => chip.addEventListener(type, () => toggle(name, false)));
+  });
+}
+
+function renderPlaces() {
+  const data = window.placesData;
+  const mapData = window.placesMapData;
+  const section = document.getElementById("places");
+  const worldMap = document.getElementById("worldMap");
+  const usMap = document.getElementById("usMap");
+
+  if (!data || !mapData || !section || !worldMap || !usMap) {
+    return;
+  }
+
+  const countries = data.countries || [];
+  const territories = data.territories || [];
+  const states = data.states || [];
+  const summary = document.getElementById("placesSummary");
+
+  if (summary) {
+    const territoryText = territories.length
+      ? ` + ${territories.length} ${territories.length === 1 ? "territory" : "territories"}`
+      : "";
+    summary.textContent = `${countries.length} countries${territoryText} · ${states.length} US states`;
+  }
+
+  const world = mapData.world;
+  const toWorld = (lon, lat) => {
+    const [x, y] = equalEarth(lon, lat);
+    return { x: x * world.scale + world.tx, y: -y * world.scale + world.ty };
+  };
+
+  buildMap(worldMap, {
+    width: world.w,
+    height: world.h,
+    shapes: world.countries,
+    visitedIds: new Set(countries.map((country) => country.iso)),
+    pins: [...countries, ...territories].map((place) => ({ name: place.name, ...toWorld(place.lon, place.lat) })),
+    label: `World map with pins in ${countries.length} countries and ${territories.length} territory`,
+    pinScale: 1.35
+  });
+
+  // a close-up so the crowded European pins have room
+  const europeMap = document.getElementById("europeMap");
+
+  if (europeMap) {
+    const topLeft = toWorld(-13, 61.5);
+    const bottomRight = toWorld(33, 35.5);
+    const inEurope = (place) => place.lon > -13 && place.lon < 33 && place.lat > 35.5 && place.lat < 61.5;
+    const europeanPlaces = [...countries, ...territories].filter(inEurope);
+
+    buildMap(europeMap, {
+      width: world.w,
+      height: world.h,
+      viewBox: `${topLeft.x.toFixed(1)} ${topLeft.y.toFixed(1)} ${(bottomRight.x - topLeft.x).toFixed(1)} ${(bottomRight.y - topLeft.y).toFixed(1)}`,
+      shapes: world.countries,
+      visitedIds: new Set(countries.map((country) => country.iso)),
+      pins: europeanPlaces.map((place) => ({ name: place.name, ...toWorld(place.lon, place.lat) })),
+      label: `Close-up map of Europe with pins in ${europeanPlaces.length} countries`,
+      pinScale: 0.42
+    });
+  }
+
+  const us = mapData.us;
+  const toUs = (lon, lat) => {
+    const [x, y] = albersUsa(lon, lat);
+    return { x: x * us.scale + us.tx, y: -y * us.scale + us.ty };
+  };
+
+  buildMap(usMap, {
+    width: us.w,
+    height: us.h,
+    shapes: us.states,
+    visitedIds: new Set(states.map((state) => state.code)),
+    pins: states.map((state) => ({ name: state.name, ...toUs(state.lon, state.lat) })),
+    label: `Map of the United States with pins in ${states.length} states`,
+    pinScale: 1.7
+  });
+
+  renderChips(document.getElementById("countryList"), [...countries, ...territories]);
+  renderChips(document.getElementById("stateList"), states);
+  wireChipHover(section);
+}
+
+// the map outlines are a sizeable file, so they load only when the section is about to be seen
+function loadPlacesMaps() {
+  const section = document.getElementById("places");
+
+  if (!section) {
+    return;
+  }
+
+  let started = false;
+
+  const start = () => {
+    if (started) {
+      return;
+    }
+
+    started = true;
+    const script = document.createElement("script");
+    script.src = `places-map-data.js?v=${Date.now()}`;
+    script.onload = renderPlaces;
+    document.body.appendChild(script);
+  };
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          start();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "900px 0px" }
+    );
+    observer.observe(section);
+  } else {
+    start();
+  }
+}
+
+// ---------- easter egg: click the tooth in the hero photo to jump into Crazy Eights ----------
+function positionToothEgg() {
+  const image = document.querySelector(".hero-photo");
+  const egg = document.querySelector(".tooth-egg");
+  const hero = document.querySelector(".hero");
+
+  if (!image || !egg || !hero || !image.naturalWidth) {
+    return;
+  }
+
+  // where the front tooth sits inside the photo (fractions of its width and height)
+  const TOOTH_X = 0.2219;
+  const TOOTH_Y = 0.4265;
+
+  const box = image.getBoundingClientRect();
+  const scale = Math.max(box.width / image.naturalWidth, box.height / image.naturalHeight);
+  const shownWidth = image.naturalWidth * scale;
+  const shownHeight = image.naturalHeight * scale;
+  const [posX, posY] = getComputedStyle(image).objectPosition.split(" ");
+  const offset = (value, free) => (value.endsWith("%") ? (parseFloat(value) / 100) * free : parseFloat(value));
+  const x = offset(posX, box.width - shownWidth) + shownWidth * TOOTH_X;
+  const y = offset(posY, box.height - shownHeight) + shownHeight * TOOTH_Y;
+  const heroBox = hero.getBoundingClientRect();
+  const size = Math.max(24, shownWidth * 0.014);
+
+  egg.style.left = `${box.left - heroBox.left + x}px`;
+  egg.style.top = `${box.top - heroBox.top + y}px`;
+  egg.style.width = `${size}px`;
+  egg.style.height = `${size}px`;
+  egg.classList.add("is-placed");
+}
+
+function setUpToothEgg() {
+  const image = document.querySelector(".hero-photo");
+
+  if (!image) {
+    return;
+  }
+
+  const place = () => requestAnimationFrame(positionToothEgg);
+
+  if (image.complete) {
+    place();
+  } else {
+    image.addEventListener("load", place);
+  }
+
+  window.addEventListener("resize", place);
+}
+
+loadPlacesMaps();
+setUpToothEgg();
+
 if (navToggle && siteNav) {
   const setMenu = (open) => {
     siteNav.classList.toggle("is-open", open);
