@@ -21,7 +21,8 @@ window.placesData = {
     "Italy",
     "UK (London)",
     "The Netherlands",
-    "Panama"
+    "Panama",
+    "Japan"
   ],
 
   // STATES (US)
