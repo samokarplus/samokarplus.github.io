@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Edit My Site</title>
+<link rel="icon" href="/favicon.ico">
+<style>
+  :root { --bg:#f7efdc; --card:#fdf8ec; --ink:#16485f; --muted:#5d6b73; --teal:#1f7a9c; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:"DM Sans",system-ui,sans-serif; line-height:1.5; }
+  main { max-width:720px; margin:0 auto; padding:2rem 16px 4rem; }
+  h1 { font-family:"DM Serif Display",Georgia,serif; font-size:2.4rem; margin:0 0 .3rem; }
+  p.lead { color:var(--muted); margin:0 0 1.6rem; }
+  h2 { font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; color:var(--teal); margin:2rem 0 .6rem; }
+  .grid { display:grid; gap:.7rem; }
+  a.btn { display:block; background:var(--card); border:1px solid rgba(22,72,95,.15); border-radius:16px; padding:1rem 1.2rem; color:var(--ink); text-decoration:none; font-weight:600; box-shadow:0 2px 8px rgba(22,72,95,.06); }
+  a.btn:hover { background:#fff; transform:translateY(-1px); }
+  a.btn small { display:block; font-weight:400; color:var(--muted); margin-top:.15rem; }
+  ol { padding-left:1.2rem; color:var(--muted); }
+  .note { font-size:.9rem; color:var(--muted); margin-top:2rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Edit my site 🌴</h1>
+  <p class="lead">Tap a button, do the one thing, done. You need to be signed in to GitHub. The site updates about a minute later.</p>
+
+  <h2>Add photos</h2>
+  <div class="grid">
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/upload/main/assets/images/baby">👶 Baby Samo carousel<small>Drag pictures onto the page, then click the green "Commit changes".</small></a>
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/upload/main/assets/images/older">🧑 Older Samo carousel<small>Drag pictures onto the page, then click the green "Commit changes".</small></a>
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/upload/main/assets/images/couple">💕 Zooboo Booboo Teeny Tiny Baby carousel<small>Drag pictures onto the page, then click the green "Commit changes".</small></a>
+  </div>
+
+  <h2>Add a place I've been</h2>
+  <div class="grid">
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/actions/workflows/add-place.yml">✈️ Add a country or US state<small>Click "Run workflow", pick country or state, type the name, click the green "Run workflow".</small></a>
+  </div>
+
+  <h2>Write</h2>
+  <div class="grid">
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/actions/workflows/add-journal-entry.yml">📓 Add a journal entry<small>Click "Run workflow", type the date like 10-17-26, paste your entry, run.</small></a>
+  </div>
+
+  <h2>Training</h2>
+  <div class="grid">
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/edit/main/races-data.js">🏃 Upcoming races<small>Copy a block, change the words, click "Commit changes".</small></a>
+    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/edit/main/pr-data.js">🏅 Running PRs<small>Copy a block, change the words, click "Commit changes".</small></a>
+  </div>
+
+  <p class="note">Tip: name photos something descriptive (like <b>beach-day.jpg</b>) and keep them under about 1000px wide. Need help? Full instructions are in <a href="https://github.com/samokarplus/samokarplus.github.io/blob/main/EDITING.md">EDITING.md</a>.</p>
+</main>
+</body>
+</html>

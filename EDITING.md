@@ -2,6 +2,8 @@
 
 ## THE LAZY CHEAT SHEET (start here)
 
+**Easiest: open https://samo.karplus.org/edit/ (bookmark it). It's a page of big buttons: add photos to each carousel, add a place, add a journal entry, update races. Sign in to GitHub once and tap away.**
+
 You never need to touch code for these. Everything on the site updates itself.
 
 | I want to... | Do this |
