@@ -25,7 +25,15 @@ def escape_template_literal(value):
   )
 
 
+def restore_paragraphs(text):
+  # the /edit/ page turns line breaks into ¶ so they survive GitHub's one-line box
+  text = re.sub(r"[ \t]*¶¶[ \t]*", "\n\n", text)
+  return re.sub(r"[ \t]*¶[ \t]*", "\n", text)
+
+
 def add_journal_entry(date, text):
+  text = restore_paragraphs(text)
+
   if not re.fullmatch(r"\d{2}-\d{2}-\d{2}", date):
     raise RuntimeError("Journal date must use MM-DD-YY, like 06-01-26")
 

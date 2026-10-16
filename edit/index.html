@@ -18,7 +18,7 @@
   p.lead { color:var(--muted); margin:0 0 1.6rem; }
   h2 { font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; color:var(--teal); margin:2rem 0 .6rem; }
   .grid { display:grid; gap:.7rem; }
-  a.btn { display:block; background:var(--card); border:1px solid rgba(22,72,95,.15); border-radius:16px; padding:1rem 1.2rem; color:var(--ink); text-decoration:none; font-weight:600; box-shadow:0 2px 8px rgba(22,72,95,.06); }
+  .btn { display:block; background:var(--card); border:1px solid rgba(22,72,95,.15); border-radius:16px; padding:1rem 1.2rem; color:var(--ink); text-decoration:none; font-weight:600; box-shadow:0 2px 8px rgba(22,72,95,.06); }
   a.btn:hover { background:#fff; transform:translateY(-1px); }
   
   ol { padding-left:1.2rem; color:var(--muted); }
@@ -34,6 +34,9 @@
   ol.steps { margin:.35rem 0 0; padding-left:1.2rem; font-weight:400; color:var(--muted); font-size:.92rem; }
   ol.steps li { margin:.1rem 0; }
   ol.steps b { color:var(--ink); }
+  .field { display:block; margin:.7rem 0 .4rem; font-weight:600; font-size:.9rem; }
+  .field input { margin-left:.5rem; padding:.35rem .6rem; border:1px solid rgba(22,72,95,.25); border-radius:8px; font:inherit; width:8rem; }
+  #jText { width:100%; padding:.7rem .8rem; border:1px solid rgba(22,72,95,.25); border-radius:12px; font:inherit; font-weight:400; line-height:1.5; resize:vertical; margin-bottom:.6rem; background:#fff; color:var(--ink); }
   .note { font-size:.9rem; color:var(--muted); margin-top:2rem; }
 </style>
 </head>
@@ -47,7 +50,17 @@
     <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/upload/main/assets/images/baby">👶 Photo → Baby Samo<ol class="steps"><li>Drag your pictures onto the page</li><li>Tap the green <b>Commit changes</b> button</li></ol></a>
     <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/upload/main/assets/images/older">🧑 Photo → Older Samo<ol class="steps"><li>Drag your pictures onto the page</li><li>Tap the green <b>Commit changes</b> button</li></ol></a>
     <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/upload/main/assets/images/couple">💕 Photo → Zooboo Booboo Teeny Tiny Baby<ol class="steps"><li>Drag your pictures onto the page</li><li>Tap the green <b>Commit changes</b> button</li></ol></a>
-    <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/actions/workflows/add-journal-entry.yml">📓 Journal entry<ol class="steps"><li>Tap <b>Run workflow</b></li><li>Type the date (like 10-17-26) and paste your entry</li><li>Tap the green <b>Run workflow</b> button</li></ol></a>
+    <div class="btn" style="cursor:default">
+      📓 Journal entry
+      <ol class="steps"><li>Write it below (press Enter for new paragraphs)</li><li>Tap <b>Copy entry</b></li><li>Tap <b>Open the form</b>, paste into the big text box, type the date, tap the green <b>Run workflow</b> button</li></ol>
+      <label class="field">Date <input id="jDate" type="text" value="" aria-label="Journal date"></label>
+      <textarea id="jText" rows="8" placeholder="Write your journal entry here…"></textarea>
+      <div class="order-actions">
+        <button type="button" id="jCopy">Copy entry</button>
+        <a class="order-link" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/actions/workflows/add-journal-entry.yml">Open the form ›</a>
+        <span id="jNote" class="copy-note"></span>
+      </div>
+    </div>
     <a class="btn" target="_blank" rel="noopener" href="https://github.com/samokarplus/samokarplus.github.io/actions/workflows/add-place.yml">✈️ Place I've been<ol class="steps"><li>Tap <b>Run workflow</b></li><li>Pick country or state, type the name</li><li>Tap the green <b>Run workflow</b> button</li></ol></a>
   </div>
 
@@ -125,6 +138,20 @@
       list.appendChild(li);
     });
   }
+
+  var jDate = document.getElementById("jDate");
+  var d = new Date();
+  var pad = function (n) { return (n < 10 ? "0" : "") + n; };
+  jDate.value = pad(d.getMonth() + 1) + "-" + pad(d.getDate()) + "-" + String(d.getFullYear()).slice(2);
+  document.getElementById("jCopy").onclick = function () {
+    var raw = document.getElementById("jText").value.trim();
+    var jNote = document.getElementById("jNote");
+    if (!raw) { jNote.textContent = "Write something first."; return; }
+    var text = raw.replace(/\r/g, "").replace(/\n[ \t]*\n+/g, " ¶¶ ").replace(/\n/g, " ¶ ");
+    var done = function () { jNote.textContent = "Copied! Date: " + jDate.value + ". Now open the form and paste."; };
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(done, function () { jNote.textContent = "Couldn't copy. Select the text yourself."; }); }
+    else { jNote.textContent = "Couldn't copy on this browser."; }
+  };
 
   document.getElementById("copyOrder").onclick = function () {
     var text = order.join(", ");
