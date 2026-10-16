@@ -134,6 +134,11 @@ window.editableTextData = {
     text: "Older Samo"
   },
 
+  // Textbox 54: Third photo carousel title (below Older Samo)
+  textbox54: {
+    text: "Zooboo Booboo Teeny Tiny Baby"
+  },
+
   // Textbox 23: Media section small label
   textbox23: {
     text: "Media & Projects"

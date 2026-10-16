@@ -16,6 +16,7 @@ const dinosaurImageCredit = document.getElementById("dinosaur-image-credit");
 const prevDinosaurFactButton = document.getElementById("prev-dinosaur-fact");
 const nextDinosaurFactButton = document.getElementById("next-dinosaur-fact");
 const aboutPhotoTrack = document.getElementById("aboutPhotoTrack");
+const couplePhotoTrack = document.getElementById("couplePhotoTrack");
 const photoTrack = document.getElementById("photoTrack");
 const journalList = document.getElementById("journalList");
 const stravaYear = document.getElementById("strava-year");
@@ -330,6 +331,20 @@ function renderAboutPhotos() {
   });
 }
 
+function renderCouplePhotos() {
+  if (!couplePhotoTrack || !Array.isArray(window.couplePhotoEntriesData)) {
+    return;
+  }
+
+  couplePhotoTrack.replaceChildren();
+
+  const photos = [...window.couplePhotoEntriesData, ...window.couplePhotoEntriesData];
+
+  photos.forEach((photo) => {
+    couplePhotoTrack.appendChild(createPhotoCard(photo));
+  });
+}
+
 function createPhotoCard(photo) {
   const figure = document.createElement("figure");
   const image = document.createElement("img");
@@ -337,6 +352,7 @@ function createPhotoCard(photo) {
   figure.className = "gallery-card";
   image.src = photo.src;
   image.alt = photo.alt;
+  image.decoding = "async";
 
   figure.appendChild(image);
 
@@ -490,6 +506,7 @@ function renderJournalEntries() {
 applySiteDesign();
 renderEditableText();
 renderAboutPhotos();
+renderCouplePhotos();
 renderPhotoGallery();
 renderJournalEntries();
 renderRunningPrs();

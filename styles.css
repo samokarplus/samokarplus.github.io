@@ -1049,6 +1049,10 @@ p {
   animation-duration: 44s;
 }
 
+.couple-carousel .photo-track {
+  animation-duration: 64s;
+}
+
 .photo-carousel:hover .photo-track,
 .photo-carousel:focus-within .photo-track {
   animation-play-state: paused;

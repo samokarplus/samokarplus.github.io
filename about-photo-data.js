@@ -12,14 +12,6 @@
 // },
 window.aboutPhotoEntriesData = [
   {
-    src: "assets/images/about-triathlon-lake.jpeg",
-    alt: "Samo smiling with a triathlete near a lake after an outdoor race."
-  },
-  {
-    src: "assets/images/about-track-hug.jpeg",
-    alt: "Samo hugging someone on a sunny track with mountains in the background."
-  },
-  {
     src: "assets/images/portrait-black.jpg",
     alt: "A portrait of Samo in a black outfit, photographed in a mirror."
   },
@@ -58,13 +50,5 @@ window.aboutPhotoEntriesData = [
   {
     src: "assets/images/about-reflection.jpg",
     alt: "A reflective photo of Samo."
-  },
-  {
-    src: "assets/images/about-trail-selfie.jpeg",
-    alt: "Samo smiling with a friend on a sunny trail."
-  },
-  {
-    src: "assets/images/about-outdoor-portrait.jpeg",
-    alt: "Samo outdoors in a recent portrait."
   }
 ];

@@ -15,6 +15,7 @@ pr-data.js             Running PRs
 races-data.js          Upcoming races
 photo-data.js          Baby Samo photos
 about-photo-data.js    Older Samo photos
+couple-photo-data.js   "Zooboo Booboo Teeny Tiny Baby" photos (third carousel)
 ```
 
 You do not need to bump cache versions after normal edits. The site loads fresh data automatically.
