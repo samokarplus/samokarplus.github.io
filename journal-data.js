@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
   {
+    date: "10-15-26",
+    text: `Grateful for some extra time today to update my website's design and added some sections and adjusted some styles. I think it looks better with some more images and stuff! :)`
+  },
+  {
     date: "10-05-26",
     text: `Grateful to be alive. Grateful for all the wonderful diverse relationships, tasks, activities, events, culture, and things I do in my life. I feel like I'm really living and deeply satisfied. Busy but not stressed. Productive but not fearful.`
   },
