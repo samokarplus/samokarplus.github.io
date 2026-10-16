@@ -84,5 +84,9 @@ window.couplePhotoEntriesData = [
   {
     src: "assets/images/couple/couple-night-run.jpg",
     alt: "Samo and his girlfriend grinning beside an open car trunk at night with snacks and a banana."
+  },
+  {
+    src: "assets/images/couple/zz-test-photo.jpg",
+    alt: "Zz test photo"
   }
 ];
