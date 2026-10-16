@@ -1,0 +1,35 @@
+name: Set Section Order
+
+on:
+  workflow_dispatch:
+    inputs:
+      order:
+        description: "Paste the order from the edit page (like: about, photos, places, ...)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  set-order:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Save the new order
+        env:
+          SECTION_ORDER: ${{ inputs.order }}
+        run: python3 scripts/set-order.py
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add my-site-settings.js
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Reorder the sections"
+          git pull --rebase origin main
+          git push origin HEAD:main
