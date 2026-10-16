@@ -12,6 +12,7 @@ You never need to touch code for these. Everything on the site updates itself.
 | **Remove a photo** | Open the picture in its folder on GitHub, click the trash can, commit. It leaves the slideshow. |
 | **Add a country or state I've been to** | **Actions -> Add Place -> Run workflow**, pick country or US state, type the name (like `Japan` or `Oregon`), run. Pin, color, flag and count all appear. |
 | **Add a journal entry** | **Actions -> Add Journal Entry -> Run workflow**, type the date (like `10-15-26`) and paste the entry. |
+| **Rename or hide a carousel/section** | Open `my-site-settings.js`, click the pencil. Change a title in quotes, or change `show: true` to `show: false` to hide it (and its menu item). Commit. |
 | **Add a PR or a race** | Open `pr-data.js` or `races-data.js`, click the pencil, copy a block, change the words, commit. |
 
 Photo folders (upload pictures into these):

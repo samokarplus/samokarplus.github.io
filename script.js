@@ -504,7 +504,93 @@ function renderJournalEntries() {
 }
 
 applySiteDesign();
+// my-site-settings.js: rename or hide sections and carousels
+function applySiteSettings() {
+  const settings = window.mySiteSettings;
+
+  if (!settings) {
+    return;
+  }
+
+  const sectionIds = {
+    about: "about",
+    photos: "gallery",
+    places: "places",
+    media: "media",
+    journal: "journal",
+    dinosaurFacts: "dinosaur-facts",
+    wordsToSitWith: "prompts",
+    contact: "contact"
+  };
+
+  const hideNavLink = (href) => {
+    document.querySelectorAll(`.site-nav a[href="${href}"]`).forEach((link) => {
+      link.style.display = "none";
+    });
+  };
+
+  const setNavLabel = (href, label) => {
+    document.querySelectorAll(`.site-nav a[href="${href}"] .nav-text`).forEach((text) => {
+      text.textContent = label;
+    });
+  };
+
+  Object.entries(settings.sections || {}).forEach(([key, config]) => {
+    if (!config) {
+      return;
+    }
+
+    const id = sectionIds[key];
+    const section = id ? document.getElementById(id) : null;
+    const href = key === "crazyEights" ? "/crazy8s/" : `#${id}`;
+
+    if (config.show === false) {
+      if (section) {
+        section.style.display = "none";
+      }
+
+      hideNavLink(href);
+      return;
+    }
+
+    if (config.title && section) {
+      const heading = section.querySelector(".section-heading h2");
+
+      if (heading) {
+        heading.textContent = config.title;
+      }
+    }
+
+    if (config.menu) {
+      setNavLabel(href, config.menu);
+    }
+  });
+
+  const carouselTracks = { baby: "photoTrack", older: "aboutPhotoTrack", couple: "couplePhotoTrack" };
+
+  Object.entries(settings.carousels || {}).forEach(([key, config]) => {
+    const track = document.getElementById(carouselTracks[key]);
+    const block = track ? track.closest(".photo-carousel-block") : null;
+
+    if (!config || !block) {
+      return;
+    }
+
+    if (config.show === false) {
+      block.style.display = "none";
+      return;
+    }
+
+    const title = block.querySelector(".photo-carousel-title");
+
+    if (config.title && title) {
+      title.textContent = config.title;
+    }
+  });
+}
+
 renderEditableText();
+applySiteSettings();
 renderAboutPhotos();
 renderCouplePhotos();
 renderPhotoGallery();
