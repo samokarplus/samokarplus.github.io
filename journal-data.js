@@ -9,10 +9,6 @@
 // },
 window.journalEntriesData = [
   {
-    date: "12-31-99",
-    text: `TEST ENTRY (will be deleted): it's a "quoted" test with a \`backtick\` and a comma, okay?`
-  },
-  {
     date: "10-16-26",
     text: `This world is full of love every second. You just keep forgetting, Samo. But in the process of forgetting, you are forced to remember because you’ve been shown that you forgot.`
   },
