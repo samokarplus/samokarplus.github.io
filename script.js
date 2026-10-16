@@ -626,6 +626,55 @@ function wireChipHover(section) {
   });
 }
 
+// ISO 3-letter -> 2-letter, so a country's flag can be worked out from its name alone
+const ISO2 = {AFG:"AF",AGO:"AO",ALB:"AL",ARE:"AE",ARG:"AR",ARM:"AM",ATF:"TF",AUS:"AU",AUT:"AT",AZE:"AZ",BDI:"BI",BEL:"BE",BEN:"BJ",BFA:"BF",BGD:"BD",BGR:"BG",BHS:"BS",BIH:"BA",BLR:"BY",BLZ:"BZ",BOL:"BO",BRA:"BR",BRN:"BN",BTN:"BT",BWA:"BW",CAF:"CF",CAN:"CA",CHE:"CH",CHL:"CL",CHN:"CN",CIV:"CI",CMR:"CM",COD:"CD",COG:"CG",COL:"CO",CRI:"CR",CUB:"CU",CYP:"CY",CZE:"CZ",DEU:"DE",DJI:"DJ",DNK:"DK",DOM:"DO",DZA:"DZ",ECU:"EC",EGY:"EG",ERI:"ER",ESP:"ES",EST:"EE",ETH:"ET",FIN:"FI",FJI:"FJ",FLK:"FK",FRA:"FR",GAB:"GA",GBR:"GB",GEO:"GE",GHA:"GH",GIN:"GN",GMB:"GM",GNB:"GW",GNQ:"GQ",GRC:"GR",GRL:"GL",GTM:"GT",GUY:"GY",HND:"HN",HRV:"HR",HTI:"HT",HUN:"HU",IDN:"ID",IND:"IN",IRL:"IE",IRN:"IR",IRQ:"IQ",ISL:"IS",ISR:"IL",ITA:"IT",JAM:"JM",JOR:"JO",JPN:"JP",KAZ:"KZ",KEN:"KE",KGZ:"KG",KHM:"KH",KOR:"KR",KOS:"XK",KWT:"KW",LAO:"LA",LBN:"LB",LBR:"LR",LBY:"LY",LKA:"LK",LSO:"LS",LTU:"LT",LUX:"LU",LVA:"LV",MAR:"MA",MDA:"MD",MDG:"MG",MEX:"MX",MKD:"MK",MLI:"ML",MMR:"MM",MNE:"ME",MNG:"MN",MOZ:"MZ",MRT:"MR",MWI:"MW",MYS:"MY",NAM:"NA",NCL:"NC",NER:"NE",NGA:"NG",NIC:"NI",NLD:"NL",NOR:"NO",NPL:"NP",NZL:"NZ",OMN:"OM",PAK:"PK",PAN:"PA",PER:"PE",PHL:"PH",PNG:"PG",POL:"PL",PRI:"PR",PRK:"KP",PRT:"PT",PRY:"PY",PSX:"PS",QAT:"QA",ROU:"RO",RUS:"RU",RWA:"RW",SAH:"EH",SAU:"SA",SDN:"SD",SDS:"SS",SEN:"SN",SLB:"SB",SLE:"SL",SLV:"SV",SOM:"SO",SRB:"RS",SUR:"SR",SVK:"SK",SVN:"SI",SWE:"SE",SWZ:"SZ",SYR:"SY",TCD:"TD",TGO:"TG",THA:"TH",TJK:"TJ",TKM:"TM",TLS:"TL",TTO:"TT",TUN:"TN",TUR:"TR",TWN:"TW",TZA:"TZ",UGA:"UG",UKR:"UA",URY:"UY",USA:"US",UZB:"UZ",VEN:"VE",VNM:"VN",VUT:"VU",YEM:"YE",ZAF:"ZA",ZMB:"ZM",ZWE:"ZW"};
+
+// nicknames people are likely to type
+const COUNTRY_ALIASES = {
+  "united states": "USA", "the united states": "USA", usa: "USA", us: "USA", america: "USA", "united states of america": "USA",
+  uk: "GBR", england: "GBR", scotland: "GBR", wales: "GBR", britain: "GBR", "great britain": "GBR", london: "GBR",
+  holland: "NLD", "the netherlands": "NLD", netherlands: "NLD",
+  "the philippines": "PHL", philippines: "PHL",
+  "czech republic": "CZE", "south korea": "KOR", korea: "KOR", russia: "RUS", "ivory coast": "CIV",
+  "the bahamas": "BHS", bahamas: "BHS", "the gambia": "GMB", tanzania: "TZA", serbia: "SRB",
+  "east timor": "TLS", "timor-leste": "TLS", uae: "ARE", swaziland: "SWZ", eswatini: "SWZ",
+  "congo (drc)": "COD", drc: "COD", macedonia: "MKD"
+};
+
+const cleanName = (text) => String(text).toLowerCase().replace(/\(.*?\)/g, "").replace(/[^a-z0-9' -]/g, "").replace(/\s+/g, " ").trim();
+
+function flagEmoji(iso3) {
+  const iso2 = ISO2[iso3];
+  return iso2 ? String.fromCodePoint(...[...iso2].map((char) => 127397 + char.charCodeAt(0))) : "";
+}
+
+// the middle of a shape's biggest outline, in map pixels (so the pin sits on the main landmass)
+function shapeCenter(d) {
+  let best = null;
+
+  d.split("M").slice(1).forEach((ring) => {
+    const nums = ring.replace(/[LZ]/g, " ").trim().split(/\s+/).map(Number);
+    let area = 0;
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+
+    for (let i = 0; i + 1 < nums.length; i += 2) {
+      const x = nums[i], y = nums[i + 1];
+      const nx = nums[(i + 2) % nums.length], ny = nums[(i + 3) % nums.length];
+      area += x * ny - nx * y;
+      minX = Math.min(minX, x); maxX = Math.max(maxX, x);
+      minY = Math.min(minY, y); maxY = Math.max(maxY, y);
+    }
+
+    area = Math.abs(area);
+
+    if (!best || area > best.area) {
+      best = { area, x: (minX + maxX) / 2, y: (minY + maxY) / 2 };
+    }
+  });
+
+  return best ? { x: best.x, y: best.y } : { x: 0, y: 0 };
+}
+
 function renderPlaces() {
   const data = window.placesData;
   const mapData = window.placesMapData;
@@ -637,31 +686,77 @@ function renderPlaces() {
     return;
   }
 
-  const countries = data.countries || [];
-  const territories = data.territories || [];
-  const states = data.states || [];
-  const summary = document.getElementById("placesSummary");
-
-  if (summary) {
-    const territoryText = territories.length
-      ? ` + ${territories.length} ${territories.length === 1 ? "territory" : "territories"}`
-      : "";
-    summary.textContent = `${countries.length} countries${territoryText} · ${states.length} US states`;
-  }
-
   const world = mapData.world;
+  const us = mapData.us;
   const toWorld = (lon, lat) => {
     const [x, y] = equalEarth(lon, lat);
     return { x: x * world.scale + world.tx, y: -y * world.scale + world.ty };
   };
 
+  // --- turn the simple lists in places-data.js into pins + chips ---
+  const countryByName = {};
+  Object.entries(world.countries).forEach(([iso, shape]) => {
+    countryByName[cleanName(shape.n)] = iso;
+    countryByName[iso.toLowerCase()] = iso;
+  });
+
+  const stateLookup = {};
+  Object.entries(us.states).forEach(([code, shape]) => {
+    stateLookup[cleanName(shape.n)] = code;
+    stateLookup[code.toLowerCase()] = code;
+  });
+
+  const countries = [];
+  (data.countries || []).forEach((entry) => {
+    const label = typeof entry === "string" ? entry : entry.name;
+    const key = cleanName(label);
+    const iso = COUNTRY_ALIASES[key] ? COUNTRY_ALIASES[key] : countryByName[key] || countryByName[key.replace(/^the /, "")];
+
+    if (!iso || !world.countries[iso]) {
+      console.warn(`Places: could not find a country called "${label}". Check the spelling in places-data.js.`);
+      return;
+    }
+
+    countries.push({ name: label, iso, flag: flagEmoji(iso), ...shapeCenter(world.countries[iso].d) });
+  });
+
+  const others = (data.otherPlaces || data.territories || []).map((place) => ({
+    name: place.name,
+    flag: place.flag || "",
+    ...toWorld(place.lon, place.lat)
+  }));
+
+  const states = [];
+  (data.states || []).forEach((entry) => {
+    const label = typeof entry === "string" ? entry : entry.name;
+    const code = stateLookup[cleanName(label)];
+
+    if (!code) {
+      console.warn(`Places: could not find a US state called "${label}". Check the spelling in places-data.js.`);
+      return;
+    }
+
+    states.push({ name: us.states[code].n, code, ...shapeCenter(us.states[code].d) });
+  });
+
+  const summary = document.getElementById("placesSummary");
+
+  if (summary) {
+    const territoryText = others.length
+      ? ` + ${others.length} ${others.length === 1 ? "territory" : "territories"}`
+      : "";
+    summary.textContent = `${countries.length} countries${territoryText} · ${states.length} US states`;
+  }
+
+  const visitedCountries = new Set(countries.map((country) => country.iso));
+
   buildMap(worldMap, {
     width: world.w,
     height: world.h,
     shapes: world.countries,
-    visitedIds: new Set(countries.map((country) => country.iso)),
-    pins: [...countries, ...territories].map((place) => ({ name: place.name, ...toWorld(place.lon, place.lat) })),
-    label: `World map with pins in ${countries.length} countries and ${territories.length} territory`,
+    visitedIds: visitedCountries,
+    pins: [...countries, ...others],
+    label: `World map with pins in ${countries.length} countries and ${others.length} territory`,
     pinScale: 1.35
   });
 
@@ -671,38 +766,32 @@ function renderPlaces() {
   if (europeMap) {
     const topLeft = toWorld(-13, 61.5);
     const bottomRight = toWorld(33, 35.5);
-    const inEurope = (place) => place.lon > -13 && place.lon < 33 && place.lat > 35.5 && place.lat < 61.5;
-    const europeanPlaces = [...countries, ...territories].filter(inEurope);
+    const inEurope = (place) => place.x > topLeft.x && place.x < bottomRight.x && place.y > topLeft.y && place.y < bottomRight.y;
+    const europeanPlaces = [...countries, ...others].filter(inEurope);
 
     buildMap(europeMap, {
       width: world.w,
       height: world.h,
       viewBox: `${topLeft.x.toFixed(1)} ${topLeft.y.toFixed(1)} ${(bottomRight.x - topLeft.x).toFixed(1)} ${(bottomRight.y - topLeft.y).toFixed(1)}`,
       shapes: world.countries,
-      visitedIds: new Set(countries.map((country) => country.iso)),
-      pins: europeanPlaces.map((place) => ({ name: place.name, ...toWorld(place.lon, place.lat) })),
+      visitedIds: visitedCountries,
+      pins: europeanPlaces,
       label: `Close-up map of Europe with pins in ${europeanPlaces.length} countries`,
       pinScale: 0.42
     });
   }
-
-  const us = mapData.us;
-  const toUs = (lon, lat) => {
-    const [x, y] = albersUsa(lon, lat);
-    return { x: x * us.scale + us.tx, y: -y * us.scale + us.ty };
-  };
 
   buildMap(usMap, {
     width: us.w,
     height: us.h,
     shapes: us.states,
     visitedIds: new Set(states.map((state) => state.code)),
-    pins: states.map((state) => ({ name: state.name, ...toUs(state.lon, state.lat) })),
+    pins: states,
     label: `Map of the United States with pins in ${states.length} states`,
     pinScale: 1.7
   });
 
-  renderChips(document.getElementById("countryList"), [...countries, ...territories]);
+  renderChips(document.getElementById("countryList"), [...countries, ...others]);
   renderChips(document.getElementById("stateList"), states);
   wireChipHover(section);
 }
