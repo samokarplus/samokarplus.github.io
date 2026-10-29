@@ -7,13 +7,13 @@
   "runMiles": 1076.1,
   "runElevationFeet": 163136,
   "runCount": 205,
-  "walkMiles": 127.4,
+  "walkMiles": 128.0,
   "walkElevationFeet": 10223,
-  "walkCount": 46,
+  "walkCount": 48,
   "totalElevationFeet": 173360,
   "bikeMiles": 270.6,
   "bikeCount": 32,
   "swimMiles": 26.35,
   "swimCount": 40,
-  "updatedAt": "2026-10-28T18:21:21+00:00"
+  "updatedAt": "2026-10-29T18:28:34+00:00"
 }
