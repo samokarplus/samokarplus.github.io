@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
   {
+    date: "10-29-26",
+    text: `Grateful for all that is happening in life.`
+  },
+  {
     date: "10-16-26",
     text: `This world is full of love every second. You just keep forgetting, Samo. But in the process of forgetting, you are forced to remember because you’ve been shown that you forgot.`
   },
