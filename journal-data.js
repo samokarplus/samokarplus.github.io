@@ -9,6 +9,12 @@
 // },
 window.journalEntriesData = [
   {
+    date: "10-30-26",
+    text: `One of my favorite spiritual teachings and quotes is "To figure out who you are, you must figure out who you are not." I feel as if I haven't fully learned or really understood this until lately.  I think it emphasizes trying new things. Worst comes to worst, you find out you don't feel like yourself doing a or b. But then you do find the right person, the right vibes, the right paths, as Rumi says: "When you do things from your soul, you feel a river moving in you, a joy."
+
+Even with "stress" and having to be in front of a computer for hours at a time, it feels good.`
+  },
+  {
     date: "10-29-26",
     text: `Grateful for all that is happening in life.`
   },
