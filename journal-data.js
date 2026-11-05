@@ -9,6 +9,10 @@
 // },
 window.journalEntriesData = [
   {
+    date: "11-05-26",
+    text: `Tonight’s midterms were historic. First Native American won in Minnesota! Texas votes blue, LOL Paxton got  absolutely crushed. To anyone who abandoned America, who left after Trump got elected or reelected, to anyone who thought that this country is going to hell… don’t understand that people still care for one another and don’t abandon their neighbor. For the people that stayed and show up every day in America to love everyone are far more courageous and brave than the ones who abandon it. The ones who are afraid to stay are ignorant, privileged, and reckless. Obama did the improbable in 08. I am very proud to be an American. While I generally don’t like labels or parties, because it can divide, I love this country. Millions of people try to come to America still today.`
+  },
+  {
     date: "10-30-26",
     text: `One of my favorite spiritual teachings and quotes is "To figure out who you are, you must figure out who you are not." I feel as if I haven't fully learned or really understood this until lately.  I think it emphasizes trying new things. Worst comes to worst, you find out you don't feel like yourself doing a or b. But then you do find the right person, the right vibes, the right paths, as Rumi says: "When you do things from your soul, you feel a river moving in you, a joy."
 
